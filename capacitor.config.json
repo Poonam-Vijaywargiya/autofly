@@ -1,0 +1,6 @@
+{
+  "appId": "com.autofly",
+  "appName": "autoFly",
+  "bundledWebRuntime": false,
+  "webDir": "www"
+}
