@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon slot="start" name="arrow-round-back" (click)="onClickCancel()"></ion-icon>
+    <ion-title>Register Yourself!</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-item>
+        <ion-label>User Name</ion-label>
+        <ion-input type="text" [(ngModel)]="userDetails.username" name="username"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Password</ion-label>
+        <ion-input type="password"  [(ngModel)]="userDetails.password" name="password"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label>ReEnter Password</ion-label>
+          <ion-input  type="password"  [(ngModel)]="userDetails.reEnterPassword" name="reEnterPassword"></ion-input>
+        </ion-item>
+      <ion-button color="primary" (click)="register()" block >Register</ion-button>
+</ion-content>

@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon slot="start" name="arrow-round-back" (click)="onClickCancel()"></ion-icon>
+    <ion-title center>Passenger Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+        <ion-item>
+          <ion-label>User Name</ion-label>
+          <ion-input type="text" [(ngModel)]="userDetails.username" name="username"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Password</ion-label>
+          <ion-input type="password" [(ngModel)]="userDetails.password" name="password"></ion-input>
+        </ion-item>
+        <ion-button color="primary" (click)="logForm()" block >Login</ion-button>
+        <ion-button color="light" (click)="registerUser()" block >Register</ion-button>
+        <ion-button class="log-in-button" color="danger" expand="block" (click)="doGoogleLogin()">
+          LOG IN WITH GOOGLE
+        </ion-button>
+</ion-content>
