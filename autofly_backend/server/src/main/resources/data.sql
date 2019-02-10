@@ -12,3 +12,10 @@ insert into user(name, mob_no, email_id, password, user_type) values('Hardik', '
 insert into user(name, mob_no, email_id, password, user_type) values('Rahul', '98450212911', 'rahul123@gmail.com', 'iamrahul', 'D');
 insert into user(name, mob_no, email_id, password, user_type) values('Karan', '78450212956', 'karan123@gmail.com', 'iamkaran', 'D');
 insert into user(name, mob_no, email_id, password, user_type) values('Vicky', '78450452937', 'vicky123@gmail.com', 'iamvicky', 'D');
+
+-- Hotspots
+insert into hotspot(name, lat, lng) values('ITPL Mall', 12.98747, 77.736464);
+insert into hotspot(name, lat, lng) values('PSN', 12.989570, 77.727983);
+insert into hotspot(name, lat, lng) values('Hoodi Circle', 12.992684, 77.715997);
+
+
