@@ -1,5 +1,15 @@
 package com.autofly.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class LoginResponse {
 
 	private boolean success;
@@ -7,45 +17,5 @@ public class LoginResponse {
 	private String name;
 	private String userType;
 	private String mobNo;
-	
-	public boolean getSuccess() {
-		return success;
-	}
-
-	public void setSuccess(boolean success) {
-		this.success = success;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getUserType() {
-		return userType;
-	}
-
-	public void setUserType(String userType) {
-		this.userType = userType;
-	}
-
-	public String getMobNo() {
-		return mobNo;
-	}
-
-	public void setMobNo(String mobNo) {
-		this.mobNo = mobNo;
-	}
 	
 }
