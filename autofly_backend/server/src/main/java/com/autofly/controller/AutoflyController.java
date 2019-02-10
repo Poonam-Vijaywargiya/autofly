@@ -1,10 +1,10 @@
 package com.autofly.controller;
 
-import java.io.IOException;
 
-import com.autofly.model.*;
-import com.autofly.util.MapsUtil;
-import com.google.maps.model.DirectionsResult;
+import com.autofly.model.LoginRequest;
+import com.autofly.model.LoginResponse;
+import com.autofly.model.FindHotspotZoneRequest;
+import com.autofly.model.FindHotspotZoneResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.autofly.service.AutoflyService;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.maps.GeoApiContext;
-import com.google.maps.GeocodingApi;
-import com.google.maps.errors.ApiException;
-import com.google.maps.model.GeocodingResult;
 
 @RestController
 @RequestMapping("/autofly")
