@@ -18,7 +18,8 @@ import lombok.ToString;
 public class FindHotspotZoneResponse {
 	
 	private boolean success;
-	private HotspotZone assignedZone;
+	private Integer assignedZone;
+	private Hotspot assignedHotspot;
 	private List<Hotspot> hotspotLists;
 	
 }

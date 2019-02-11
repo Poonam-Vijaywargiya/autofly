@@ -27,7 +27,7 @@ insert into hotspot(name, lat, lng) values('SAP Labs', 12.977921, 77.714472);
 insert into hotspot(name, lat, lng) values('Graphite India - SAP', 12.977638, 77.709937);
 insert into hotspot(name, lat, lng) values('Graphite India - Brookefield', 12.978025, 77.709540);
 insert into hotspot(name, lat, lng) values('Brookefield Mall', 12.966346, 77.717892);
-insert into hotspot(name, lat, lng) values('Kundanahalli Hypercity', 12.958332, 77.715991);
+-- insert into hotspot(name, lat, lng) values('Kundanahalli Hypercity', 12.958332, 77.715991);
 insert into hotspot(name, lat, lng) values('Kundanahalli Gate Signal', 12.956136, 77.715723);
 
 

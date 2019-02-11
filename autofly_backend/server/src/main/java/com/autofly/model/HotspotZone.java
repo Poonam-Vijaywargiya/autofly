@@ -12,22 +12,22 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of = {"zoneId", "primeHotspotId"})
+@EqualsAndHashCode(of = {"zoneId", "medianHotspotId"})
 public class HotspotZone {
 
 	private int zoneId;
-	private int primeHotspotId;
+	private int medianHotspotId;
 	private int distanceFrom;
 	
 	public HotspotZone(int zoneId, int hotspot) {
 		this.zoneId = zoneId;
-		this.primeHotspotId = hotspot;
+		this.medianHotspotId = hotspot;
 		this.distanceFrom = -1;
 	}
 	
 	public HotspotZone(HotspotZone h, int distance) {
 		this.zoneId = h.getZoneId();
-		this.primeHotspotId = h.getPrimeHotspotId();
+		this.medianHotspotId = h.getMedianHotspotId();
 		this.distanceFrom = distance;
 	}
 

@@ -25,19 +25,17 @@ public class HotspotZones {
 //	11	12.977638	77.709937	Graphite India - SAP
 //	12	12.978025	77.70954	Graphite India - Brookefield
 //	13	12.966346	77.717892	Brookefield Mall
-//	14	12.958332	77.715991	Kundanahalli Hypercity
-//	15	12.956136	77.715723	Kundanahalli Gate Signal
+//	14	12.956136	77.715723	Kundanahalli Gate Signal
 	
 	private HotspotZones() {
 		
-		//First hotspot is always the prime hotspot for each zone
-		zones.put(new HotspotZone(1, 1), Arrays.asList(1, 2, 3));
-		zones.put(new HotspotZone(2, 4), Arrays.asList(4, 6, 7));
-		zones.put(new HotspotZone(3, 5), Arrays.asList(5, 12, 13));
-		zones.put(new HotspotZone(4, 2), Arrays.asList(2, 8, 9));
-		zones.put(new HotspotZone(5, 9), Arrays.asList(9, 10, 11));
-		zones.put(new HotspotZone(6, 11), Arrays.asList(11, 13));
-		zones.put(new HotspotZone(7, 13), Arrays.asList(13, 14, 15));
+		//Making the median hotspot part of the map key
+		zones.put(new HotspotZone(1, 2), Arrays.asList(1, 2, 3));
+		zones.put(new HotspotZone(2, 6), Arrays.asList(4, 6, 7));
+		zones.put(new HotspotZone(3, 12), Arrays.asList(5, 12, 13));
+		zones.put(new HotspotZone(4, 8), Arrays.asList(2, 8, 9));
+		zones.put(new HotspotZone(5, 10), Arrays.asList(9, 10, 11));
+		zones.put(new HotspotZone(7, 13), Arrays.asList(12, 13, 14));
 	}
 	
 	public static HotspotZones singleInstance = new HotspotZones();
