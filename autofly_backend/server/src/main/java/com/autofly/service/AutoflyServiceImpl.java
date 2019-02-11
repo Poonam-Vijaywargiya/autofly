@@ -16,6 +16,9 @@ public class AutoflyServiceImpl implements AutoflyService{
 	@Autowired
 	private UserRepository userRepo;
 	
+	@Autowired
+	private FindHotspotZoneService findHotspot;
+	
 	@Override
 	public LoginResponse loginService(LoginRequest request) {
 		
@@ -36,8 +39,8 @@ public class AutoflyServiceImpl implements AutoflyService{
 	@Override
 	public FindHotspotZoneResponse findHotspotZoneService(FindHotspotZoneRequest request) {
 		
-		
-		return null;
+		FindHotspotZoneResponse response = findHotspot.findHotspotZone(request);
+		return response;
 	}
 	
 }

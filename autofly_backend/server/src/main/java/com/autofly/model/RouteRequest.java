@@ -1,48 +1,23 @@
 package com.autofly.model;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class RouteRequest {
     private LatLng source;
     private LatLng destination;
     private int passengerId;
     private LocalDateTime departureTime;
     private LocalDateTime requestTimestamp = LocalDateTime.now();
-
-    public LatLng getSource() {
-        return source;
-    }
-
-    public void setSource(LatLng source) {
-        this.source = source;
-    }
-
-    public LatLng getDestination() {
-        return destination;
-    }
-
-    public void setDestination(LatLng destination) {
-        this.destination = destination;
-    }
-
-    public int getPassengerId() {
-        return passengerId;
-    }
-
-    public void setPassengerId(int passengerId) {
-        this.passengerId = passengerId;
-    }
-
-    public LocalDateTime getDepartureTime() {
-        return departureTime;
-    }
-
-    public void setDepartureTime(LocalDateTime departureTime) {
-        this.departureTime = departureTime;
-    }
-
 
     @Override
     public boolean equals(Object o) {
