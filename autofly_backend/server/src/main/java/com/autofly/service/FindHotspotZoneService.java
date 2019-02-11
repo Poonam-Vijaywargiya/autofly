@@ -33,24 +33,35 @@ public class FindHotspotZoneService {
 		
 		LatLng autoLocation = new LatLng(request.getDriverLat(), request.getDriverLng());
 		
-		//Find the nearest zone based on prime hotspot locations		
+				
 		Map<HotspotZone, List<Integer>> zones = zoneInstance.getZones();
 		
 		List<HotspotZone> distances = new ArrayList<>(); 
 		for(HotspotZone h : zones.keySet()) {
 			
-			Hotspot hotspot = hotspotRepo.findById(h.getPrimeHotspotId()).orElse(new Hotspot());
+			Hotspot hotspot = hotspotRepo.findById(h.getMedianHotspotId()).orElse(new Hotspot());
 			LatLng hotspotLocation = new LatLng(hotspot.getLat(), hotspot.getLng());
 			distances.add(new HotspotZone(h, distanceInKms(mapUtils.getDriveDist(autoLocation, hotspotLocation))));
 			
 		}
-		
+		//Find the nearest zone based on median hotspot locations
 		HotspotZone minDistZone = distances.stream()
 										.sorted((h1, h2) -> h1.getDistanceFrom() - h2.getDistanceFrom())
 										.findFirst()
 										.orElse(null);
 		
-		response.setAssignedZone(minDistZone);
+		//Find which edge hotspot to assign to auto
+		int edgeHotspotId1 = zones.get(minDistZone).get(0);
+		int edgeHotspotId2 = zones.get(minDistZone).get(2);
+		
+		Hotspot edgeHotspot1 = hotspotRepo.findById(edgeHotspotId1).orElse(new Hotspot());
+		long dist1 = distanceInKms(mapUtils.getDriveDist(autoLocation, new LatLng(edgeHotspot1.getLat(), edgeHotspot1.getLng())));
+		
+		Hotspot edgeHotspot2 = hotspotRepo.findById(edgeHotspotId2).orElse(new Hotspot());
+		long dist2 = distanceInKms(mapUtils.getDriveDist(autoLocation, new LatLng(edgeHotspot2.getLat(), edgeHotspot2.getLng())));
+		
+	    response.setAssignedHotspot(dist1 < dist2 ? edgeHotspot1 : edgeHotspot2);
+		response.setAssignedZone(minDistZone.getZoneId());
 		
 		if(null != minDistZone) {
 
