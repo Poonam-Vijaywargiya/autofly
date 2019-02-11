@@ -1,0 +1,39 @@
+Input
+{
+	"driverId" :6,
+	"driverLat":12.989714,
+	"driverLng":77.722386
+}
+
+
+Output
+{
+    "success": true,
+    "assignedZone": 1,
+    "assignedHotspot": {
+        "id": 3,
+        "name": "Hoodi Circle-PSN",
+        "lat": 12.992353,
+        "lng": 77.716387
+    },
+    "hotspotLists": [
+        {
+            "id": 1,
+            "name": "ITPL Mall",
+            "lat": 12.98747,
+            "lng": 77.736464
+        },
+        {
+            "id": 2,
+            "name": "PSN",
+            "lat": 12.98957,
+            "lng": 77.727983
+        },
+        {
+            "id": 3,
+            "name": "Hoodi Circle-PSN",
+            "lat": 12.992353,
+            "lng": 77.716387
+        }
+    ]
+}
