@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
-import { LoadingController, AlertController, Platform } from '@ionic/angular';
+import { LoadingController, AlertController, Platform, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 
@@ -18,7 +18,8 @@ export class PassengerPage {
     public loadingController: LoadingController,
     private router: Router,
     private platform: Platform,
-    public alertController: AlertController
+    public alertController: AlertController,
+    public toastCtrl: ToastController
   ) { }
 
   userDetails = {};
@@ -28,9 +29,49 @@ export class PassengerPage {
   }
 
 
-  logForm() {
-    console.log(this.userDetails);
+  async logForm() {
     this.router.navigate(['/search-ride']);
+  //   const result = await this.checkAuthentication ();
+  // // code below here will only execute when await makeRequest() finished loading
+  //   if (result) {
+  //     this.router.navigate(['/search-ride']);
+  //   } else {
+  //     // this.router.navigate(['/search-ride']);
+  //     this.presentToast();
+  //   }
+  }
+  async presentToast() {
+    const toast = await this.toastCtrl.create({
+      message: 'Invalid Credentials!!',
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  checkAuthentication() {
+    console.log(this.userDetails);
+    const userDetails = this.userDetails;
+     return new Promise(function (resolve, reject) {
+      const request = new XMLHttpRequest();
+      const method = 'POST';
+      const url = 'http://localhost:8181/autofly/login';
+      const async = true;
+
+      request.open(method, url, async);
+      request.setRequestHeader('Content-Type', 'application/json');
+      request.onreadystatechange = function () {
+          if (request.readyState === 4) {
+              if (request.status === 200) {
+                  const data = JSON.parse(request.responseText);
+                  const response = data.results[0];
+                  resolve(response.success);
+              } else {
+                  reject(request.status);
+              }
+          }
+      };
+      request.send(JSON.stringify(userDetails));
+  });
   }
 
   registerUser() {
