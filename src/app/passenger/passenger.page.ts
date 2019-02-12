@@ -30,15 +30,14 @@ export class PassengerPage {
 
 
   async logForm() {
-    this.router.navigate(['/search-ride']);
-  //   const result = await this.checkAuthentication ();
-  // // code below here will only execute when await makeRequest() finished loading
-  //   if (result) {
-  //     this.router.navigate(['/search-ride']);
-  //   } else {
-  //     // this.router.navigate(['/search-ride']);
-  //     this.presentToast();
-  //   }
+    // this.router.navigate(['/search-ride']);
+    const result = await this.checkAuthentication ();
+  // code below here will only execute when await makeRequest() finished loading
+    if (result) {
+      this.router.navigate(['/search-ride']);
+    } else {
+      this.presentToast();
+    }
   }
   async presentToast() {
     const toast = await this.toastCtrl.create({
