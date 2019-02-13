@@ -1,11 +1,7 @@
 package com.autofly.service;
 
+import com.autofly.model.*;
 import org.springframework.stereotype.Service;
-
-import com.autofly.model.FindHotspotZoneRequest;
-import com.autofly.model.FindHotspotZoneResponse;
-import com.autofly.model.LoginRequest;
-import com.autofly.model.LoginResponse;
 
 @Service
 public interface AutoflyService {
@@ -14,4 +10,7 @@ public interface AutoflyService {
 	
 	//Driver Related
 	public FindHotspotZoneResponse findHotspotZoneService(FindHotspotZoneRequest request);
+
+	//Passenger Related
+	public RouteResponse getRouteService(RouteRequest request);
 }

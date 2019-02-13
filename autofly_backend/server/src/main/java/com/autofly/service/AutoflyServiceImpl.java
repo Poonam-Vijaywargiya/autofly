@@ -1,12 +1,9 @@
 package com.autofly.service;
 
+import com.autofly.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.autofly.model.FindHotspotZoneRequest;
-import com.autofly.model.FindHotspotZoneResponse;
-import com.autofly.model.LoginRequest;
-import com.autofly.model.LoginResponse;
 import com.autofly.repository.dao.UserRepository;
 import com.autofly.repository.model.User;
 
@@ -18,6 +15,9 @@ public class AutoflyServiceImpl implements AutoflyService{
 	
 	@Autowired
 	private FindHotspotZoneService findHotspot;
+
+	@Autowired
+	private RouteService routeService;
 	
 	@Override
 	public LoginResponse loginService(LoginRequest request) {
@@ -38,8 +38,15 @@ public class AutoflyServiceImpl implements AutoflyService{
 
 	@Override
 	public FindHotspotZoneResponse findHotspotZoneService(FindHotspotZoneRequest request) {
-		
+
 		FindHotspotZoneResponse response = findHotspot.findHotspotZone(request);
+		return response;
+	}
+
+	@Override
+	public RouteResponse getRouteService(RouteRequest request) {
+
+		RouteResponse response = routeService.getRouteForPassenger(request);
 		return response;
 	}
 	

@@ -38,11 +38,11 @@ public class FindHotspotZoneService {
 		
 		List<HotspotZone> distances = new ArrayList<>(); 
 		for(HotspotZone h : zones.keySet()) {
-			
+
 			Hotspot hotspot = hotspotRepo.findById(h.getMedianHotspotId()).orElse(new Hotspot());
 			LatLng hotspotLocation = new LatLng(hotspot.getLat(), hotspot.getLng());
 			distances.add(new HotspotZone(h, distanceInKms(mapUtils.getDriveDist(autoLocation, hotspotLocation))));
-			
+
 		}
 		//Find the nearest zone based on median hotspot locations
 		HotspotZone minDistZone = distances.stream()

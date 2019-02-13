@@ -17,7 +17,7 @@ public class AutoflyApplication {
     public  GeoApiContext getGeoApiContext()
     {
         return new GeoApiContext.Builder()
-                .apiKey("AIzaSyBvH3X9hwwANdypmavvkrprCMlY7-Hc-mc")
+                .apiKey("AIzaSyCUGRQwo2G7lPvEsVWxR_ten7F3pJvJxnA")
                 .build();
     }
 }
