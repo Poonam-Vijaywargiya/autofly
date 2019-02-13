@@ -49,39 +49,11 @@ public class RouteService {
         response.setPassengerId(request.getPassengerId());
         response.setDepartureTime(request.getDepartureTime());
 
-//        // Get hotspot zone for source location
-//        FindHotspotZoneRequest findSourceHotspotZoneRequest = new FindHotspotZoneRequest();
-//        // To be modified later
-//        findSourceHotspotZoneRequest.setDriverLat(request.getSource().getLat());
-//        findSourceHotspotZoneRequest.setDriverLng(request.getSource().getLng());
-//        FindHotspotZoneResponse findSourceHotspotZoneResponse = findHotspotZoneService.findHotspotZone(findSourceHotspotZoneRequest);
-//
-//        // Get hotspot zone for Destination location
-//        FindHotspotZoneRequest findDestHotspotZoneRequest = new FindHotspotZoneRequest();
-//        // To be modified later
-//        findDestHotspotZoneRequest.setDriverLat(request.getDestination().getLat());
-//        findDestHotspotZoneRequest.setDriverLng(request.getDestination().getLng());
-//        FindHotspotZoneResponse findDestHotspotZoneResponse = findHotspotZoneService.findHotspotZone(findDestHotspotZoneRequest);
-
         Hotspot sourceHotspot = findClosestHotspot(request.getSource());
         Hotspot destHotspot = findClosestHotspot(request.getDestination());
 
-
-        DirectionsResult drivingDirectionResult = mapUtils.getDirections(new LatLng(sourceHotspot.getLat(), sourceHotspot.getLng()), new LatLng(destHotspot.getLat(),destHotspot.getLng()), "DRIVING");
-
-//        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-//
-////        System.out.println("Driving Direction Result:  ");
-////
-////        System.out.println(gson.toJson(drivingDirectionResult));
-//
-//        List<com.google.maps.model.LatLng> locationList =  Arrays.stream(drivingDirectionResult.routes[0].legs[0].steps)
-//                                                            .map((DirectionsStep step) -> step.endLocation)
-//                                                             .collect(Collectors.toList());
-
-        System.out.println("Graph Dump");
-        System.out.println(autoFlyGraph.getGraph().toString());
-
+//        System.out.println("Graph Dump");
+//        System.out.println(autoFlyGraph.getGraph().toString());
 
         System.out.println("Source and Destination");
         System.out.println(sourceHotspot + "   " + destHotspot);
@@ -95,20 +67,6 @@ public class RouteService {
             response.setRoute(shortest_path.getVertexList());
             response.setSuccess(true);
         }
-
-
-//        DirectionsResult toSourceHotspotDirectionResult = mapUtils.getDirections(request.getSource(),new LatLng(sourceHotspot.getLat(), sourceHotspot.getLng()) , "WALKING");
-//
-////        System.out.println("To Source Hotspot Walking Direction Result:  ");
-////
-////        System.out.println(gson.toJson(toSourceHotspotDirectionResult));
-//
-//        DirectionsResult fromDestHotspotDirectionResult = mapUtils.getDirections(new LatLng(destHotspot.getLat(), destHotspot.getLng()) , request.getDestination(), "WALKING");
-//
-////        System.out.println("From Dest Hotspot Walking Direction Result:  ");
-////
-////        System.out.println(gson.toJson(fromDestHotspotDirectionResult));
-
 
         return response;
     }

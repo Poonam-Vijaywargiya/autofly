@@ -21,11 +21,6 @@ public class AutoFlyGraph {
 
     private static Graph<Hotspot, DefaultWeightedEdge> graph = new DefaultUndirectedWeightedGraph<>(DefaultWeightedEdge.class);
 
-//    @Autowired
-//    HotspotRepository hotspotRepository;
-//
-//    @Autowired
-//    MapsUtil mapUtils;
 
     public AutoFlyGraph(HotspotRepository hotspotRepository, MapsUtil mapUtils) {
         List<Hotspot> hotspotList = hotspotRepository.findAll();
