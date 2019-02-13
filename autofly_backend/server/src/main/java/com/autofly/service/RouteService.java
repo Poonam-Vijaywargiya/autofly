@@ -15,6 +15,7 @@ import org.jgrapht.graph.DefaultWeightedEdge;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -63,9 +64,47 @@ public class RouteService {
         GraphPath<Hotspot, DefaultWeightedEdge> shortest_path = DijkstraShortestPath.findPathBetween(autoFlyGraph.getGraph(), sourceHotspot, destHotspot);
         System.out.println(shortest_path);
 
+        List<DefaultWeightedEdge> edges =  shortest_path.getEdgeList();
+
+
+        List<HotspotZone> routeZones = new ArrayList<>();
+
+        List<Hotspot> routeHotspots = shortest_path.getVertexList();
+
+        Map<DefaultWeightedEdge, HotspotZone> edgeToZones = autoFlyGraph.getEdgeToZones();
+        HotspotZone currentZone = edgeToZones.get(edges.get(0));
+
+        for (DefaultWeightedEdge edge: edges) {
+            HotspotZone zone = edgeToZones.get(edge);
+            if( currentZone != null  && zone != null && zone.getZoneId() != currentZone.getZoneId()){
+                currentZone = zone;
+                Hotspot hotspot = autoFlyGraph.getGraph().getEdgeSource(edge);
+                if(routeHotspots.indexOf(hotspot) != -1) {
+                    routeHotspots.get(routeHotspots.indexOf(hotspot)).setDropLocation(true);
+                }
+            }
+        }
+
+        List<LatLng> walkFromSource = new ArrayList<>();
+        walkFromSource.add(request.getSource());
+        walkFromSource.add(new LatLng(request.getSource().getLat(), request.getSource().getLng()));
+
+        List<LatLng> walkToDestination = new ArrayList<>();
+        walkToDestination.add(new LatLng(request.getDestination().getLat(), request.getDestination().getLng()));
+        walkToDestination.add(request.getDestination());
+
+
+        System.out.println(LocalDateTime.now());
         if(shortest_path != null) {
-            response.setRoute(shortest_path.getVertexList());
+            response.setRoute(routeHotspots);
+            response.setWalkFromSource(walkFromSource);
+            response.setWalkToDestination(walkToDestination);
             response.setSuccess(true);
+        }
+        else {
+            response.setRoute(new ArrayList<>());
+            response.setWalkFromSource(new ArrayList<>());
+            response.setWalkToDestination(new ArrayList<>());
         }
 
         return response;
@@ -87,10 +126,6 @@ public class RouteService {
                 .sorted((h1, h2) -> h1.getDistanceFrom() - h2.getDistanceFrom())
                 .findFirst()
                 .orElse(null);
-
-        //Find which edge hotspot to assign to auto
-        int edgeHotspotId1 = zones.get(minDistZone).get(0);
-        int edgeHotspotId2 = zones.get(minDistZone).get(2);
 
         List<Integer> hotspotIdList = zones.get(minDistZone);
 
