@@ -16,16 +16,16 @@ insert into user(name, mob_no, email_id, password, user_type) values('Vicky', '7
 -- Hotspots
 insert into hotspot(name, lat, lng) values('ITPL Mall', 12.98747, 77.736464);
 insert into hotspot(name, lat, lng) values('PSN', 12.989570, 77.727983);
-insert into hotspot(name, lat, lng) values('Hoodi Circle-PSN', 12.992353, 77.716387);
-insert into hotspot(name, lat, lng) values('Hoodi Circle-Phoenix', 12.992443, 77.716035);
-insert into hotspot(name, lat, lng) values('Hoodi Circle-Graphite', 12.992190, 77.716322);
+insert into hotspot(name, lat, lng) values('Hoodi Circle', 12.992353, 77.716387);
+--insert into hotspot(name, lat, lng) values('Hoodi Circle-Phoenix', 12.992443, 77.716035);
+--insert into hotspot(name, lat, lng) values('Hoodi Circle-Graphite', 12.992190, 77.716322);
 insert into hotspot(name, lat, lng) values('Brigade Metropolis', 12.993053, 77.703638);
 insert into hotspot(name, lat, lng) values('Phoenix Mall', 12.997361, 77.696630);
 insert into hotspot(name, lat, lng) values('Inorbit Mall', 12.979568, 77.728424);
 insert into hotspot(name, lat, lng) values('Vydehi Hospital', 12.977170, 77.726652);
 insert into hotspot(name, lat, lng) values('SAP Labs', 12.977921, 77.714472);	
-insert into hotspot(name, lat, lng) values('Graphite India - SAP', 12.977638, 77.709937);
-insert into hotspot(name, lat, lng) values('Graphite India - Brookefield', 12.978025, 77.709540);
+--insert into hotspot(name, lat, lng) values('Graphite India - SAP', 12.977638, 77.709937);
+insert into hotspot(name, lat, lng) values('Graphite India', 12.978025, 77.709540);
 insert into hotspot(name, lat, lng) values('Brookefield Mall', 12.966346, 77.717892);
 -- insert into hotspot(name, lat, lng) values('Kundanahalli Hypercity', 12.958332, 77.715991);
 insert into hotspot(name, lat, lng) values('Kundanahalli Gate Signal', 12.956136, 77.715723);

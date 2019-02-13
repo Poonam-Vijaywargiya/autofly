@@ -1,10 +1,7 @@
 package com.autofly.controller;
 
 
-import com.autofly.model.LoginRequest;
-import com.autofly.model.LoginResponse;
-import com.autofly.model.FindHotspotZoneRequest;
-import com.autofly.model.FindHotspotZoneResponse;
+import com.autofly.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,5 +38,14 @@ public class AutoflyController {
 
 		return new ResponseEntity<>(response, HttpStatus.OK); 
     }
+
+	@PostMapping("/getRoute")
+	//CrossOrigin(origins = {"http://localhost:8181","http://localhost:8080"})
+	public ResponseEntity<RouteResponse> getRoute(@RequestBody RouteRequest request) {
+
+		RouteResponse response = service.getRouteService(request);
+
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
     
 }
