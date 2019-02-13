@@ -18,6 +18,8 @@ public class Hotspot {
 	private String name;
 	private double lat;
 	private double lng;
+
+	private transient boolean isDropLocation;
 	
 	public int getId() {
 		return id;
@@ -43,6 +45,14 @@ public class Hotspot {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+    public boolean isDropLocation() {
+        return isDropLocation;
+    }
+
+    public void setDropLocation(boolean dropLocation) {
+        isDropLocation = dropLocation;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -21,5 +21,6 @@ public class RouteResponse {
     private LocalDateTime departureTime;
     private List<Hotspot> route;
     private boolean success;
-
+    private List<LatLng> walkFromSource;
+    private List<LatLng> walkToDestination;
 }

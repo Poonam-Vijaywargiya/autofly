@@ -10,7 +10,7 @@ import com.autofly.model.HotspotZone;
 public class HotspotZones {
 	
 	private static Map<HotspotZone, List<Integer>> zones = new HashMap<>();
-	
+
 //	ID  	LAT  	LNG  	NAME  
 //	1	12.98747	77.736464	ITPL Mall
 //	2	12.98957	77.727983	PSN
