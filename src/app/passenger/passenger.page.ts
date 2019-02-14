@@ -22,7 +22,10 @@ export class PassengerPage {
     public toastCtrl: ToastController
   ) { }
 
-  userDetails = {};
+  userDetails = {
+    emailId: '',
+    password: ''
+  };
 
   public onClickCancel() {
     this.router.navigate(['/tabs/tab1']);
@@ -30,14 +33,28 @@ export class PassengerPage {
 
 
   async logForm() {
-    // this.router.navigate(['/search-ride']);
-    const result = await this.checkAuthentication ();
+    this.router.navigate(['/search-ride', {userId: this.userDetails.emailId, walletBal: this.userDetails.password}]);
+    const result = await this.checkAuthentication();
   // code below here will only execute when await makeRequest() finished loading
-    if (result) {
-      this.router.navigate(['/search-ride']);
-    } else {
-      this.presentToast();
-    }
+    // if (result.success) {
+    //     const passanger =  result.passenger;
+      //   {
+      //     "success": true,
+      //     "message": "Login Successful",
+      //     "userType": "P",
+      //     "driver": null,
+      //     "passenger": {
+      //         "userId": 1,
+      //         "name": "Raj",
+      //         "mobNo": "98450212937",
+      //         "walletBalance": 500,
+      //         "rating": 5
+      //     }
+      // }
+  //     this.router.navigate(['/search-ride', {userId: passanger.userId, walletBal: passanger.walletBalance}]);
+    // } else {
+    //   this.presentToast();
+    // }
   }
   async presentToast() {
     const toast = await this.toastCtrl.create({
@@ -61,9 +78,8 @@ export class PassengerPage {
       request.onreadystatechange = function () {
           if (request.readyState === 4) {
               if (request.status === 200) {
-                  const data = JSON.parse(request.responseText);
-                  const response = data.results[0];
-                  resolve(response.success);
+                  const response = JSON.parse(request.responseText);
+                  resolve(response);
               } else {
                   reject(request.status);
               }

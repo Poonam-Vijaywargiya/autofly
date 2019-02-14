@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Driver Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-item>
+        <ion-label>On Duty?</ion-label>
+        <ion-toggle [(ngModel)]="isToggled" (ionChange)="getDriverLocation()"></ion-toggle>
+      </ion-item>
+</ion-content>
+
+
+
