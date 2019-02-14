@@ -1,9 +1,6 @@
 package com.autofly.repository.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
@@ -20,14 +17,15 @@ import lombok.ToString;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Entity
-public class User {
+public class AutoDriver {
 
 	@Id
-	@Column
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int userId;
-	private String emailId;
-	private String password;
-	private String userType;
-
+	
+	private String name;
+	private String mobNo;
+	private String autoVehicleNo;
+	private int walletBalance;
+	private double rating;
+	
 }
