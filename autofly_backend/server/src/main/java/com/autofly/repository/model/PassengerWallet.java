@@ -6,7 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 @Entity
-public class UserWallet {
+public class PassengerWallet {
 
     @Id
     @Column(name="id", unique=true, nullable=false)

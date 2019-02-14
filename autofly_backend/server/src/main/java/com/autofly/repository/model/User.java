@@ -17,7 +17,7 @@ public class User {
 	private String userType;
 
 	@OneToOne(mappedBy="wallet", cascade=CascadeType.ALL)
-	private UserWallet userWallet;
+	private PassengerWallet userWallet;
 
 	public int getId() {
 		return id;

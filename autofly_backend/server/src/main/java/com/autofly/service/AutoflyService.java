@@ -14,5 +14,5 @@ public interface AutoflyService {
 	//Passenger Related
 	public RouteResponse getRouteService(RouteRequest request);
 
-	public WalletResponse getRouteService(WalletRequest request);
+	public WalletResponse checkWalletBalance(WalletRequest request);
 }

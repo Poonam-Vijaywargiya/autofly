@@ -18,6 +18,9 @@ public class AutoflyServiceImpl implements AutoflyService{
 
 	@Autowired
 	private RouteService routeService;
+
+	@Autowired
+	private PassengerService passengerService;
 	
 	@Override
 	public LoginResponse loginService(LoginRequest request) {
@@ -47,6 +50,12 @@ public class AutoflyServiceImpl implements AutoflyService{
 	public RouteResponse getRouteService(RouteRequest request) {
 
 		RouteResponse response = routeService.getRouteForPassenger(request);
+		return response;
+	}
+
+	@Override
+	public WalletResponse checkWalletBalance(WalletRequest request){
+		WalletResponse response = passengerService.checkWalletBalance(request);
 		return response;
 	}
 	
