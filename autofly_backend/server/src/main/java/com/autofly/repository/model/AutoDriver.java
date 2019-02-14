@@ -25,7 +25,7 @@ public class AutoDriver {
 	private String name;
 	private String mobNo;
 	private String autoVehicleNo;
-	private int walletBalance;
+	private double walletBalance;
 	private double rating;
 	
 }

@@ -2,6 +2,7 @@ package com.autofly.model;
 
 import com.autofly.repository.model.AutoDriver;
 
+import com.autofly.repository.model.Passenger;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,5 +18,6 @@ public class LoginResponse {
 	private String message;
 	private String userType;
 	private AutoDriver driver;
-	
+	private Passenger passenger;
+
 }

@@ -36,3 +36,11 @@ insert into auto_driver(USER_ID, NAME, MOB_NO, AUTO_VEHICLE_NO, RATING, WALLET_B
 insert into auto_driver(USER_ID, NAME, MOB_NO, AUTO_VEHICLE_NO, RATING, WALLET_BALANCE) values(8, 'Rahul', '98450212911','KA001903', 4.4, 500.00);
 insert into auto_driver(USER_ID, NAME, MOB_NO, AUTO_VEHICLE_NO, RATING, WALLET_BALANCE) values(9, 'Karan', '78450212956','KA001356', 4.1, 500.00);
 insert into auto_driver(USER_ID, NAME, MOB_NO, AUTO_VEHICLE_NO, RATING, WALLET_BALANCE) values(10,'Vicky', '78450452937', 'KA001252', 4.0, 500.00);
+
+
+--Passenger Details
+insert into passenger(USER_ID, NAME, MOB_NO, RATING, WALLET_BALANCE) values (1,'Raj','98450212937','5.0', 500.00);
+insert into passenger(USER_ID, NAME, MOB_NO, RATING, WALLET_BALANCE) values (2,'Tina','984502323937','5.0', 500.00);
+insert into passenger(USER_ID, NAME, MOB_NO, RATING, WALLET_BALANCE) values (3,'Pooja','98450223937','5.0', 500.00);
+insert into passenger(USER_ID, NAME, MOB_NO, RATING, WALLET_BALANCE) values (4,'Manoj','98230212937','5.0', 500.00);
+insert into passenger(USER_ID, NAME, MOB_NO, RATING, WALLET_BALANCE) values (5,'Sourav','9848912913','5.0', 500.00);
