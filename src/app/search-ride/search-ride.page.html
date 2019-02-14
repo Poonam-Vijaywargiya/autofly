@@ -1,9 +1,45 @@
 <ion-header>
   <ion-toolbar>
+    <ion-icon slot="start" name="arrow-round-back" (click)="onClickCancel()"></ion-icon>
     <ion-title>searchRide</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
+  <!-- <ion-item>
+    <ion-label>Source</ion-label>
+    <ion-input type="text" [(ngModel)]="sourceLocation.name" name="name"></ion-input>
+  </ion-item> -->
+  <ion-item> Source
+      <ion-searchbar [(ngModel)]="sourceLocation.name" (ionInput)="searchPlace('source')"></ion-searchbar>
+    </ion-item>
+    <ion-list>
+      <ion-item *ngFor="let place of sourcePlaces" (click)="selectPlace(place, 'source')">{{place.description}}</ion-item></ion-list>
+  <ion-item> Destination
+    <ion-searchbar [(ngModel)]="query" (ionInput)="searchPlace('destination')"></ion-searchbar>
+  </ion-item>
+  <ion-list>
+    <ion-item *ngFor="let place of destiPlaces" (click)="selectPlace(place, 'destination')">{{place.description}}</ion-item>
+  </ion-list>
+
   <div #Map class="map"></div>
+  <!-- <ion-item>
+    <ion-button class="width_45" id="bookRide" (click)="bookRide()">Book Ride</ion-button>
+    <ion-button class="width_45" id="confirmRide" (click)="confirmRide()" disabled>Confirm Ride</ion-button>
+  </ion-item>
+  <ion-item class="width_100">
+    <ion-label>Fare</ion-label>
+    <ion-input type="text" name="fareAmount" [(ngModel)]="fareAmount" readonly></ion-input>
+    <ion-button class="width_45" id="join" (click)="joinedRide()">Join Ride</ion-button>
+  </ion-item> -->
+  <ion-item class="width_100">
+    <ion-button class="width_45" id="bookRide" (click)="bookRide()">Book Ride</ion-button>
+    <ion-input class="fare fareDetails" type="text" name="fareAmount" [(ngModel)]="fareAmount" readonly></ion-input> <ion-label class="fare">Fare</ion-label>
+  </ion-item>
+  <ion-item>
+
+    <ion-button class="width_45" id="confirmRide" (click)="confirmRide()" disabled>Confirm Ride</ion-button>
+    <ion-button class="width_45" id="join" (click)="joinedRide()" disabled>Join Ride</ion-button>
+  </ion-item>
+
 </ion-content>
