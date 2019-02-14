@@ -1,10 +1,6 @@
 package com.autofly.repository.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class User {
@@ -19,6 +15,9 @@ public class User {
 	private String emailId;
 	private String password;
 	private String userType;
+
+	@OneToOne(mappedBy="wallet", cascade=CascadeType.ALL)
+	private UserWallet userWallet;
 
 	public int getId() {
 		return id;

@@ -64,41 +64,43 @@ public class RouteService {
         GraphPath<Hotspot, DefaultWeightedEdge> shortest_path = DijkstraShortestPath.findPathBetween(autoFlyGraph.getGraph(), sourceHotspot, destHotspot);
         System.out.println(shortest_path);
 
-        List<DefaultWeightedEdge> edges =  shortest_path.getEdgeList();
+
+        if(shortest_path != null) {
+            List<DefaultWeightedEdge> edges =  shortest_path.getEdgeList();
 
 
-        List<HotspotZone> routeZones = new ArrayList<>();
+            List<HotspotZone> routeZones = new ArrayList<>();
 
-        List<Hotspot> routeHotspots = shortest_path.getVertexList();
+            List<Hotspot> routeHotspots = shortest_path.getVertexList();
 
-        Map<DefaultWeightedEdge, HotspotZone> edgeToZones = autoFlyGraph.getEdgeToZones();
-        HotspotZone currentZone = edgeToZones.get(edges.get(0));
+            Map<DefaultWeightedEdge, HotspotZone> edgeToZones = autoFlyGraph.getEdgeToZones();
+            HotspotZone currentZone = edgeToZones.get(edges.get(0));
 
-        for (DefaultWeightedEdge edge: edges) {
-            HotspotZone zone = edgeToZones.get(edge);
-            if( currentZone != null  && zone != null && zone.getZoneId() != currentZone.getZoneId()){
-                currentZone = zone;
-                Hotspot hotspot = autoFlyGraph.getGraph().getEdgeSource(edge);
-                if(routeHotspots.indexOf(hotspot) != -1) {
-                    routeHotspots.get(routeHotspots.indexOf(hotspot)).setDropLocation(true);
+            for (DefaultWeightedEdge edge: edges) {
+                HotspotZone zone = edgeToZones.get(edge);
+                if( currentZone != null  && zone != null && zone.getZoneId() != currentZone.getZoneId()){
+                    currentZone = zone;
+                    Hotspot hotspot = autoFlyGraph.getGraph().getEdgeSource(edge);
+                    if(routeHotspots.indexOf(hotspot) != -1) {
+                        routeHotspots.get(routeHotspots.indexOf(hotspot)).setDropLocation(true);
+                    }
                 }
             }
-        }
 
-        List<LatLng> walkFromSource = new ArrayList<>();
-        walkFromSource.add(request.getSource());
-        walkFromSource.add(new LatLng(request.getSource().getLat(), request.getSource().getLng()));
+            List<LatLng> walkFromSource = new ArrayList<>();
+            walkFromSource.add(request.getSource());
+            walkFromSource.add(new LatLng(request.getSource().getLat(), request.getSource().getLng()));
 
-        List<LatLng> walkToDestination = new ArrayList<>();
-        walkToDestination.add(new LatLng(request.getDestination().getLat(), request.getDestination().getLng()));
-        walkToDestination.add(request.getDestination());
+            List<LatLng> walkToDestination = new ArrayList<>();
+            walkToDestination.add(new LatLng(request.getDestination().getLat(), request.getDestination().getLng()));
+            walkToDestination.add(request.getDestination());
 
+            double fare   = edges.size() * 10;
 
-        System.out.println(LocalDateTime.now());
-        if(shortest_path != null) {
             response.setRoute(routeHotspots);
             response.setWalkFromSource(walkFromSource);
             response.setWalkToDestination(walkToDestination);
+            response.setFare(fare);
             response.setSuccess(true);
         }
         else {

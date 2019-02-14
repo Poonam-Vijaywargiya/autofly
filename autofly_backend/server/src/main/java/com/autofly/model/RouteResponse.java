@@ -23,4 +23,5 @@ public class RouteResponse {
     private boolean success;
     private List<LatLng> walkFromSource;
     private List<LatLng> walkToDestination;
+    private double fare;
 }
