@@ -21,7 +21,7 @@ export class DriverPage {
 
   async driverLogin() {
     this.router.navigate(['/driver-ride', {driverId: this.driverDetails.emailId, driverWalletBal: this.driverDetails.password}]);
-    const result = await this.checkAuthentication();
+   // const result = await this.checkAuthentication();
   // code below here will only execute when await makeRequest() finished loading
     // if (result.success) {
   //     this.router.navigate(['/driver-ride', {driverId: this.driverDetails.emailId, driverWalletBal: this.driverDetails.password}]);

@@ -1,10 +1,9 @@
-import { Component, ElementRef, NgZone, ViewChild, OnInit } from '@angular/core';
+import { Component, ElementRef, NgZone, ViewChild } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
-import { LoadingController, NavController, Platform, ToastController } from '@ionic/angular';
-import { getDirectivesAtNodeIndex } from '@angular/core/src/render3/context_discovery';
+import { LoadingController, ToastController } from '@ionic/angular';
 
 declare var google: any;
 @Component({
@@ -447,7 +446,7 @@ export class SearchRidePage {
     return new Promise(function (resolve, reject) {
       const request = new XMLHttpRequest();
       const method = 'POST';
-      const url = 'http://localhost:8181/autofly/getRoute'; //change url
+      const url = 'http://localhost:8181/autofly/getRoute'; // change url
       const async = true;
       const currentTime = new Date().toISOString();
       const hotSpotsDetails = this.hotspots ;
@@ -474,16 +473,16 @@ export class SearchRidePage {
   }
 
   rideJoined() {
+    const rideDetails = {
+      'tripId': this.tripId,
+      'passengerId': this.userId
+    };
     return new Promise(function (resolve, reject) {
       const request = new XMLHttpRequest();
       const method = 'POST';
-      const url = 'http://localhost:8181/autofly/getRoute'; //change url
+      const url = 'http://localhost:8181/autofly/getRoute'; // change url
       const async = true;
       const currentTime = new Date().toISOString();
-      const rideDetails = {
-        'tripId': this.tripId,
-        'passengerId': this.userId
-      };
       request.open(method, url, async);
       request.setRequestHeader('Content-Type', 'application/json');
       request.onreadystatechange = function () {
