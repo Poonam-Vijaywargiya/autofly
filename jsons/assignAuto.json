@@ -1,0 +1,27 @@
+Input
+
+{
+	"driverId" :6,
+	"available":true,
+	"assignedZone":1,
+	"assignedHotspot":1
+}
+
+Output
+
+true
+
+
+Input
+
+{
+	"driverId" :6,
+	"available":true,
+	"assignedZone":1,
+	"assignedHotspot":1
+}
+
+Output
+
+false
+
