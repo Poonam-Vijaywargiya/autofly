@@ -38,6 +38,15 @@ public class AutoflyController {
 
 		return new ResponseEntity<>(response, HttpStatus.OK); 
     }
+    
+    @PostMapping("/assignAuto")
+    //CrossOrigin(origins = {"http://localhost:8181","http://localhost:8080"})
+    public ResponseEntity<Boolean> assignAuto(@RequestBody AssignAutoRequest request) {
+		
+    	Boolean response = service.assignAutoService(request);
+
+		return new ResponseEntity<>(response, HttpStatus.OK); 
+    }
 
 	@PostMapping("/getRoute")
 	//CrossOrigin(origins = {"http://localhost:8181","http://localhost:8080"})

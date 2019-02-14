@@ -1,5 +1,7 @@
 package com.autofly.service;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -8,15 +10,17 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.autofly.model.AssignAutoRequest;
 import com.autofly.model.FindHotspotZoneRequest;
 import com.autofly.model.FindHotspotZoneResponse;
 import com.autofly.model.HotspotZone;
 import com.autofly.model.LatLng;
+import com.autofly.repository.dao.AutoDriverRepository;
+import com.autofly.repository.dao.DriverZoneMapRepository;
 import com.autofly.repository.dao.HotspotRepository;
 import com.autofly.repository.model.AutoDriver;
 import com.autofly.repository.model.DriverZoneMap;
 import com.autofly.repository.model.Hotspot;
-import com.autofly.repository.model.User;
 import com.autofly.util.MapsUtil;
 
 @Component
@@ -27,6 +31,14 @@ public class FindHotspotZoneService {
 	
 	@Autowired
 	private HotspotRepository hotspotRepo;
+	
+	@Autowired
+	private DriverZoneMapRepository zoneMapRepo;
+	
+	@Autowired
+	private AutoDriverRepository driverRepo;
+	
+	private static final Date CURR_DATE = Date.valueOf(LocalDate.now());
 	
 	private HotspotZones zoneInstance = HotspotZones.singleInstance;
 
@@ -85,6 +97,25 @@ public class FindHotspotZoneService {
 	
 	private int distanceInKms(long distance) {
 		return (int) (distance>0 ? distance/1000 : 0);
+	}
+
+	public boolean assignAuto(AssignAutoRequest request) {
+		
+		DriverZoneMap zoneMap = new DriverZoneMap();
+		
+		if(request.isConfirmed()) {
+			
+			AutoDriver driver = driverRepo.findByUserId(request.getDriverId());
+			
+			zoneMap.setDriver(driver);
+			zoneMap.setDutyDate(CURR_DATE);
+			zoneMap.setAssignedZone(request.getAssignedZone());
+			
+			if (null != zoneMapRepo.save(zoneMap)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
