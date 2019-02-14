@@ -1,26 +1,24 @@
 package com.autofly.service;
 
 
-import com.autofly.model.*;
-import com.autofly.repository.dao.HotspotRepository;
-import com.autofly.repository.model.Hotspot;
-import com.autofly.util.MapsUtil;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.maps.model.DirectionsResult;
-import com.google.maps.model.DirectionsStep;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.jgrapht.GraphPath;
 import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import com.autofly.model.HotspotZone;
+import com.autofly.model.LatLng;
+import com.autofly.model.RouteRequest;
+import com.autofly.model.RouteResponse;
+import com.autofly.repository.dao.HotspotRepository;
+import com.autofly.repository.model.Hotspot;
+import com.autofly.util.MapsUtil;
 
 @Component
 public class RouteService {

@@ -4,7 +4,9 @@ import com.autofly.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.autofly.repository.dao.AutoDriverRepository;
 import com.autofly.repository.dao.UserRepository;
+import com.autofly.repository.model.AutoDriver;
 import com.autofly.repository.model.User;
 
 @Component
@@ -12,6 +14,9 @@ public class AutoflyServiceImpl implements AutoflyService{
 
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private AutoDriverRepository driverRepo;
 	
 	@Autowired
 	private FindHotspotZoneService findHotspot;
@@ -28,10 +33,10 @@ public class AutoflyServiceImpl implements AutoflyService{
 		LoginResponse response = new LoginResponse();
 		response.setMessage("Login Failed");
 		User user = userRepo.findByEmailIdAndPassword(request.getEmailId(), request.getPassword());
-		if(null != user) {
-			response.setName(user.getName());
-			response.setMobNo(user.getMobNo());
-			response.setUserType(user.getUserType());
+		if(null != user && "D".equalsIgnoreCase(user.getUserType())) {
+			AutoDriver driver = driverRepo.findByUserId(user.getUserId());
+			response.setDriver(driver);
+			response.setUserType("D");
 			response.setSuccess(true);
 			response.setMessage("Login Successful");
 		}

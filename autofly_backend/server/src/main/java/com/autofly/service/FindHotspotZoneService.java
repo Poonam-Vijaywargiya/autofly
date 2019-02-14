@@ -13,7 +13,10 @@ import com.autofly.model.FindHotspotZoneResponse;
 import com.autofly.model.HotspotZone;
 import com.autofly.model.LatLng;
 import com.autofly.repository.dao.HotspotRepository;
+import com.autofly.repository.model.AutoDriver;
+import com.autofly.repository.model.DriverZoneMap;
 import com.autofly.repository.model.Hotspot;
+import com.autofly.repository.model.User;
 import com.autofly.util.MapsUtil;
 
 @Component
@@ -75,7 +78,7 @@ public class FindHotspotZoneService {
 			if(!response.getHotspotLists().isEmpty()) {
 				response.setSuccess(true);
 			}
-		}
+		}		
 		
 		return response;
 	}
