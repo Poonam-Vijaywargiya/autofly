@@ -37,5 +37,7 @@ public class DriverZoneMap {
 	
 	private Date dutyDate;
 	private int assignedZone;
+	private int assignedHotspot;
+	private boolean isAvailable;
 	
 }

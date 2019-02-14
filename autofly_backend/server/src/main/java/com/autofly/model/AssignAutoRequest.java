@@ -14,7 +14,7 @@ import lombok.ToString;
 public class AssignAutoRequest {
 	
 	private int driverId;
-	private boolean confirmed;
+	private boolean available;
 	private Integer assignedZone;
 	private Integer assignedHotspot;
 }

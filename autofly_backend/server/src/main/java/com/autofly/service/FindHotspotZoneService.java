@@ -102,14 +102,15 @@ public class FindHotspotZoneService {
 	public boolean assignAuto(AssignAutoRequest request) {
 		
 		DriverZoneMap zoneMap = new DriverZoneMap();
+		AutoDriver driver = driverRepo.findByUserId(request.getDriverId());
 		
-		if(request.isConfirmed()) {
-			
-			AutoDriver driver = driverRepo.findByUserId(request.getDriverId());
+		if(request.isAvailable()) {
 			
 			zoneMap.setDriver(driver);
 			zoneMap.setDutyDate(CURR_DATE);
 			zoneMap.setAssignedZone(request.getAssignedZone());
+			zoneMap.setAssignedHotspot(request.getAssignedHotspot());
+			zoneMap.setAvailable(request.isAvailable());
 			
 			if (null != zoneMapRepo.save(zoneMap)) {
 				return true;
