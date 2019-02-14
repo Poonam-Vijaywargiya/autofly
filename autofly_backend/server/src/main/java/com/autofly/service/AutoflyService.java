@@ -10,9 +10,12 @@ public interface AutoflyService {
 	
 	//Driver Related
 	public FindHotspotZoneResponse findHotspotZoneService(FindHotspotZoneRequest request);
-
+	
+	public Boolean assignAutoService(AssignAutoRequest request);
+	
 	//Passenger Related
 	public RouteResponse getRouteService(RouteRequest request);
 
 	public WalletResponse checkWalletBalance(WalletRequest request);
+
 }

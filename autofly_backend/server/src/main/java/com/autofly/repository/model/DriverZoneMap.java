@@ -28,12 +28,11 @@ import lombok.ToString;
 public class DriverZoneMap {
 
 	@Id
-	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "userId")
+	@JoinColumn(name = "driverId")
 	private AutoDriver driver;
 	
 	private Date dutyDate;
