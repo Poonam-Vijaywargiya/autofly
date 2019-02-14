@@ -5,42 +5,54 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Component;
+
 import com.autofly.model.HotspotZone;
 
+@Component
 public class HotspotZones {
 	
 	private static Map<HotspotZone, List<Integer>> zones = new HashMap<>();
 
 //	ID  	LAT  	LNG  	NAME  
-//	1	12.98747	77.736464	ITPL Mall
-//	2	12.98957	77.727983	PSN
-//	3	12.992353	77.716387	Hoodi Circle
-//	4	12.993053	77.703638	Brigade Metropolis
-//	5	12.997361	77.69663	Phoenix Mall
-//	6	12.979568	77.728424	Inorbit Mall
-//	7	12.97717	77.726652	Vydehi Hospital
-//	8	12.977921	77.714472	SAP Labs
-//	9	12.978025	77.70954	Graphite India
-//	10	12.966346	77.717892	Brookefield Mall
-//	11	12.956136	77.715723	Kundanahalli Gate Signal
+//	1	12.98747	77.736142	ITPL Mall
+//	2	12.987752	77.736174	Opp. ITPL Mall
+//	3	12.989026	77.727833	PSN
+//	4	12.988733	77.727972	Opp. PSN
+//	5	12.992067	77.715976	Hoodi Circle -> Graphite
+//	6	12.985483	77.708167	Graphite Signal
+//	7	12.966114	77.718365	Opp. Brookefield Mall
+//	8	12.958361	77.715753	Kundanahalli Hypercity
+//	9	12.956235	77.714919	Kundanahalli Gate Signal1
+//	10	12.956217	77.714774	Kundanahalli Gate Signal2
+//	11	12.958416	77.715613	Opp. Kundanahalli Hypercity
+//	12	12.966129	77.717946	Brookefield Mall
+//	13	12.977912	77.714309	SAP Labs
+//	14	12.976765	77.726664	Vydehi Hospital Bus-stop
+//	15	12.979576	77.727129	Opp. Inorbit Mall
+//	16	12.992309	77.716594	Hoodi Circle -> PSN
+//	17	12.995288	77.69566	Opp. Phoenix Mall
+//	18	12.995549	77.69566	Phoenix Mall
+//	19	12.99395	77.702239	Opp. Brigade Metropolis
+//	20	12.993772	77.702057	Brigade Metropolis
 	
 	private HotspotZones() {
 		
 		//Making the median hotspot part of the map key
-//		zones.put(new HotspotZone(1, 2), Arrays.asList(1, 2, 3));
-//		zones.put(new HotspotZone(2, 6), Arrays.asList(4, 6, 7));
-//		zones.put(new HotspotZone(3, 12), Arrays.asList(5, 12, 13));
-//		zones.put(new HotspotZone(4, 8), Arrays.asList(2, 8, 9));
-//		zones.put(new HotspotZone(5, 10), Arrays.asList(9, 10, 11));
-//		zones.put(new HotspotZone(7, 13), Arrays.asList(12, 13, 14));
+		zones.put(new HotspotZone(1, 4), Arrays.asList(1, 4, 5));
+		zones.put(new HotspotZone(2, 6), Arrays.asList(5, 6, 7));
+		zones.put(new HotspotZone(3, 8), Arrays.asList(7, 8, 9));
+		zones.put(new HotspotZone(4, 11), Arrays.asList(10, 11, 12));
+		zones.put(new HotspotZone(5, 13), Arrays.asList(12, 13, 14));
+		zones.put(new HotspotZone(6, 15), Arrays.asList(14, 15, 4));
+		
+		zones.put(new HotspotZone(7, 19), Arrays.asList(18, 19, 16));
+		zones.put(new HotspotZone(8, 3), Arrays.asList(16, 3, 2));
+		zones.put(new HotspotZone(9, 20), Arrays.asList(5, 20, 17));
 
-		zones.put(new HotspotZone(1, 2), Arrays.asList(1, 2, 3));
-		zones.put(new HotspotZone(2, 4), Arrays.asList(3, 4, 5));
-		zones.put(new HotspotZone(3, 9), Arrays.asList(3, 9, 10));
-		zones.put(new HotspotZone(4, 6), Arrays.asList(2, 6, 7));
-		zones.put(new HotspotZone(5, 8), Arrays.asList(7, 8, 9));
-		zones.put(new HotspotZone(7, 10), Arrays.asList(9, 10, 11));
 	}
+	
+	
 	
 	public static HotspotZones singleInstance = new HotspotZones();
 	

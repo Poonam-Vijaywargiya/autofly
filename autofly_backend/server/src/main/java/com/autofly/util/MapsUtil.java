@@ -1,19 +1,26 @@
 package com.autofly.util;
 
-import com.autofly.model.LatLng;
-
-import com.autofly.model.RouteRequest;
-import com.google.maps.*;
-import com.google.maps.errors.ApiException;
-import com.google.maps.model.*;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.stereotype.Component;
-
 import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.autofly.model.LatLng;
+import com.autofly.model.RouteRequest;
+import com.google.maps.DirectionsApi;
+import com.google.maps.DirectionsApiRequest;
+import com.google.maps.DistanceMatrixApi;
+import com.google.maps.DistanceMatrixApiRequest;
+import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApi;
+import com.google.maps.errors.ApiException;
+import com.google.maps.model.DirectionsResult;
+import com.google.maps.model.DistanceMatrix;
+import com.google.maps.model.GeocodingResult;
+import com.google.maps.model.TravelMode;
 
 @Component
 public class MapsUtil {
@@ -260,5 +267,5 @@ public class MapsUtil {
 
         return  distanceinMeters;
     }
-
+       
 }
