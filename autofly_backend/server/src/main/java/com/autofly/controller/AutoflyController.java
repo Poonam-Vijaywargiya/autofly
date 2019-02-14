@@ -48,12 +48,11 @@ public class AutoflyController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
-	@PostMapping("/checkWalletBalance ")
+	@PostMapping("/checkWalletBalance")
 	//CrossOrigin(origins = {"http://localhost:8181","http://localhost:8080"})
-	public ResponseEntity<WalletResponse> getRoute(@RequestBody WalletRequest request) {
+	public ResponseEntity<WalletResponse> checkWalletBalance(@RequestBody WalletRequest request) {
 
-        WalletResponse response = null;
-//		WalletResponse response = service.checkWalletBalance(request);
+		WalletResponse response = service.checkWalletBalance(request);
 
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}

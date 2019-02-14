@@ -1,6 +1,8 @@
 package com.autofly.service;
 
 import com.autofly.model.*;
+import com.autofly.repository.dao.PassengerRepository;
+import com.autofly.repository.model.Passenger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +18,10 @@ public class AutoflyServiceImpl implements AutoflyService{
 	private UserRepository userRepo;
 	
 	@Autowired
-	private AutoDriverRepository driverRepo;
+    private AutoDriverRepository driverRepo;
+
+    @Autowired
+    private PassengerRepository passengerRepo;
 	
 	@Autowired
 	private FindHotspotZoneService findHotspot;
@@ -40,6 +45,13 @@ public class AutoflyServiceImpl implements AutoflyService{
 			response.setSuccess(true);
 			response.setMessage("Login Successful");
 		}
+		else if (null != user && "P".equalsIgnoreCase(user.getUserType())) {
+            Passenger passenger = passengerRepo.findByUserId(user.getUserId());
+            response.setPassenger(passenger);
+            response.setUserType("P");
+            response.setSuccess(true);
+            response.setMessage("Login Successful");
+        }
 		
 		return response;
 	}
