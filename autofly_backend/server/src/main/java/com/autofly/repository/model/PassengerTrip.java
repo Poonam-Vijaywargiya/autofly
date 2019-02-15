@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
+@Entity
 public class PassengerTrip {
 
     @Id
@@ -21,10 +22,13 @@ public class PassengerTrip {
     private int id;
 
     private int passengerId;
-    private LatLng sourceLocation;
-    private LatLng destinationLocation;
+    private String sourceLocation;
+    private String destinationLocation;
+    @Column(length = 2000)
     private String route;
     private double fare;
+
+    // Confirmed, Ongoing, Completed
     private String tripStatus;
 
 }

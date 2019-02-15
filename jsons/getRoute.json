@@ -1,0 +1,79 @@
+Input
+{
+	"source": {
+		"lat": 12.983766,
+		"lng": 77.752478
+	},
+	"destination": {
+		"lat": 12.988157,
+		"lng": 77.731420
+	},
+	"passengerId": 1,
+	"departureTime": "2019-02-13T16:49:22.505"
+}
+
+
+Output
+{
+    "source": {
+        "lat": 12.983766,
+        "lng": 77.752478
+    },
+    "destination": {
+        "lat": 12.988157,
+        "lng": 77.73142
+    },
+    "passengerId": 1,
+    "departureTime": "2019-02-13T16:49:22.505",
+    "route": [
+        {
+            "id": 1,
+            "name": "Hope Farm Circle",
+            "lat": 12.983766,
+            "lng": 77.752478,
+            "currentZoneId": null,
+            "zoneId": null,
+            "dropLocation": false
+        },
+        {
+            "id": 2,
+            "name": "ITPL Mall",
+            "lat": 12.98747,
+            "lng": 77.736142,
+            "currentZoneId": null,
+            "zoneId": null,
+            "dropLocation": false
+        },
+        {
+            "id": 5,
+            "name": "Big Bazzar ITPL PSN",
+            "lat": 12.988157,
+            "lng": 77.73142,
+            "currentZoneId": null,
+            "zoneId": null,
+            "dropLocation": true
+        }
+    ],
+    "success": true,
+    "walkFromSource": [
+        {
+            "lat": 12.983766,
+            "lng": 77.752478
+        },
+        {
+            "lat": 12.983766,
+            "lng": 77.752478
+        }
+    ],
+    "walkToDestination": [
+        {
+            "lat": 12.988157,
+            "lng": 77.73142
+        },
+        {
+            "lat": 12.988157,
+            "lng": 77.73142
+        }
+    ],
+    "fare": 20
+}
