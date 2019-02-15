@@ -18,7 +18,7 @@ public class AutoflyController {
 
 
 	@PostMapping("/login")
-    @CrossOrigin(origins = {"http://localhost:8181","http://localhost:8080", "http://localhost:8100"})
+    //@CrossOrigin(origins = {"http://localhost:8181","http://localhost:8080", "http://localhost:8100"})
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
 		
 		LoginResponse response = service.loginService(request);
