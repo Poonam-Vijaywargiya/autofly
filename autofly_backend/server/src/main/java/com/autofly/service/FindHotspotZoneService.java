@@ -16,11 +16,11 @@ import com.autofly.model.FindHotspotZoneResponse;
 import com.autofly.model.HotspotZone;
 import com.autofly.model.LatLng;
 import com.autofly.repository.dao.AutoDriverRepository;
-import com.autofly.repository.dao.DriverZoneMapRepository;
 import com.autofly.repository.dao.HotspotRepository;
+import com.autofly.repository.dao.RideRepository;
 import com.autofly.repository.model.AutoDriver;
-import com.autofly.repository.model.DriverZoneMap;
 import com.autofly.repository.model.Hotspot;
+import com.autofly.repository.model.Ride;
 import com.autofly.util.MapsUtil;
 
 @Component
@@ -33,12 +33,17 @@ public class FindHotspotZoneService {
 	private HotspotRepository hotspotRepo;
 	
 	@Autowired
-	private DriverZoneMapRepository zoneMapRepo;
-	
-	@Autowired
 	private AutoDriverRepository driverRepo;
 	
+	@Autowired
+	private HotspotAutoQueue hotspotAutoQueue;
+	
+	@Autowired
+	private RideRepository rideRepo;
+	
 	private static final Date CURR_DATE = Date.valueOf(LocalDate.now());
+	
+	private static final String RIDE_WAITING = "Waiting";
 	
 	private HotspotZones zoneInstance = HotspotZones.singleInstance;
 
@@ -101,22 +106,47 @@ public class FindHotspotZoneService {
 
 	public boolean assignAuto(AssignAutoRequest request) {
 		
-		DriverZoneMap zoneMap = new DriverZoneMap();
-		AutoDriver driver = driverRepo.findByUserId(request.getDriverId());
-		
-		if(request.isAvailable()) {
-			
-			zoneMap.setDriver(driver);
-			zoneMap.setDutyDate(CURR_DATE);
-			zoneMap.setAssignedZone(request.getAssignedZone());
-			zoneMap.setAssignedHotspot(request.getAssignedHotspot());
-			zoneMap.setAvailable(request.isAvailable());
-			
-			if (null != zoneMapRepo.save(zoneMap)) {
-				return true;
-			}
+		if(!request.isAvailable()) {
+			return false;
 		}
-		return false;
+		
+		AutoDriver auto =  driverRepo.findByUserId(request.getDriverId());
+		auto.setCurrentZone(request.getAssignedZone());
+		auto.setCurrentHotspot(request.getAssignedHotspot());
+		auto.setNoOfPassengersBoarded(0);
+		auto.setOnRide(false);
+		auto.setWaiting(true);
+		HotspotZone zone = new HotspotZone();
+		zone.setZoneId(request.getAssignedZone());
+		
+		if(!zoneInstance.getZones().containsKey(zone)) {
+			return false;
+		}
+		
+		auto.setRoute(zoneInstance.getZones().get(zone));
+		auto.setBoardedPassengers(new ArrayList<>());
+		
+		//Add to hotspot queue
+		Hotspot h = hotspotRepo.findById(request.getAssignedHotspot()).orElse(null);
+		if(!hotspotAutoQueue.addAutoToHotspot(h, auto)) {
+			return false;
+		}
+		
+		//Create ride
+		Ride ride = new Ride();
+		ride.setAutoId(auto.getUserId());
+		ride.setDutyDate(CURR_DATE);
+		ride.setEarning(0.0);
+		ride.setFromHotspot(request.getAssignedHotspot());
+		ride.setToHotspot(0);
+		ride.setPassengerId(0);
+		ride.setZoneId(request.getAssignedZone());
+		ride.setRideStatus(RIDE_WAITING);
+		if(null == rideRepo.save(ride)) {
+			return false;
+		}
+		
+		return true;
 	}
 
 }

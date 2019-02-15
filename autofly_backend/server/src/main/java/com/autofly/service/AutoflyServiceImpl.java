@@ -33,6 +33,9 @@ public class AutoflyServiceImpl implements AutoflyService{
 	private PassengerService passengerService;
 
 	
+	@Autowired
+	private FindAutoService findAutoService;
+	
 	@Override
 	public LoginResponse loginService(LoginRequest request) {
 		
@@ -83,7 +86,7 @@ public class AutoflyServiceImpl implements AutoflyService{
 		return(findHotspot.assignAuto(request));
 
 	}
-
+	
 
     @Override
     public ConfirmTripResponse confirmPassengerTrip(ConfirmTripRequest request){
@@ -92,5 +95,11 @@ public class AutoflyServiceImpl implements AutoflyService{
     }
 
 
-	
+
+	@Override
+	public FindAutoResponse findAutoService(FindAutoRequest request) {
+		FindAutoResponse response = findAutoService.findAuto(request);
+		return response;
+	}
+
 }

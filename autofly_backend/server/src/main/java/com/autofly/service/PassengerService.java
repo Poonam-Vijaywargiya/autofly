@@ -76,7 +76,7 @@ public class PassengerService {
                 response.setPassengerTrip(savedPassengerTrip);
                 response.setSuccess(true);
             }
-            
+
         }
 
         return response;

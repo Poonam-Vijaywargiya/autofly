@@ -43,6 +43,15 @@ public class AutoflyController {
 
 		return new ResponseEntity<>(response, HttpStatus.OK); 
     }
+    
+    @PostMapping("/findAuto")
+    //CrossOrigin(origins = {"http://localhost:8181","http://localhost:8080"})
+    public ResponseEntity<FindAutoResponse> findAuto(@RequestBody FindAutoRequest request) {
+		
+    	FindAutoResponse response = service.findAutoService(request);
+
+		return new ResponseEntity<>(response, HttpStatus.OK); 
+    }
 
 	@PostMapping("/getRoute")
 	public ResponseEntity<RouteResponse> getRoute(@RequestBody RouteRequest request) {
