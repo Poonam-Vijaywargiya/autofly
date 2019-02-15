@@ -18,4 +18,6 @@ public interface AutoflyService {
 
 	public WalletResponse checkWalletBalance(WalletRequest request);
 
+	public ConfirmTripResponse confirmPassengerTrip(ConfirmTripRequest request);
+
 }

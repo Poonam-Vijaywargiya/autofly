@@ -1,17 +1,9 @@
 package com.autofly.service;
 
+import com.autofly.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.autofly.model.AssignAutoRequest;
-import com.autofly.model.FindHotspotZoneRequest;
-import com.autofly.model.FindHotspotZoneResponse;
-import com.autofly.model.LoginRequest;
-import com.autofly.model.LoginResponse;
-import com.autofly.model.RouteRequest;
-import com.autofly.model.RouteResponse;
-import com.autofly.model.WalletRequest;
-import com.autofly.model.WalletResponse;
 import com.autofly.repository.dao.AutoDriverRepository;
 import com.autofly.repository.dao.PassengerRepository;
 import com.autofly.repository.dao.UserRepository;
@@ -39,6 +31,7 @@ public class AutoflyServiceImpl implements AutoflyService{
 
 	@Autowired
 	private PassengerService passengerService;
+
 	
 	@Override
 	public LoginResponse loginService(LoginRequest request) {
@@ -90,5 +83,14 @@ public class AutoflyServiceImpl implements AutoflyService{
 		return(findHotspot.assignAuto(request));
 
 	}
+
+
+    @Override
+    public ConfirmTripResponse confirmPassengerTrip(ConfirmTripRequest request){
+        ConfirmTripResponse response = passengerService.confirmPassengerTrip(request);
+        return response;
+    }
+
+
 	
 }

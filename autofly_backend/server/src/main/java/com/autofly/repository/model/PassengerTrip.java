@@ -21,10 +21,12 @@ public class PassengerTrip {
     private int id;
 
     private int passengerId;
-    private LatLng sourceLocation;
-    private LatLng destinationLocation;
+    private String sourceLocation;
+    private String destinationLocation;
     private String route;
     private double fare;
+
+    // Confirmed, Ongoing, Completed
     private String tripStatus;
 
 }
