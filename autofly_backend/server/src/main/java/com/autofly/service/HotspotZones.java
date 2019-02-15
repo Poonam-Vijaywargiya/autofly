@@ -14,43 +14,43 @@ public class HotspotZones {
 	
 	private static Map<HotspotZone, List<Integer>> zones = new HashMap<>();
 
-//	ID  	LAT  	LNG  	NAME  
-//	1	12.98747	77.736142	ITPL Mall
-//	2	12.987752	77.736174	Opp. ITPL Mall
-//	3	12.989026	77.727833	PSN
-//	4	12.988733	77.727972	Opp. PSN
-//	5	12.992067	77.715976	Hoodi Circle -> Graphite
-//	6	12.985483	77.708167	Graphite Signal
-//	7	12.966114	77.718365	Opp. Brookefield Mall
-//	8	12.958361	77.715753	Kundanahalli Hypercity
-//	9	12.956235	77.714919	Kundanahalli Gate Signal1
-//	10	12.956217	77.714774	Kundanahalli Gate Signal2
-//	11	12.958416	77.715613	Opp. Kundanahalli Hypercity
-//	12	12.966129	77.717946	Brookefield Mall
-//	13	12.977912	77.714309	SAP Labs
-//	14	12.976765	77.726664	Vydehi Hospital Bus-stop
-//	15	12.979576	77.727129	Opp. Inorbit Mall
-//	16	12.992309	77.716594	Hoodi Circle -> PSN
-//	17	12.995288	77.69566	Opp. Phoenix Mall
-//	18	12.995549	77.69566	Phoenix Mall
-//	19	12.99395	77.702239	Opp. Brigade Metropolis
-//	20	12.993772	77.702057	Brigade Metropolis
-	
-	private HotspotZones() {
-		
-		//Making the median hotspot part of the map key
-		zones.put(new HotspotZone(1, 4), Arrays.asList(1, 4, 5));
-		zones.put(new HotspotZone(2, 6), Arrays.asList(5, 6, 7));
-		zones.put(new HotspotZone(3, 8), Arrays.asList(7, 8, 9));
-		zones.put(new HotspotZone(4, 11), Arrays.asList(10, 11, 12));
-		zones.put(new HotspotZone(5, 13), Arrays.asList(12, 13, 14));
-		zones.put(new HotspotZone(6, 15), Arrays.asList(14, 15, 4));
-		
-		zones.put(new HotspotZone(7, 19), Arrays.asList(18, 19, 16));
-		zones.put(new HotspotZone(8, 3), Arrays.asList(16, 3, 2));
-		zones.put(new HotspotZone(9, 20), Arrays.asList(5, 20, 17));
+//
+//    ID  	LAT  	LNG  	NAME
+//1	12.983784	77.752245	Hope Farm Circle
+//2	12.98747	77.736142	ITPL Mall
+//3	12.987752	77.736174	Opp. ITPL Mall
+//4	12.987794	77.731752	Big Bazzar ITPL
+//5	12.988157	77.73142	Big Bazzar ITPL PSN
+//6	12.988281	77.731701	Big Bazzar ITPL(Towards Hope Farm)
+//7	12.988932	77.727979	PSN
+//8	12.988777	77.727948	Opp. PSN
+//9	12.991906	77.715718	Hoodi Circle -> Graphite
+//10	12.992353	77.716387	Hoodi Circle -> PSN
+//11	12.980107	77.708892	Graphite (Tds Hoodi, Brigade, BF)
+//12	12.977925	77.70978	Graphite Circle <- SAP
+//13	12.978113	77.70976	Graphite India(Towards SAP)
+//14	12.966284	77.718121	Brookefield Mall
+//15	12.966313	77.718243	Opp. Brookefield Mall
+//16	12.95594	77.714781	Kundanahalli Circle
+//17	12.979799	77.727486	Inorbit Mall
+//18	12.979825	77.72717	Opp. Inorbit Mall
+//19	12.976648	77.726731	Vydehi Hospital
+//20	12.976419	77.726719	Opp Vydehi Hospital
+//21	12.977832	77.714456	SAP Labs
+//22	12.977615	77.7144	Opp SAP Labs
+//23	12.993053	77.703638	Brigade Metropolis
+//24	12.993511	77.703804	Opp. Brigade Metropolis
+//25	12.995539	77.695586	Phoenix Mall
+//26	12.995322	77.695527	Opp. Phoenix Mall
+//27	12.997936	77.689346	HP
 
-	}
+	private HotspotZones() {
+
+        zones.put(new HotspotZone(1), Arrays.asList(1, 2, 5, 8, 7, 6, 3, 1));
+        zones.put(new HotspotZone(2), Arrays.asList(8, 9, 23, 26, 25, 24, 10, 7, 8));
+        zones.put(new HotspotZone(3), Arrays.asList(6, 17, 20, 19, 18, 5, 6));
+        zones.put(new HotspotZone(4), Arrays.asList(19, 20,  22, 12, 15, 16, 14, 13, 21, 19));
+    }
 	
 	
 	

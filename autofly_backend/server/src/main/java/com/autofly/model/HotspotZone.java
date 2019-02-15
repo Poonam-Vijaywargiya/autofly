@@ -10,25 +10,24 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString(callSuper = true)
-@AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of = {"zoneId", "medianHotspotId"})
+@EqualsAndHashCode(of = {"zoneId"})
 public class HotspotZone {
 
 	private int zoneId;
-	private int medianHotspotId;
-	private int distanceFrom;
+//	private int medianHotspotId;
+//	private int distanceFrom;
 	
-	public HotspotZone(int zoneId, int hotspot) {
+	public HotspotZone(int zoneId) {
 		this.zoneId = zoneId;
-		this.medianHotspotId = hotspot;
-		this.distanceFrom = -1;
+//		this.medianHotspotId = hotspot;
+//		this.distanceFrom = -1;
 	}
 	
 	public HotspotZone(HotspotZone h, int distance) {
 		this.zoneId = h.getZoneId();
-		this.medianHotspotId = h.getMedianHotspotId();
-		this.distanceFrom = distance;
+//		this.medianHotspotId = h.getMedianHotspotId();
+//		this.distanceFrom = distance;
 	}
 
 }

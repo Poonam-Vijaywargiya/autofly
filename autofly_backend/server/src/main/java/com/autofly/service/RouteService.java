@@ -82,6 +82,9 @@ public class RouteService {
                 }
             }
 
+            // Set Destination to true
+            routeHotspots.get(routeHotspots.size() -1).setDropLocation(true);
+
             List<LatLng> walkFromSource = new ArrayList<>();
             walkFromSource.add(request.getSource());
             walkFromSource.add(new LatLng(request.getSource().getLat(), request.getSource().getLng()));
@@ -109,39 +112,24 @@ public class RouteService {
 
     private Hotspot findClosestHotspot(LatLng location) {
 
-//        Map<HotspotZone, List<Integer>> zones = zoneInstance.getZones();
-//
-//        List<HotspotZone> distances = new ArrayList<>();
-//        for(HotspotZone h : zones.keySet()) {
-//
-//            Hotspot hotspot = hotspotRepo.findById(h.getMedianHotspotId()).orElse(new Hotspot());
-//            LatLng hotspotLocation = new LatLng(hotspot.getLat(), hotspot.getLng());
-//            distances.add(new HotspotZone(h,new Long(mapUtils.getDriveDist(location, hotspotLocation)).intValue()));
-//            System.out.println("hotspot");
-//            System.out.println(hotspot);
-//            System.out.println("hotspot to location");
-//            System.out.println(location + "   "  +hotspotLocation);
-//            System.out.println(new Long(mapUtils.getDriveDist(location, hotspotLocation)).intValue());
-//        }
-//        //Find the nearest zone based on median hotspot locations
-//        HotspotZone minDistZone = distances.stream()
-//                .sorted((h1, h2) -> h1.getDistanceFrom() - h2.getDistanceFrom())
-//                .findFirst()
-//                .orElse(null);
-//
-//        List<Integer> hotspotIdList = zones.get(minDistZone);
+        Map<HotspotZone, List<Integer>> zones = zoneInstance.getZones();
 
         long minDistance = Long.MAX_VALUE;
 
         Hotspot closestHotspot = null;
-        List<Hotspot> hotspotList = hotspotRepo.findAll();
 
+        List<HotspotZone> distances = new ArrayList<>();
+        for(HotspotZone zone : zones.keySet()) {
 
-        for (Hotspot hotspot: hotspotList){
-            long distance = mapUtils.getWalkDist(location, new LatLng(hotspot.getLat(), hotspot.getLng()));
-            if(distance < minDistance) {
-                minDistance = distance;
-                closestHotspot = hotspot;
+            List<Integer> hotspotIdList = zones.get(zone);
+
+            for (Integer hotspotId: hotspotIdList){
+                Hotspot hotspot = hotspotRepo.findById(hotspotId).orElse(new Hotspot());
+                long distance = mapUtils.getWalkDist(location, new LatLng(hotspot.getLat(), hotspot.getLng()));
+                if(distance < minDistance) {
+                    minDistance = distance;
+                    closestHotspot = hotspot;
+                }
             }
         }
         return closestHotspot;
