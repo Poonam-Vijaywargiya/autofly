@@ -13,6 +13,8 @@ public interface AutoflyService {
 	
 	public Boolean assignAutoService(AssignAutoRequest request);
 	
+	public FindAutoResponse findAutoService(FindAutoRequest request);
+	
 	//Passenger Related
 	public RouteResponse getRouteService(RouteRequest request);
 

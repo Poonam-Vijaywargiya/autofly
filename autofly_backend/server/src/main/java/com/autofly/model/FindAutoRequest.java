@@ -11,12 +11,11 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserProfile {
-
-	private String name;
-	private String mobileNo;
-	private String emailId;
-	private String password;
-	private String userType;
+public class FindAutoRequest {
 	
+	private int zoneId;
+	private int fromHotspotId;
+	private int toHotspotId;
+	
+	private int passengerId;
 }

@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.autofly.model.AssignAutoRequest;
+import com.autofly.model.FindAutoRequest;
+import com.autofly.model.FindAutoResponse;
 import com.autofly.model.FindHotspotZoneRequest;
 import com.autofly.model.FindHotspotZoneResponse;
 import com.autofly.model.LoginRequest;
@@ -39,6 +41,9 @@ public class AutoflyServiceImpl implements AutoflyService{
 
 	@Autowired
 	private PassengerService passengerService;
+	
+	@Autowired
+	private FindAutoService findAutoService;
 	
 	@Override
 	public LoginResponse loginService(LoginRequest request) {
@@ -89,6 +94,12 @@ public class AutoflyServiceImpl implements AutoflyService{
 		
 		return(findHotspot.assignAuto(request));
 
+	}
+
+	@Override
+	public FindAutoResponse findAutoService(FindAutoRequest request) {
+		FindAutoResponse response = findAutoService.findAuto(request);
+		return response;
 	}
 	
 }

@@ -2,14 +2,10 @@ package com.autofly.repository.model;
 
 import java.sql.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -25,19 +21,20 @@ import lombok.ToString;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Entity
-public class DriverZoneMap {
+public class Ride {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "driverId")
-	private AutoDriver driver;
+	private int rideId;
 	
 	private Date dutyDate;
-	private int assignedZone;
-	private int assignedHotspot;
-	private boolean isAvailable;
+	private Integer autoId;
+	private Integer zoneId;
+	private Integer fromHotspot;
+	private Integer toHotspot;
+	private Double earning;
+	private Integer passengerId;
+	private String rideStatus;
+	private String passengerStatus;
 	
 }

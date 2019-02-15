@@ -1,5 +1,6 @@
 package com.autofly.repository.model;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -28,7 +29,10 @@ public class Hotspot {
 	private String name;
 	private double lat;
 	private double lng;
-
+	
+	private Integer currentZoneId;
+	
+	private transient List<Integer> zoneId;
 	private transient boolean isDropLocation;
 
     @Override
