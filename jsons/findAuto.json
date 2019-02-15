@@ -1,0 +1,40 @@
+Input
+
+{
+	"zoneId" :1,
+	"fromHotspotId":1,
+	"toHotspotId":5,
+	"passengerId":4
+}
+
+Output
+
+{
+    "foundAuto": true,
+    "driver": {
+        "userId": 7,
+        "name": "Hardik",
+        "mobNo": "98450210000",
+        "autoVehicleNo": "KA001264",
+        "walletBalance": 500,
+        "rating": 4,
+        "noOfPassengersBoarded": 0,
+        "onRide": false,
+        "waiting": true,
+        "currentHotspot": 1,
+        "currentZone": 1,
+        "route": [
+            1,
+            4,
+            5
+        ],
+        "boardedPassengers": []
+    },
+    "rideId": 2
+}
+
+{
+    "foundAuto": false,
+    "driver": null,
+    "rideId": 0
+}
