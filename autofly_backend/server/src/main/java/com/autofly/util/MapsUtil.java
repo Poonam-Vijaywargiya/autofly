@@ -262,6 +262,50 @@ public class MapsUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println(source);
+        System.out.println(destination);
+        System.out.println(result.rows[0]);
+        System.out.println(result.rows[0].elements[0]);
+
+
+        System.out.println(" ");
+
+        long distanceinMeters = result.rows[0].elements[0].distance.inMeters;
+
+        return  distanceinMeters;
+    }
+
+    /***
+     *
+     * @param source @required as com.autofly.model.LatLng
+     * @param destination @required com.autofly.model.LatLng
+     * @return Distance in Meters
+     */
+    public long getWalkDist(LatLng source, LatLng destination) {
+
+        DistanceMatrixApiRequest apiRequest = DistanceMatrixApi.newRequest(geoApiContext);
+
+        DistanceMatrix result  = null;
+        try {
+            result = apiRequest.origins(new com.google.maps.model.LatLng(source.getLat(), source.getLng()))
+                    .destinations(new com.google.maps.model.LatLng(destination.getLat(), destination.getLng()))
+                    .mode(TravelMode.WALKING)
+                    .avoid(DirectionsApi.RouteRestriction.TOLLS)
+                    .await();
+        } catch (ApiException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(source);
+        System.out.println(destination);
+        System.out.println(result.rows[0]);
+        System.out.println(result.rows[0].elements[0]);
+
+
+        System.out.println(" ");
 
         long distanceinMeters = result.rows[0].elements[0].distance.inMeters;
 
