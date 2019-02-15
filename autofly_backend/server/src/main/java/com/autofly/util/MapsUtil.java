@@ -262,13 +262,7 @@ public class MapsUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(source);
-        System.out.println(destination);
-        System.out.println(result.rows[0]);
-        System.out.println(result.rows[0].elements[0]);
 
-
-        System.out.println(" ");
 
         long distanceinMeters = result.rows[0].elements[0].distance.inMeters;
 
@@ -299,13 +293,7 @@ public class MapsUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(source);
-        System.out.println(destination);
-        System.out.println(result.rows[0]);
-        System.out.println(result.rows[0].elements[0]);
 
-
-        System.out.println(" ");
 
         long distanceinMeters = result.rows[0].elements[0].distance.inMeters;
 

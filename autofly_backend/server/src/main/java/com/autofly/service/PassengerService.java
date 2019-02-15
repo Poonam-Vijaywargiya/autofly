@@ -24,7 +24,15 @@ public class PassengerService {
     @Autowired
     PassengerRepository passengerRepo;
 
+    @Autowired
     PassengerTripRepository passengerTripRepo;
+
+    private static final String TRIP_CONFIRMED = "CONFIRMED";
+    private static final String TRIP_ONGOING = "ONGOING";
+    private static final String TRIP_COMPLETED = "COMPLETED";
+
+
+
 
     public WalletResponse checkWalletBalance(WalletRequest request) {
 
@@ -68,12 +76,11 @@ public class PassengerService {
             passengerTrip.setDestinationLocation(destLocation);
             passengerTrip.setRoute(route);
             passengerTrip.setFare(request.getFare());
-            passengerTrip.setTripStatus("CONFIRMED");
+            passengerTrip.setTripStatus(TRIP_COMPLETED);
 
             PassengerTrip savedPassengerTrip = passengerTripRepo.save(passengerTrip);
 
             if(savedPassengerTrip != null) {
-                response.setPassengerTrip(savedPassengerTrip);
                 response.setSuccess(true);
             }
 

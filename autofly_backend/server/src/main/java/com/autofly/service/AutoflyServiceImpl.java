@@ -86,7 +86,7 @@ public class AutoflyServiceImpl implements AutoflyService{
 		return(findHotspot.assignAuto(request));
 
 	}
-	
+
 
     @Override
     public ConfirmTripResponse confirmPassengerTrip(ConfirmTripRequest request){
