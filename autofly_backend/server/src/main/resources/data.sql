@@ -14,21 +14,40 @@ insert into user(email_id, password, user_type) values('karan123@gmail.com', 'ia
 insert into user(email_id, password, user_type) values('vicky123@gmail.com', 'iamvicky', 'D');
 
 -- Hotspots
-insert into hotspot(name, lat, lng) values('ITPL Mall', 12.98747, 77.736464);
-insert into hotspot(name, lat, lng) values('PSN', 12.989570, 77.727983);
-insert into hotspot(name, lat, lng) values('Hoodi Circle', 12.992353, 77.716387);
+insert into hotspot(name, lat, lng) values('ITPL Mall', 12.987470, 77.736142);
+insert into hotspot(name, lat, lng) values('Opp. ITPL Mall', 12.987752, 77.736174);
+insert into hotspot(name, lat, lng) values('PSN', 12.989026, 77.727833);
+insert into hotspot(name, lat, lng) values('Opp. PSN', 12.988733, 77.727972);
+insert into hotspot(name, lat, lng) values('Hoodi Circle -> Graphite', 12.992067, 77.715976);
+insert into hotspot(name, lat, lng) values('Graphite Signal', 12.985483, 77.708167);
+insert into hotspot(name, lat, lng) values('Opp. Brookefield Mall', 12.966114, 77.718365);
+insert into hotspot(name, lat, lng) values('Kundanahalli Hypercity', 12.958361, 77.715753);
+insert into hotspot(name, lat, lng) values('Kundanahalli Gate Signal1', 12.956235, 77.714919);
+insert into hotspot(name, lat, lng) values('Kundanahalli Gate Signal2', 12.956217, 77.714774);
+insert into hotspot(name, lat, lng) values('Opp. Kundanahalli Hypercity', 12.958416, 77.715613);
+insert into hotspot(name, lat, lng) values('Brookefield Mall', 12.966129, 77.717946);
+insert into hotspot(name, lat, lng) values('SAP Labs', 12.977912, 77.714309);
+insert into hotspot(name, lat, lng) values('Vydehi Hospital Bus-stop', 12.976765, 77.726664);
+insert into hotspot(name, lat, lng) values('Opp. Inorbit Mall', 12.979576, 77.727129);
+insert into hotspot(name, lat, lng) values('Hoodi Circle -> PSN', 12.992309, 77.716594);
+insert into hotspot(name, lat, lng) values('Opp. Phoenix Mall', 12.995288, 77.695660);
+insert into hotspot(name, lat, lng) values('Phoenix Mall', 12.995549, 77.695660);
+insert into hotspot(name, lat, lng) values('Opp. Brigade Metropolis', 12.993950, 77.702239);
+insert into hotspot(name, lat, lng) values('Brigade Metropolis', 12.993772, 77.702057);
+
+-- insert into hotspot(name, lat, lng) values('Hoodi Circle', 12.992353, 77.716387);
 --insert into hotspot(name, lat, lng) values('Hoodi Circle-Phoenix', 12.992443, 77.716035);
---insert into hotspot(name, lat, lng) values('Hoodi Circle-Graphite', 12.992190, 77.716322);
-insert into hotspot(name, lat, lng) values('Brigade Metropolis', 12.993053, 77.703638);
-insert into hotspot(name, lat, lng) values('Phoenix Mall', 12.997361, 77.696630);
-insert into hotspot(name, lat, lng) values('Inorbit Mall', 12.979568, 77.728424);
-insert into hotspot(name, lat, lng) values('Vydehi Hospital', 12.977170, 77.726652);
-insert into hotspot(name, lat, lng) values('SAP Labs', 12.977921, 77.714472);	
+--insert into hotspot(name, lat, lng) values('PSN->Hoodi Circle', 12.992190, 77.716322);
+-- insert into hotspot(name, lat, lng) values('Brigade Metropolis', 12.993053, 77.703638);
+-- insert into hotspot(name, lat, lng) values('Phoenix Mall', 12.997361, 77.696630);
+-- insert into hotspot(name, lat, lng) values('Inorbit Mall', 12.979568, 77.728424);
+--insert into hotspot(name, lat, lng) values('Vydehi Hospital', 12.977170, 77.726652);
+--insert into hotspot(name, lat, lng) values('SAP Labs', 12.977921, 77.714472);	
 --insert into hotspot(name, lat, lng) values('Graphite India - SAP', 12.977638, 77.709937);
-insert into hotspot(name, lat, lng) values('Graphite India', 12.978025, 77.709540);
-insert into hotspot(name, lat, lng) values('Brookefield Mall', 12.966346, 77.717892);
+--insert into hotspot(name, lat, lng) values('Graphite India', 12.978025, 77.709540);
+--insert into hotspot(name, lat, lng) values('Brookefield Mall', 12.966346, 77.717892);
 -- insert into hotspot(name, lat, lng) values('Kundanahalli Hypercity', 12.958332, 77.715991);
-insert into hotspot(name, lat, lng) values('Kundanahalli Gate Signal', 12.956136, 77.715723);
+--insert into hotspot(name, lat, lng) values('Kundanahalli Gate Signal', 12.956136, 77.715723);
 
 -- Driver Details
 insert into auto_driver(USER_ID, NAME, MOB_NO, AUTO_VEHICLE_NO, RATING, WALLET_BALANCE) values(6, 'Rohit', '98110212007','KA001234', 4.5, 500.00);

@@ -27,9 +27,6 @@ public class RouteService {
     private MapsUtil mapUtils;
 
     @Autowired
-    private FindHotspotZoneService findHotspotZoneService;
-
-    @Autowired
     private AutoFlyGraph autoFlyGraph;
 
     private HotspotZones zoneInstance = HotspotZones.singleInstance;
@@ -51,8 +48,8 @@ public class RouteService {
         Hotspot sourceHotspot = findClosestHotspot(request.getSource());
         Hotspot destHotspot = findClosestHotspot(request.getDestination());
 
-//        System.out.println("Graph Dump");
-//        System.out.println(autoFlyGraph.getGraph().toString());
+        System.out.println("Graph Dump");
+        System.out.println(autoFlyGraph.getGraph().toString());
 
         System.out.println("Source and Destination");
         System.out.println(sourceHotspot + "   " + destHotspot);
