@@ -160,26 +160,9 @@ export class DriverRidePage {
       'driverLat': this.driverLat,
       'driverLng': this.driverLng
     };
-    return new Promise(function (resolve, reject) {
-      const request = new XMLHttpRequest();
-      const method = 'POST';
-      const url = 'http://localhost:8181/autofly/findHotspotZone';
-      const async = true;
-      request.open(method, url, async);
-      request.setRequestHeader('Content-Type', 'application/json');
-      request.onreadystatechange = function () {
-          if (request.readyState === 4) {
-              if (request.status === 200) {
-                  const response = JSON.parse(request.responseText);
-                  resolve(response);
-              } else {
-                  reject(request.status);
-              }
-          }
-      };
-      request.send(JSON.stringify(requestParam));
-  });
-
+    const method = 'POST';
+    const url = 'http://localhost:8181/autofly/findHotspotZone';
+    return this.commonAPICall(url, requestParam,  method);
 }
 
   // Method to route rendered on the map
@@ -234,35 +217,18 @@ export class DriverRidePage {
 
   // Method to call google address api to the fetch the address
   getAddress(lat, lng) {
-    return new Promise(function (resolve, reject) {
-      const request = new XMLHttpRequest();
-      const method = 'GET';
-      const url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng +
-        '&sensor=true&key=AIzaSyCtPkZ9pSU34VXWGihx_i4Ca4HgL4puVJ0';
-      const async = true;
-
-      request.open(method, url, async);
-      request.onreadystatechange = function () {
-        if (request.readyState === 4) {
-          if (request.status === 200) {
-            const data = JSON.parse(request.responseText);
-            const address = data.results[0].formatted_address;
-            resolve(address);
-          } else {
-            reject(request.status);
-          }
-        }
-      };
-      request.send();
-    });
+    const method = 'GET';
+    const url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng +
+    '&sensor=true&key=AIzaSyCtPkZ9pSU34VXWGihx_i4Ca4HgL4puVJ0';
+    return this.commonAPICall(url, null,  method);
   }
+
   // Method to set the address for source fetched from gps to the source location box.
   async setSourceAddress() {
     // await code here
     const result = await this.getAddress(this.sourceLocation.lat, this.sourceLocation.lng);
     // code below here will only execute when await makeRequest() finished loading
-    this.sourceLocation.name = result;
-
+    this.sourceLocation.name = result.results[0].formatted_address;
   }
   async reachedHotSpot() {
     this.listOfPassangers = {
@@ -288,30 +254,15 @@ export class DriverRidePage {
       driverId: this.driverId,
       assignedHotspot: this.assignedHotspot.id
     };
-    return new Promise(function (resolve, reject) {
-      const request = new XMLHttpRequest();
-      const method = 'POST';
-      const url = 'http://localhost:8181/autofly/getRoute'; // change url
-      const async = true;
-      request.open(method, url, async);
-      request.setRequestHeader('Content-Type', 'application/json');
-      request.onreadystatechange = function () {
-        if (request.readyState === 4) {
-          if (request.status === 200) {
-            const response = JSON.parse(request.responseText);
-            resolve(response.success);
-          } else {
-            reject(request.status);
-          }
-        }
-      };
-      request.send(JSON.stringify(requestParam));
-    });
+    const method = 'POST';
+    const url = 'http://localhost:8181/autofly/getRoute'; // change url
+    return this.commonAPICall(url, requestParam,  method);
   }
 
   async startTrip() {
     // send api call that user boarded the auto to increase the count
- // userid and trip id
+  // userid and trip id
+  // what to do once driver has started the trip
     const tripStarted = await this.tripStarted();
   }
 
@@ -335,51 +286,42 @@ export class DriverRidePage {
       pId: pId,
       assignedHotspot: this.assignedHotspot.id
     };
-    return new Promise(function (resolve, reject) {
-      const request = new XMLHttpRequest();
-      const method = 'POST';
-      const url = 'http://localhost:8181/autofly/getRoute'; // change url
-      const async = true;
-      request.open(method, url, async);
-      request.setRequestHeader('Content-Type', 'application/json');
-      request.onreadystatechange = function () {
-        if (request.readyState === 4) {
-          if (request.status === 200) {
-            const response = JSON.parse(request.responseText);
-            resolve(response.success);
-          } else {
-            reject(request.status);
-          }
-        }
-      };
-      request.send(JSON.stringify(requestParam));
-    });
+    const method = 'POST';
+      const url = 'http://localhost:8181/autofly/getRoute'; // change URL
+    return this.commonAPICall(url, requestParam,  method);
   }
 
   tripStarted() {
-    return new Promise(function (resolve, reject) {
-      const request = new XMLHttpRequest();
-      const method = 'POST';
-      const url = 'http://localhost:8181/autofly/getRoute'; // change url
-      const async = true;
-      const currentTime = new Date().toISOString();
-      const tripDetails = {
+    const method = 'POST';
+      const url = 'http://localhost:8181/autofly/getRoute'; // change URL
+      const requestParam = {
         'tripId': this.tripId,
         'driverId': this.driverId
       };
-      request.open(method, url, async);
-      request.setRequestHeader('Content-Type', 'application/json');
+      return this.commonAPICall(url, requestParam,  method);
+  }
+
+  // common method to call api
+  commonAPICall(url, requestParams, methodType) {
+    return new Promise(function (resolve, reject) {
+      const request = new XMLHttpRequest();
+      const async = true;
+      request.open(methodType, url, async);
       request.onreadystatechange = function () {
         if (request.readyState === 4) {
           if (request.status === 200) {
             const response = JSON.parse(request.responseText);
-            resolve(response.success);
+            resolve(response);
           } else {
             reject(request.status);
           }
         }
       };
-      request.send(JSON.stringify(tripDetails));
+      if (requestParams) {
+        request.send(requestParams);
+      } else {
+        request.send();
+      }
     });
   }
 }

@@ -13,7 +13,7 @@
         <ion-toggle [(ngModel)]="isToggled" (ionChange)="getDriverLocation()"></ion-toggle>
       </ion-item>
 
-      <ion-item *ngIf="isToggled" >
+      <ion-item>
       <ion-label>{{currentOrHotSpotLocation}}: </ion-label>
       <ion-input type="text" [(ngModel)]="sourceLocation.name" name="name" readonly></ion-input></ion-item>
       <div #DriverMap class="map"></div>

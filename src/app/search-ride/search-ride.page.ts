@@ -89,7 +89,7 @@ export class SearchRidePage {
             });
           }
         });
-      } else {
+      } else if (this.query) {
         config = {
           types: ['geocode'],
           input: this.query
@@ -129,9 +129,6 @@ export class SearchRidePage {
           selectLocation.lng = details.geometry.location.lng();
           this.saveDisabled = false;
           this.sourceLocation = selectLocation;
-          // if (this.destinationLocation) {
-          //   this.getDirections();
-          // }
         });
       });
     } else {
@@ -143,9 +140,6 @@ export class SearchRidePage {
           selectLocation.lng = details.geometry.location.lng();
           this.saveDisabled = false;
           this.destinationLocation = selectLocation;
-          // if (this.sourceLocation) {
-          //   this.getDirections();
-          // }
         });
       });
     }
@@ -356,37 +350,19 @@ export class SearchRidePage {
 
   // Method to call google address api to the fetch the address
   getAddress(lat, lng) {
-    return new Promise(function (resolve, reject) {
-      const request = new XMLHttpRequest();
-      const method = 'GET';
-      const url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng +
-        '&sensor=true&key=AIzaSyCtPkZ9pSU34VXWGihx_i4Ca4HgL4puVJ0';
-      const async = true;
-
-      request.open(method, url, async);
-      request.onreadystatechange = function () {
-        if (request.readyState === 4) {
-          if (request.status === 200) {
-            const data = JSON.parse(request.responseText);
-            const address = data.results[0].formatted_address;
-            resolve(address);
-          } else {
-            reject(request.status);
-          }
-        }
-      };
-      request.send();
-    });
+    const method = 'GET';
+    const url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng +
+    '&sensor=true&key=AIzaSyCtPkZ9pSU34VXWGihx_i4Ca4HgL4puVJ0';
+    return this.commonAPICall(url, null,  method);
   }
   // Method to set the address for source fetched from gps to the source location box.
   async setSourceAddress() {
     // await code here
     const result = await this.getAddress(this.sourceLocation.lat, this.sourceLocation.lng);
     // code below here will only execute when await makeRequest() finished loading
-    this.sourceLocation.name = result;
+    this.sourceLocation.name = result.results[0].formatted_address;
     this.autocompleteService = new google.maps.places.AutocompleteService();
     this.placesService = new google.maps.places.PlacesService(this.map);
-    // this.searchDisabled = false;
   }
 
   async bookRide() {
@@ -396,43 +372,28 @@ export class SearchRidePage {
       this.fareAmount = 990; // response returned from service
       this.isenabled = true;
       this.getDirections();
+    } else {
+      this.presentToast('Please enter source and destination locations to book ride');
     }
   }
 
   // Method which gives the start, end and way points and fare details
   getHotSpots() {
-    return new Promise(function (resolve, reject) {
-      const request = new XMLHttpRequest();
-      const method = 'POST';
-      const url = 'http://localhost:8181/autofly/getRoute';
-      const async = true;
-      const currentTime = new Date().toISOString();
-      const routeDetails = {
-        'source': this.sourceLocation,
-        'destination': this.destinationLocation,
-        'passengerId': this.userId,
-        'departureTime': currentTime
-      };
-      request.open(method, url, async);
-      request.setRequestHeader('Content-Type', 'application/json');
-      request.onreadystatechange = function () {
-        if (request.readyState === 4) {
-          if (request.status === 200) {
-            const response = JSON.parse(request.responseText);
-            resolve(response.success);
-          } else {
-            reject(request.status);
-          }
-        }
-      };
-      request.send(JSON.stringify(routeDetails));
-    });
-
+    const currentTime = new Date().toISOString();
+    const requestParam = {
+      'source': this.sourceLocation,
+      'destination': this.destinationLocation,
+      'passengerId': this.userId,
+      'departureTime': currentTime
+    };
+    const method = 'POST';
+    const url = 'http://localhost:8181/autofly/getRoute';
+    return this.commonAPICall(url, requestParam,  method);
   }
 
   async confirmRide() {
     if (this.walletBal < this.fareAmount) {
-      this.presentToast();
+      this.presentToast('Sorry! you have insufficient balance. Please add balance');
       this.addMoney = true;
     } else {
       // const autoDetails = await this.getAutoDetails();
@@ -443,27 +404,10 @@ export class SearchRidePage {
     // send api call that user is ready to board
   }
   getAutoDetails() {
-    return new Promise(function (resolve, reject) {
-      const request = new XMLHttpRequest();
-      const method = 'POST';
-      const url = 'http://localhost:8181/autofly/getRoute'; // change url
-      const async = true;
-      const currentTime = new Date().toISOString();
-      const hotSpotsDetails = this.hotspots ;
-      request.open(method, url, async);
-      request.setRequestHeader('Content-Type', 'application/json');
-      request.onreadystatechange = function () {
-        if (request.readyState === 4) {
-          if (request.status === 200) {
-            const response = JSON.parse(request.responseText);
-            resolve(response.success);
-          } else {
-            reject(request.status);
-          }
-        }
-      };
-      request.send(JSON.stringify(hotSpotsDetails));
-    });
+    const requestParam = this.hotSpots;
+    const method = 'POST';
+    const url = 'http://localhost:8181/autofly/getRoute'; // change URL
+    return this.commonAPICall(url, requestParam,  method);
   }
 
   async joinRide() {
@@ -473,37 +417,44 @@ export class SearchRidePage {
   }
 
   rideJoined() {
-    const rideDetails = {
+    const requestParam = {
       'tripId': this.tripId,
       'passengerId': this.userId
     };
-    return new Promise(function (resolve, reject) {
-      const request = new XMLHttpRequest();
-      const method = 'POST';
-      const url = 'http://localhost:8181/autofly/getRoute'; // change url
-      const async = true;
-      const currentTime = new Date().toISOString();
-      request.open(method, url, async);
-      request.setRequestHeader('Content-Type', 'application/json');
-      request.onreadystatechange = function () {
-        if (request.readyState === 4) {
-          if (request.status === 200) {
-            const response = JSON.parse(request.responseText);
-            resolve(response.success);
-          } else {
-            reject(request.status);
-          }
-        }
-      };
-      request.send(JSON.stringify(rideDetails));
-    });
+    const method = 'POST';
+    const url = 'http://localhost:8181/autofly/getRoute'; // change URL
+    return this.commonAPICall(url, requestParam,  method);
   }
-  async presentToast() {
+  async presentToast(msg) {
     const toast = await this.toastCtrl.create({
-      message: 'Sorry! you have insufficient balance. Please add balance',
+      message: msg,
       duration: 2000
     });
     toast.present();
   }
   // based on hot spot have to write the logic to fetch source destination and walkable distance cordinate.
+
+   // common method to call api
+   commonAPICall(url, requestParams, methodType) {
+    return new Promise(function (resolve, reject) {
+      const request = new XMLHttpRequest();
+      const async = true;
+      request.open(methodType, url, async);
+      request.onreadystatechange = function () {
+        if (request.readyState === 4) {
+          if (request.status === 200) {
+            const response = JSON.parse(request.responseText);
+            resolve(response);
+          } else {
+            reject(request.status);
+          }
+        }
+      };
+      if (requestParams) {
+        request.send(requestParams);
+      } else {
+        request.send();
+      }
+    });
+  }
 }
