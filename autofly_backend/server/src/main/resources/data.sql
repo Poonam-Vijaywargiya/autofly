@@ -14,26 +14,51 @@ insert into user(email_id, password, user_type) values('karan123@gmail.com', 'ia
 insert into user(email_id, password, user_type) values('vicky123@gmail.com', 'iamvicky', 'D');
 
 -- Hotspots
+insert into hotspot(name, lat, lng) values('Hope Farm Circle', 12.983766, 77.752478);
 insert into hotspot(name, lat, lng) values('ITPL Mall', 12.987470, 77.736142);
 insert into hotspot(name, lat, lng) values('Opp. ITPL Mall', 12.987752, 77.736174);
-insert into hotspot(name, lat, lng) values('PSN', 12.989026, 77.727833);
-insert into hotspot(name, lat, lng) values('Opp. PSN', 12.988733, 77.727972);
-insert into hotspot(name, lat, lng) values('Hoodi Circle -> Graphite', 12.992067, 77.715976);
-insert into hotspot(name, lat, lng) values('Graphite Signal', 12.985483, 77.708167);
-insert into hotspot(name, lat, lng) values('Opp. Brookefield Mall', 12.966114, 77.718365);
-insert into hotspot(name, lat, lng) values('Kundanahalli Hypercity', 12.958361, 77.715753);
-insert into hotspot(name, lat, lng) values('Kundanahalli Gate Signal1', 12.956235, 77.714919);
-insert into hotspot(name, lat, lng) values('Kundanahalli Gate Signal2', 12.956217, 77.714774);
-insert into hotspot(name, lat, lng) values('Opp. Kundanahalli Hypercity', 12.958416, 77.715613);
-insert into hotspot(name, lat, lng) values('Brookefield Mall', 12.966129, 77.717946);
-insert into hotspot(name, lat, lng) values('SAP Labs', 12.977912, 77.714309);
-insert into hotspot(name, lat, lng) values('Vydehi Hospital Bus-stop', 12.976765, 77.726664);
-insert into hotspot(name, lat, lng) values('Opp. Inorbit Mall', 12.979576, 77.727129);
-insert into hotspot(name, lat, lng) values('Hoodi Circle -> PSN', 12.992309, 77.716594);
-insert into hotspot(name, lat, lng) values('Opp. Phoenix Mall', 12.995288, 77.695660);
-insert into hotspot(name, lat, lng) values('Phoenix Mall', 12.995549, 77.695660);
-insert into hotspot(name, lat, lng) values('Opp. Brigade Metropolis', 12.993950, 77.702239);
-insert into hotspot(name, lat, lng) values('Brigade Metropolis', 12.993772, 77.702057);
+insert into hotspot(name, lat, lng) values('Big Bazzar ITPL', 12.987794, 77.731752);
+insert into hotspot(name, lat, lng) values('Big Bazzar ITPL PSN', 12.988157, 77.731420);
+insert into hotspot(name, lat, lng) values('Big Bazzar ITPL(Towards Hope Farm)', 12.988281, 77.731701);
+
+insert into hotspot(name, lat, lng) values('PSN', 12.988932,77.727979);
+insert into hotspot(name, lat, lng) values('Opp. PSN', 12.988777,77.727948);
+insert into hotspot(name, lat, lng) values('Hoodi Circle -> Graphite', 12.991906, 77.715718);
+insert into hotspot(name, lat, lng) values('Hoodi Circle -> PSN', 12.992353,77.716387);
+insert into hotspot(name, lat, lng) values('Graphite (Tds Hoodi, Brigade, BF)', 12.980107, 77.708892);
+
+insert into hotspot(name, lat, lng) values('Graphite Circle <- SAP', 12.977925, 77.709780);
+insert into hotspot(name, lat, lng) values('Graphite India(Towards SAP)', 12.978113, 77.709760);
+insert into hotspot(name, lat, lng) values('Brookefield Mall', 12.966284, 77.718121);
+insert into hotspot(name, lat, lng) values('Opp. Brookefield Mall', 12.966313, 77.718243);
+insert into hotspot(name, lat, lng) values('Kundanahalli Circle', 12.955940, 77.714781);
+
+insert into hotspot(name, lat, lng) values('Inorbit Mall', 12.979799, 77.727486);
+insert into hotspot(name, lat, lng) values('Opp. Inorbit Mall', 12.979825, 77.727170);
+
+insert into hotspot(name, lat, lng) values('Vydehi Hospital', 12.976648, 77.726731);
+insert into hotspot(name, lat, lng) values('Opp Vydehi Hospital', 12.976419, 77.726719);
+
+insert into hotspot(name, lat, lng) values('SAP Labs', 12.977832, 77.714456);
+insert into hotspot(name, lat, lng) values('Opp SAP Labs', 12.977615, 77.714400);
+
+insert into hotspot(name, lat, lng) values('Brigade Metropolis', 12.993053, 77.703638);
+insert into hotspot(name, lat, lng) values('Opp. Brigade Metropolis', 12.993511, 77.703804);
+
+
+insert into hotspot(name, lat, lng) values('Phoenix Mall', 12.995539, 77.695586);
+insert into hotspot(name, lat, lng) values('Opp. Phoenix Mall', 12.995322, 77.695527);
+
+insert into hotspot(name, lat, lng) values('HP', 12.997936, 77.689346);
+
+
+--insert into hotspot(name, lat, lng) values('Kundanahalli Hypercity', 12.958361, 77.715753);
+--insert into hotspot(name, lat, lng) values('Kundanahalli Gate Signal1', 12.956235, 77.714919);
+--insert into hotspot(name, lat, lng) values('Kundanahalli Gate Signal2', 12.956217, 77.714774);
+--insert into hotspot(name, lat, lng) values('Opp. Kundanahalli Hypercity', 12.958416, 77.715613);
+--insert into hotspot(name, lat, lng) values('Vydehi Hospital Bus-stop', 12.976765, 77.726664);
+--insert into hotspot(name, lat, lng) values('Opp. Inorbit Mall', 12.979576, 77.727129);
+--insert into hotspot(name, lat, lng) values('Hoodi Circle -> PSN', 12.992309, 77.716594);
 
 -- insert into hotspot(name, lat, lng) values('Hoodi Circle', 12.992353, 77.716387);
 --insert into hotspot(name, lat, lng) values('Hoodi Circle-Phoenix', 12.992443, 77.716035);

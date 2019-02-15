@@ -38,21 +38,16 @@ public class AutoFlyGraph {
             HotspotZone hotspotZone = zoneEntry.getKey();
             List<Integer> hotspots = zoneEntry.getValue();
 
-            Hotspot h0 = hotspotRepository.findById(hotspots.get(0)).orElse(new Hotspot());
-            Hotspot h1 = hotspotRepository.findById(hotspots.get(1)).orElse(new Hotspot());
-            Hotspot h2 = hotspotRepository.findById(hotspots.get(2)).orElse(new Hotspot());
+            for (int i = 0; i < hotspots.size()-1; i++) {
+                Hotspot hotspotI = hotspotRepository.findById(hotspots.get(i)).orElse(new Hotspot());
+                Hotspot hotspotI1 = hotspotRepository.findById(hotspots.get(i + 1)).orElse(new Hotspot());
 
-            if(!graph.containsEdge(h0, h1)) {
-                DefaultWeightedEdge e1 =  graph.addEdge(h0, h1);
-                
-                graph.setEdgeWeight(e1, mapUtils.getDriveDist(new LatLng(h0.getLat(), h0.getLng()),new LatLng(h1.getLat(), h1.getLng())));
-                edgeToZones.put(e1, hotspotZone);
-            }
+                if(!graph.containsEdge(hotspotI, hotspotI1)) {
+                    DefaultWeightedEdge e1 =  graph.addEdge(hotspotI, hotspotI1);
 
-            if(!graph.containsEdge(h1, h2)) {
-                DefaultWeightedEdge e2 = graph.addEdge(h1, h2);
-                graph.setEdgeWeight(e2, mapUtils.getDriveDist(new LatLng(h1.getLat(), h1.getLng()), new LatLng(h2.getLat(), h2.getLng())));
-                edgeToZones.put(e2, hotspotZone);
+                    graph.setEdgeWeight(e1, mapUtils.getDriveDist(new LatLng(hotspotI.getLat(), hotspotI.getLng()),new LatLng(hotspotI1.getLat(), hotspotI1.getLng())));
+                    edgeToZones.put(e1, hotspotZone);
+                }
             }
         }
 
