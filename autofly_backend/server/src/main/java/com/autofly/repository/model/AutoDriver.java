@@ -1,5 +1,7 @@
 package com.autofly.repository.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -25,7 +27,19 @@ public class AutoDriver {
 	private String name;
 	private String mobNo;
 	private String autoVehicleNo;
-	private double walletBalance;
-	private double rating;
+	private Double walletBalance;
+	private Double rating;
+	
+	private Integer noOfPassengersBoarded;
+	
+	private Boolean onRide;
+	private Boolean waiting;
+	
+	private Integer currentHotspot;
+	private Integer currentZone;
+	
+	private transient List<Integer> route;
+	
+	private transient List<Integer> boardedPassengers;
 	
 }

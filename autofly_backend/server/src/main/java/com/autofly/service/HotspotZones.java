@@ -8,13 +8,14 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 
 import com.autofly.model.HotspotZone;
+import com.autofly.repository.model.Hotspot;
 
 @Component
 public class HotspotZones {
 	
 	private static Map<HotspotZone, List<Integer>> zones = new HashMap<>();
 
-//
+
 //    ID  	LAT  	LNG  	NAME
 //1	12.983784	77.752245	Hope Farm Circle
 //2	12.98747	77.736142	ITPL Mall
@@ -51,9 +52,8 @@ public class HotspotZones {
         zones.put(new HotspotZone(3), Arrays.asList(6, 17, 20, 19, 18, 5, 6));
         zones.put(new HotspotZone(4), Arrays.asList(19, 20,  22, 12, 15, 16, 14, 13, 21, 19));
     }
-	
-	
-	
+
+
 	public static HotspotZones singleInstance = new HotspotZones();
 	
 	public Map<HotspotZone, List<Integer>> getZones() {
