@@ -195,69 +195,6 @@ export class SearchRidePage {
       message: 'Please wait...'
     });
     this.presentLoading(loading);
-    this.hotSpots = {
-      'source': {
-          'lat': 12.983116,
-          'lng': 77.753509
-      },
-      'destination': {
-          'lat': 12.991868,
-          'lng': 77.715997
-      },
-      'passengerId': 1,
-      'departureTime': '2019-02-13T16:49:22.505',
-      'route': [
-          {
-              'id': 1,
-              'name': 'Hope Farm Circle',
-              'lat': 12.983766,
-              'lng': 77.752478,
-              'currentZoneId': 1,
-              'zoneId': null,
-              'dropLocation': null
-          },
-          {
-              'id': 8,
-              'name': 'Opp. PSN',
-              'lat': 12.988777,
-              'lng': 77.727948,
-              'currentZoneId': 2,
-              'zoneId': null,
-              'dropLocation': true
-          },
-          {
-              'id': 9,
-              'name': 'Hoodi Circle -> Graphite',
-              'lat': 12.991906,
-              'lng': 77.715718,
-              'currentZoneId': null,
-              'zoneId': null,
-              'dropLocation': true
-          }
-      ],
-      'success': true,
-      'walkFromSource': [
-          {
-              'lat': 12.983116,
-              'lng': 77.753509
-          },
-          {
-              'lat': 12.983766,
-              'lng': 77.752478
-          }
-      ],
-      'walkToDestination': [
-          {
-              'lat': 12.991906,
-              'lng': 77.715718
-          },
-          {
-              'lat': 12.991868,
-              'lng': 77.715997
-          }
-      ],
-      'fare': 40
-  };
     this.fareAmount = this.hotSpots.fare; // response returned from service
     this.fareToShow = 'Rs. ' + this.fareAmount;
     const lineSymbol = {
