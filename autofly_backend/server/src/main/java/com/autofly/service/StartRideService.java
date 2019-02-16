@@ -44,7 +44,9 @@ public class StartRideService {
 	
 	private static final String PASSENGER_REQUESTED = "Requested";
 	private static final String PASSENGER_BOARDED = "Boarded";
-	
+	private static final String PASSENGER_PAYMENT_PENDING = "Payment Pending";
+
+
 	public StartRideResponse startRide(StartRideRequest request) {
 		
 		StartRideResponse response = new StartRideResponse();

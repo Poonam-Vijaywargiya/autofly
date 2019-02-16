@@ -38,8 +38,12 @@ public class AutoflyServiceImpl implements AutoflyService{
 	
 	@Autowired
 	private StartRideService startRideService;
-	
-	@Override
+
+    @Autowired
+    private EndRideService endRideService ;
+
+
+    @Override
 	public LoginResponse loginService(LoginRequest request) {
 		
 		LoginResponse response = new LoginResponse();
@@ -102,13 +106,25 @@ public class AutoflyServiceImpl implements AutoflyService{
 		return response;
 	}
 
+	@Override
 	public AddPassengerResponse addPassenger(AddPassengerRequest request) {
 		AddPassengerResponse response = passengerService.addPassenger(request);
 		return response;
 	}
+
+	@Override
 	public StartRideResponse startRideService(StartRideRequest request) {
 		StartRideResponse response = startRideService.startRide(request);
 		return response;
 	}
+
+	@Override
+    public EndRideResponse endRideService(EndRideRequest request) {
+        EndRideResponse response = endRideService.endRide(request);
+
+//        StartRideResponse response = startRideService.startRide(request);
+        return response;
+    }
+
 
 }

@@ -147,8 +147,16 @@ public class PassengerService {
 
         Ride ride  = rideRepo.findById(request.getRideId()).orElse(null);
 
+        PassengerTrip passengerTrip = passengerTripRepo.findById(request.getPassengerTripId()).orElse(null);
+
+        if( passengerTrip != null) {
+            passengerTrip.setTripStatus(TRIP_ONGOING);
+            PassengerTrip updatedPassengerTrip   = passengerTripRepo.save(passengerTrip);
+            response.setTripStatus(updatedPassengerTrip.getTripStatus());
+        }
+
         if(ride != null) {
-            ride.setRideStatus(PASSENGER_BOARDED);
+            ride.setPassengerStatus(PASSENGER_BOARDED);
             Ride updatedRide   = rideRepo.save(ride);
             if(updatedRide != null ) {
                 response.setPassengerId(request.getPassengerId());
