@@ -78,4 +78,11 @@ public class AutoflyController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+	@PostMapping("/addPassenger")
+	public ResponseEntity<AddPassengerResponse> addPassenger(@RequestBody AddPassengerRequest request) {
+
+		AddPassengerResponse response = service.addPassenger(request);
+
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
 }

@@ -22,4 +22,6 @@ public interface AutoflyService {
 
 	public ConfirmTripResponse confirmPassengerTrip(ConfirmTripRequest request);
 
+	public AddPassengerResponse addPassenger(AddPassengerRequest request);
+
 }

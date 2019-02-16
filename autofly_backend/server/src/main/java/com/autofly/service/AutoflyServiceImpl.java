@@ -102,4 +102,11 @@ public class AutoflyServiceImpl implements AutoflyService{
 		return response;
 	}
 
+	@Override
+	public AddPassengerResponse addPassenger(AddPassengerRequest request) {
+		AddPassengerResponse response = passengerService.addPassenger(request);
+		return response;
+	}
+
+
 }
