@@ -91,10 +91,10 @@ public class RouteService {
 
             List<LatLng> walkFromSource = new ArrayList<>();
             walkFromSource.add(request.getSource());
-            walkFromSource.add(new LatLng(request.getSource().getLat(), request.getSource().getLng()));
+            walkFromSource.add(new LatLng(sourceHotspot.getLat(),sourceHotspot.getLng()));
 
             List<LatLng> walkToDestination = new ArrayList<>();
-            walkToDestination.add(new LatLng(request.getDestination().getLat(), request.getDestination().getLng()));
+            walkToDestination.add(new LatLng(destHotspot.getLat(), destHotspot.getLng()));
             walkToDestination.add(request.getDestination());
 
             double fare   = edges.size() * 10;
