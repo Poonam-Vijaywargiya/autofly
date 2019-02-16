@@ -1,12 +1,12 @@
 Input
 {
 	"source": {
-		"lat": 12.983766,
-		"lng": 77.752478
+		"lat": 12.983116,
+		"lng": 77.753509
 	},
 	"destination": {
-		"lat": 12.988157,
-		"lng": 77.731420
+		"lat": 12.991868,
+		"lng": 77.715997
 	},
 	"passengerId": 1,
 	"departureTime": "2019-02-13T16:49:22.505"
@@ -16,12 +16,12 @@ Input
 Output
 {
     "source": {
-        "lat": 12.983766,
-        "lng": 77.752478
+        "lat": 12.983116,
+        "lng": 77.753509
     },
     "destination": {
-        "lat": 12.988157,
-        "lng": 77.73142
+        "lat": 12.991868,
+        "lng": 77.715997
     },
     "passengerId": 1,
     "departureTime": "2019-02-13T16:49:22.505",
@@ -31,24 +31,42 @@ Output
             "name": "Hope Farm Circle",
             "lat": 12.983766,
             "lng": 77.752478,
-            "currentZoneId": null,
+            "currentZoneId": 1,
             "zoneId": null,
-            "dropLocation": false
+            "dropLocation": null
         },
         {
             "id": 2,
             "name": "ITPL Mall",
             "lat": 12.98747,
             "lng": 77.736142,
-            "currentZoneId": null,
+            "currentZoneId": 1,
             "zoneId": null,
-            "dropLocation": false
+            "dropLocation": null
         },
         {
             "id": 5,
             "name": "Big Bazzar ITPL PSN",
             "lat": 12.988157,
             "lng": 77.73142,
+            "currentZoneId": 1,
+            "zoneId": null,
+            "dropLocation": null
+        },
+        {
+            "id": 8,
+            "name": "Opp. PSN",
+            "lat": 12.988777,
+            "lng": 77.727948,
+            "currentZoneId": 2,
+            "zoneId": null,
+            "dropLocation": true
+        },
+        {
+            "id": 9,
+            "name": "Hoodi Circle -> Graphite",
+            "lat": 12.991906,
+            "lng": 77.715718,
             "currentZoneId": null,
             "zoneId": null,
             "dropLocation": true
@@ -57,8 +75,8 @@ Output
     "success": true,
     "walkFromSource": [
         {
-            "lat": 12.983766,
-            "lng": 77.752478
+            "lat": 12.983116,
+            "lng": 77.753509
         },
         {
             "lat": 12.983766,
@@ -67,13 +85,13 @@ Output
     ],
     "walkToDestination": [
         {
-            "lat": 12.988157,
-            "lng": 77.73142
+            "lat": 12.991906,
+            "lng": 77.715718
         },
         {
-            "lat": 12.988157,
-            "lng": 77.73142
+            "lat": 12.991868,
+            "lng": 77.715997
         }
     ],
-    "fare": 20
+    "fare": 40
 }

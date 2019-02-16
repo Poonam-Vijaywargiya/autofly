@@ -90,7 +90,6 @@ public class AutoflyServiceImpl implements AutoflyService{
 
 	}
 
-
     @Override
     public ConfirmTripResponse confirmPassengerTrip(ConfirmTripRequest request){
         ConfirmTripResponse response = passengerService.confirmPassengerTrip(request);
