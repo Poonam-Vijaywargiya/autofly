@@ -1,29 +1,9 @@
 package com.autofly.service;
 
+import com.autofly.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.autofly.model.AddPassengerRequest;
-import com.autofly.model.AddPassengerResponse;
-import com.autofly.model.AssignAutoRequest;
-import com.autofly.model.ConfirmTripRequest;
-import com.autofly.model.ConfirmTripResponse;
-import com.autofly.model.EndRideRequest;
-import com.autofly.model.EndRideResponse;
-import com.autofly.model.EndTripRequest;
-import com.autofly.model.EndTripResponse;
-import com.autofly.model.FindAutoRequest;
-import com.autofly.model.FindAutoResponse;
-import com.autofly.model.FindHotspotZoneRequest;
-import com.autofly.model.FindHotspotZoneResponse;
-import com.autofly.model.LoginRequest;
-import com.autofly.model.LoginResponse;
-import com.autofly.model.RouteRequest;
-import com.autofly.model.RouteResponse;
-import com.autofly.model.StartRideRequest;
-import com.autofly.model.StartRideResponse;
-import com.autofly.model.WalletRequest;
-import com.autofly.model.WalletResponse;
 import com.autofly.repository.dao.AutoDriverRepository;
 import com.autofly.repository.dao.PassengerRepository;
 import com.autofly.repository.dao.UserRepository;
@@ -61,6 +41,9 @@ public class AutoflyServiceImpl implements AutoflyService{
 
     @Autowired
     private EndRideService endRideService ;
+
+    @Autowired
+    private OffDutyService offDutyService ;
 
 
     @Override
@@ -145,6 +128,12 @@ public class AutoflyServiceImpl implements AutoflyService{
 
     public EndRideResponse endRideService(EndRideRequest request) {
         EndRideResponse response = endRideService.endRide(request);
+        return response;
+    }
+
+    @Override
+    public OffDutyResponse offDuty(OffDutyRequest request) {
+        OffDutyResponse response = offDutyService.offDuty(request);
         return response;
     }
 

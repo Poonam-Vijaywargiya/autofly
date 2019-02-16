@@ -44,5 +44,16 @@ public class HotspotAutoQueue {
 		PriorityQueue<AutoDriver> que = hotspotAutoQueues.get(h);
 		return que.peek();
 	}
+
+	public boolean removeAutoFromHotspot(AutoDriver a) {
+		boolean success = false;
+		for ( PriorityQueue<AutoDriver> hotspotAutoQueue : hotspotAutoQueues.values()) {
+			 success = hotspotAutoQueue.remove(a);
+			if(success){
+				return success;
+			}
+		}
+		return success;
+	}
 	
 }

@@ -11,7 +11,7 @@ import com.autofly.service.AutoflyService;
 
 @RestController
 @RequestMapping("/autofly")
-//@CrossOrigin(origins = {"http://localhost:8181","http://localhost:8080", "http://localhost:8100"})
+@CrossOrigin(origins = {"*"})
 public class AutoflyController {
 	
 	@Autowired
@@ -19,6 +19,7 @@ public class AutoflyController {
 
 
 	@PostMapping("/login")
+//    @CrossOrigin(origins = {"http://localhost:8181","http://localhost:8080", "http://localhost:8100"})
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
 		
 		LoginResponse response = service.loginService(request);
@@ -36,7 +37,6 @@ public class AutoflyController {
     }
     
     @PostMapping("/assignAuto")
-    //CrossOrigin(origins = {"http://localhost:8181","http://localhost:8080"})
     public ResponseEntity<Boolean> assignAuto(@RequestBody AssignAutoRequest request) {
 		
     	Boolean response = service.assignAutoService(request);
@@ -45,7 +45,6 @@ public class AutoflyController {
     }
     
     @PostMapping("/findAuto")
-    //CrossOrigin(origins = {"http://localhost:8181","http://localhost:8080"})
     public ResponseEntity<FindAutoResponse> findAuto(@RequestBody FindAutoRequest request) {
 		
     	FindAutoResponse response = service.findAutoService(request);
@@ -54,8 +53,7 @@ public class AutoflyController {
     }
     
     @PostMapping("/startRide")
-    //CrossOrigin(origins = {"http://localhost:8181","http://localhost:8080"})
-    public ResponseEntity<StartRideResponse> startRide(@RequestBody StartRideRequest request) {
+   public ResponseEntity<StartRideResponse> startRide(@RequestBody StartRideRequest request) {
 		
     	StartRideResponse response = service.startRideService(request);
 
@@ -63,7 +61,7 @@ public class AutoflyController {
     }
 
 	@PostMapping("/getRoute")
-	public ResponseEntity<RouteResponse> getRoute(@RequestBody RouteRequest request) {
+    public ResponseEntity<RouteResponse> getRoute(@RequestBody RouteRequest request) {
 
 		RouteResponse response = service.getRouteService(request);
 
@@ -71,7 +69,7 @@ public class AutoflyController {
 	}
 
 	@PostMapping("/checkWalletBalance")
-	public ResponseEntity<WalletResponse> checkWalletBalance(@RequestBody WalletRequest request) {
+    public ResponseEntity<WalletResponse> checkWalletBalance(@RequestBody WalletRequest request) {
 
 		WalletResponse response = service.checkWalletBalance(request);
 
@@ -88,7 +86,7 @@ public class AutoflyController {
     }
 
 	@PostMapping("/addPassenger")
-	public ResponseEntity<AddPassengerResponse> addPassenger(@RequestBody AddPassengerRequest request) {
+    public ResponseEntity<AddPassengerResponse> addPassenger(@RequestBody AddPassengerRequest request) {
 
 		AddPassengerResponse response = service.addPassenger(request);
 
@@ -104,11 +102,19 @@ public class AutoflyController {
 	}
 
 	@PostMapping("/endRide")
-	public ResponseEntity<EndRideResponse> endRide(@RequestBody EndRideRequest request) {
+    public ResponseEntity<EndRideResponse> endRide(@RequestBody EndRideRequest request) {
 
-		EndRideResponse response = service.endRideService(request);
+        EndRideResponse response = service.endRideService(request);
 
-		return new ResponseEntity<>(response, HttpStatus.OK);
-	}
-	
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("/goOffDuty")
+    public ResponseEntity<OffDutyResponse> offDuty(@RequestBody OffDutyRequest request) {
+
+        OffDutyResponse response = service.offDuty(request);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }

@@ -30,4 +30,6 @@ public interface AutoflyService {
 
 	public EndTripResponse endTrip(EndTripRequest request);
 
+	public OffDutyResponse offDuty(OffDutyRequest request);
+
 }
