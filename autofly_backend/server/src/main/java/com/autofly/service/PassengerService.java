@@ -40,6 +40,10 @@ public class PassengerService {
     private static final String TRIP_INITIATED= "INITIATED";
 
 
+    private static final String PASSENGER_REQUESTED = "Requested";
+    private static final String PASSENGER_BOARDED = "Boarded";
+
+
 
 
     public WalletResponse checkWalletBalance(WalletRequest request) {
@@ -134,5 +138,24 @@ public class PassengerService {
         }
 
         return response;
+    }
+
+    public AddPassengerResponse addPassenger(AddPassengerRequest request) {
+        AddPassengerResponse response = new AddPassengerResponse();
+
+        Ride ride  = rideRepo.findById(request.getRideId()).orElse(null);
+
+        if(ride != null) {
+            ride.setRideStatus(PASSENGER_BOARDED);
+            Ride updatedRide   = rideRepo.save(ride);
+            if(updatedRide != null ) {
+                response.setPassengerId(request.getPassengerId());
+                response.setPassengerTripId(request.getPassengerTripId());
+                response.setRideId(updatedRide.getRideId());
+                response.setSuccess(true);
+            }
+        }
+
+        return  response;
     }
 }
