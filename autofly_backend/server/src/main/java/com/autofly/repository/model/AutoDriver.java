@@ -39,7 +39,7 @@ public class AutoDriver {
 	private Integer currentZone;
 	
 	private transient List<Integer> route;
-	
+
 	private transient List<Integer> boardedPassengers;
 	
 }
