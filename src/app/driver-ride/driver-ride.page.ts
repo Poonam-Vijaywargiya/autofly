@@ -75,8 +75,10 @@ export class DriverRidePage {
     driverLng: any;
     assignedZone: any;
     assignedHotspot: any;
-    listOfPassangers: any;
+    listOfPassengers: any;
     reachedHSLoc: Boolean = false;
+    hotSpotName: any;
+    enoughPassenger: Boolean = false;
 
   // Utility method to convert object of lat and lng to single comma separated string to be sent to the google api
   convertObjectToString(val) {
@@ -90,66 +92,29 @@ export class DriverRidePage {
   }
   async getDriverLocation() {
     if (this.isToggled) {
-  // call the api to send the current location and get nearest hotspot location
-    // let result = await this.getNearestHotSpot();
-     this.hotSpots = {
-      'success': true,
-      'assignedZone': 1,
-      'assignedHotspot': {
-          'id': 3,
-          'name': 'Hoodi Circle-PSN',
-          'lat': 12.992353,
-          'lng': 77.716387
-      },
-      'hotspotLists': [
-          {
-              'id': 1,
-              'name': 'ITPL Mall',
-              'lat': 12.98747,
-              'lng': 77.736464
-          },
-          {
-              'id': 2,
-              'name': 'PSN',
-              'lat': 12.98957,
-              'lng': 77.727983
-          },
-          {
-              'id': 3,
-              'name': 'Hoodi Circle-PSN',
-              'lat': 12.992353,
-              'lng': 77.716387
-          }
-      ]
-  };
-    const result = this.hotSpots;
-      if (result.success) {
-        this.assignedHotspot = result.assignedHotspot;
-        this.assignedZone = result.assignedZone;
-        this.hotSpots = result.hotspotLists;
-        this.currentOrHotSpotLocation =  'HotSpot Location';
+    const result = await this.getNearestHotSpot();
+      if (result['success']) {
+        this.assignedHotspot = result['assignedHotspot'];
+        this.assignedZone = result['assignedZone'];
+        this.hotSpots = result['hotspotLists'];
+        this.hotSpotName = this.assignedHotspot.name;
         this.setSourceAddress();
       this.getDirections();
       }
+      this.presentToast('Thanks for your availability, please go to the nearest hotspot marked in the map.');
     } else {
       this.reachedHSLoc = false;
       this.currentOrHotSpotLocation = 'Current Location';
       this.setSourceAddress();
-      // Do we have api to delete driver from queue then call that here.
+      const message = 'Thanks for your service, you have earned ' + this.driverWalletBal + ' today.';
+      this.presentToast(message);
     }
-    this.presentToast(this.isToggled);
   }
 
-  async presentToast(onDuty) {
-    let message;
-    if (onDuty) {
-      message = 'Thanks for your availability, please go to the nearest hotspot marked in the map.';
-    } else {
-      message = 'Thanks for your service, you have earned ' + this.driverWalletBal + ' today.';
-    }
+  async presentToast(message) {
     const toast = await this.toastCtrl.create({
       message: message,
-      duration: 2000
+      duration: 5000
     });
     toast.present();
   }
@@ -161,7 +126,7 @@ export class DriverRidePage {
       'driverLng': this.driverLng
     };
     const method = 'POST';
-    const url = 'http://localhost:8181/autofly/findHotspotZone';
+    const url = 'http://autofly.us-east-2.elasticbeanstalk.com/autofly/findHotspotZone';
     return this.commonAPICall(url, requestParam,  method);
 }
 
@@ -225,78 +190,74 @@ export class DriverRidePage {
 
   // Method to set the address for source fetched from gps to the source location box.
   async setSourceAddress() {
-    // await code here
     const result = await this.getAddress(this.sourceLocation.lat, this.sourceLocation.lng);
-    // code below here will only execute when await makeRequest() finished loading
     this.sourceLocation.name = result['results'][0].formatted_address;
   }
   async reachedHotSpot() {
-    this.listOfPassangers = {
-      listOfPassangers:
-     [{
-        'id': 1,
-        'name': 'Poonam'
-    },
-    {
-        'id': 2,
-        'name': 'Shohini'
-    }]
-    };
+    this.currentOrHotSpotLocation =  'HotSpot Location';
+    this.sourceLocation.lat = this.assignedHotspot.lat;
+    this.sourceLocation.lng = this.assignedHotspot.lng;
     this.reachedHSLoc = true;
-    this.listOfPassangers = this.listOfPassangers.listOfPassangers;
-    // const result = await await this.getPassangerList();
-    // if (result.success) {
-    //   this.listOfPassangers = result.listOfPassangers.listOfPassangers;
-    // }
+    this.setSourceAddress();
+    const result = await await this.assignAuto();
+    if (result) {
+      this.reachedHSLoc = true;
+    }
   }
-  getPassangerList() {
+  assignAuto() {
     const requestParam = {
       driverId: this.driverId,
-      assignedHotspot: this.assignedHotspot.id
+      assignedHotspot: this.assignedHotspot.id,
+      available: true,
+      assignedZone: this.assignedZone,
     };
     const method = 'POST';
-    const url = 'http://localhost:8181/autofly/getRoute'; // change url
+    const url = 'http://autofly.us-east-2.elasticbeanstalk.com/autofly/assignAuto';
     return this.commonAPICall(url, requestParam,  method);
   }
 
   async startTrip() {
-    // send api call that user boarded the auto to increase the count
-  // userid and trip id
-  // what to do once driver has started the trip
-    const tripStarted = await this.tripStarted();
+   const result = await this.tripStarted();
+    if (result['success']) {
+      this.enoughPassenger = true;
+      this.listOfPassengers = result['rides'].map(person => ({ rideId: person.rideId, toHotspot: person.toHotspot,
+        passengerId: person.passengerId,
+        toHotspotName: person.toHotspotName, passengerName: person.passengerName, zoneId: person.zoneId}));
+    }  else {
+      this.presentToast('Please wait for other passengers to board.');
+    }
+
   }
 
-  async endRide(passangerId) {
-    // const rideEndForPassanger = await this.rideEndForPassanger(passangerId);
-    this.listOfPassangers = {
-      listOfPassangers:
-     [{
-        'id': 1,
-        'name': 'Poonam'
-    }]
-    };
-    this.listOfPassangers = this.listOfPassangers.listOfPassangers;
-    // const result = await await this.getPassangerList();
-    // if (result.success) {
-    //   this.listOfPassangers = result.listOfPassangers.listOfPassangers;
-    // }
+  async endRide(passenger) {
+    this.listOfPassengers = this.listOfPassengers.filter((item) => item.passengerId !== passenger.passengerId);
+    const result =  await this.rideEndForPassanger(passenger);
+    if (result['success']) {
+      const msg = 'You have earned Rs.' + result['earning'] + ' from this ride.';
+      this.presentToast(msg);
+    }
   }
-  async rideEndForPassanger(pId) {
+  async rideEndForPassanger(passenger) {
     const requestParam = {
-      pId: pId,
-      assignedHotspot: this.assignedHotspot.id
+        'driverId': this.driverId,
+        'currentHotspotId': passenger.toHotspot,
+        'zoneId': passenger.zoneId,
+        'passengerId': passenger.passengerId,
+        'rideId': passenger.rideId
     };
     const method = 'POST';
-      const url = 'http://localhost:8181/autofly/getRoute'; // change URL
+      const url = 'hhttp://autofly.us-east-2.elasticbeanstalk.com/autofly/endRide';
     return this.commonAPICall(url, requestParam,  method);
   }
 
   tripStarted() {
     const method = 'POST';
-      const url = 'http://localhost:8181/autofly/getRoute'; // change URL
+      const url = 'http://autofly.us-east-2.elasticbeanstalk.com/autofly/startRide';
       const requestParam = {
         'tripId': this.tripId,
-        'driverId': this.driverId
+        'driverId': this.driverId,
+        'zoneId': this.assignedZone,
+        'fromHotspotId': this.assignedHotspot.id
       };
       return this.commonAPICall(url, requestParam,  method);
   }
@@ -318,7 +279,8 @@ export class DriverRidePage {
         }
       };
       if (requestParams) {
-        request.send(requestParams);
+        request.setRequestHeader('Content-Type', 'application/json');
+        request.send(JSON.stringify(requestParams));
       } else {
         request.send();
       }

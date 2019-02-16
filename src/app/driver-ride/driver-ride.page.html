@@ -9,22 +9,24 @@
 
 <ion-content padding>
     <ion-item>
-        <ion-label>On Duty</ion-label>
+        <ion-label class="bold">On Duty</ion-label>
         <ion-toggle [(ngModel)]="isToggled" (ionChange)="getDriverLocation()"></ion-toggle>
       </ion-item>
 
       <ion-item>
-      <ion-label>{{currentOrHotSpotLocation}}: </ion-label>
+      <ion-label class="bold">{{currentOrHotSpotLocation}}: </ion-label>
       <ion-input type="text" [(ngModel)]="sourceLocation.name" name="name" readonly></ion-input></ion-item>
       <div #DriverMap class="map"></div>
 
-      <ion-button *ngIf="isToggled" id="reachedHotSpot" (click)="reachedHotSpot()">Reached HotSpot</ion-button>
-      <ion-list-header *ngIf="reachedHSLoc" >Passangers in the trip</ion-list-header>
-      <ion-list *ngFor="let passanger of listOfPassangers">
-            <ion-item>{{ passanger.name }}</ion-item>
-            <ion-button id="endRide" (click)="endRide(passanger.id)">End Ride</ion-button>
+      <ion-button class="width_100" color="success" *ngIf="isToggled && !reachedHSLoc" id="reachedHotSpot" (click)="reachedHotSpot()">Reached {{hotSpotName}}</ion-button>
+      <ion-button class="width_100" *ngIf="isToggled && reachedHSLoc" id="startTrip" (click)="startTrip()">Start Trip</ion-button>
+
+      <ion-list-header *ngIf="enoughPassenger" class="bold">Passangers - Drop Location</ion-list-header>
+      <ion-list *ngFor="let passenger of listOfPassengers">
+            <ion-item>{{ passenger.passengerName }} - {{passenger.toHotspotName}}</ion-item>
+            <ion-button id="endRide" (click)="endRide(passenger)">End Ride</ion-button>
         </ion-list>
-        <ion-button *ngIf="isToggled && reachedHSLoc" id="startTrip" (click)="startTrip()">Start Trip</ion-button>
+        
 </ion-content>
 
 

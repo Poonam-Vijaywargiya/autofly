@@ -11,8 +11,6 @@ export class DriverPage {
   constructor(private router: Router, private toastCtrl: ToastController) { }
 
   driverDetails = {
-    emailId: '',
-    password: ''
   };
 
    onClickCancel() {
@@ -20,14 +18,13 @@ export class DriverPage {
   }
 
   async driverLogin() {
-    this.router.navigate(['/driver-ride', {driverId: this.driverDetails.emailId, driverWalletBal: this.driverDetails.password}]);
-   // const result = await this.checkAuthentication();
-  // code below here will only execute when await makeRequest() finished loading
-    // if (result.success) {
-  //     this.router.navigate(['/driver-ride', {driverId: this.driverDetails.emailId, driverWalletBal: this.driverDetails.password}]);
-    // } else {
-    //   this.presentToast();
-    // }
+   const result = await this.checkAuthentication();
+    if (result['success']) {
+      this.router.navigate(['/driver-ride', {driverId: result['driver'].userId,
+       driverWalletBal: result['driver'].walletBalance}]);
+    } else {
+      this.presentToast();
+    }
   }
   async presentToast() {
     const toast = await this.toastCtrl.create({
@@ -43,7 +40,7 @@ export class DriverPage {
      return new Promise(function (resolve, reject) {
       const request = new XMLHttpRequest();
       const method = 'POST';
-      const url = 'http://localhost:8181/autofly/login';
+      const url = 'http://autofly.us-east-2.elasticbeanstalk.com/autofly/login';
       const async = true;
 
       request.open(method, url, async);
