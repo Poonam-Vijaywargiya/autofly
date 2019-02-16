@@ -37,5 +37,8 @@ public class Ride {
 	private String rideStatus;
 	private String passengerStatus;
 	private Integer passengerTripId;
+
+	private transient String toHotspotName;
+	private transient String passengerName;
 	
 }

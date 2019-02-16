@@ -80,6 +80,15 @@ public class StartRideService {
 		
 		rideRequests.stream()
 					.forEach(r -> rideRepo.save(r));
+
+		//Get Hotspot name and passenger Name in rides
+        rideRequests = rideRequests.stream()
+                    .map(r -> {
+                        r.setToHotspotName(hotspotRepo.findById(r.getToHotspot()).orElse(new Hotspot()).getName());
+                        r.setPassengerName(passengerRepo.findById(r.getPassengerId()).orElse(new Passenger()).getName());
+                        return r;
+                    })
+                    .collect(Collectors.toList());
 		
 		//Create Passenger List
 		List<Passenger> passengerList = rideRequests.stream()
