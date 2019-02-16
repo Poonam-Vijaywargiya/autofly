@@ -1,22 +1,35 @@
 package com.autofly.service;
 
 
-import com.autofly.model.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.autofly.model.AddPassengerRequest;
+import com.autofly.model.AddPassengerResponse;
+import com.autofly.model.ConfirmTripRequest;
+import com.autofly.model.ConfirmTripResponse;
+import com.autofly.model.EndTripRequest;
+import com.autofly.model.EndTripResponse;
+import com.autofly.model.FindAutoRequest;
+import com.autofly.model.FindAutoResponse;
+import com.autofly.model.LatLng;
+import com.autofly.model.WalletRequest;
+import com.autofly.model.WalletResponse;
+import com.autofly.repository.dao.AutoDriverRepository;
 import com.autofly.repository.dao.PassengerRepository;
 import com.autofly.repository.dao.PassengerTripRepository;
 import com.autofly.repository.dao.RideRepository;
+import com.autofly.repository.model.AutoDriver;
 import com.autofly.repository.model.Hotspot;
 import com.autofly.repository.model.Passenger;
 import com.autofly.repository.model.PassengerTrip;
 import com.autofly.repository.model.Ride;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 @Component
 public class PassengerService {
@@ -33,6 +46,9 @@ public class PassengerService {
 
     @Autowired
     private RideRepository rideRepo;
+    
+    @Autowired
+    private AutoDriverRepository driverRepo;
 
     private static final String TRIP_CONFIRMED = "CONFIRMED";
     private static final String TRIP_ONGOING = "ONGOING";
@@ -42,10 +58,11 @@ public class PassengerService {
 
     private static final String PASSENGER_REQUESTED = "Requested";
     private static final String PASSENGER_BOARDED = "Boarded";
-
-
-
-
+    private static final String PASSENGER_PENDING_MONEY = "Pending Money";
+    private static final String PASSENGER_PAYMENT_SUCCESS = "Payment Success";
+    
+    private static final String RIDE_COMPLETED = "Completed";
+    
     public WalletResponse checkWalletBalance(WalletRequest request) {
 
         WalletResponse response = new WalletResponse();
@@ -158,4 +175,91 @@ public class PassengerService {
 
         return  response;
     }
+
+	public EndTripResponse endTrip(EndTripRequest request) {
+		
+		EndTripResponse response = new EndTripResponse();
+		
+		//Fetch Trip
+		PassengerTrip trip = passengerTripRepo.findByIdAndTripStatus(request.getTripId(), TRIP_ONGOING);
+		trip.setTripStatus(TRIP_COMPLETED);
+
+		//Fetch Passenger Ride Details
+		List<Ride> passengerRides = rideRepo.findByPassengerTripIdAndPassengerStatusAndRideStatus
+				(trip.getId(), PASSENGER_PENDING_MONEY, RIDE_COMPLETED);
+		
+		if(null == passengerRides || !passengerRides.isEmpty()) {
+			response.setSuccess(false);
+			return response;
+		}
+		
+		//Fetch Passenger
+		Passenger passenger = passengerRepo.findByUserId(trip.getPassengerId());
+		
+		//Get the auto drivers involved in the trip
+		List<AutoDriver> drivers = passengerRides.stream()
+												 .map(r -> r.getAutoId())
+												 .map(a -> driverRepo.findByUserId(a))
+												 .collect(Collectors.toList());
+		List<Double> autoEarnings = passengerRides.stream()
+												  .map(r -> r.getEarning())
+												  .collect(Collectors.toList());
+		//Payment Transaction
+		Double passengerUpdatedWallet = this.paymentTransaction(passenger, trip.getFare(), drivers, autoEarnings);
+		
+		if(null == passengerUpdatedWallet) {
+			response.setSuccess(false);
+			return response;
+		}
+		
+		//Update Trip and Ride		
+		passengerTripRepo.save(trip);
+		passengerRides.stream()
+					  .forEach(r -> r.setPassengerStatus(PASSENGER_PAYMENT_SUCCESS));
+		
+		for(Ride r : passengerRides) {
+			if(null == rideRepo.save(r)) {
+				response.setSuccess(false);
+				return response;
+			}
+		}
+		
+		response.setSuccess(true);
+		response.setUpdatedWalletBallance(passengerUpdatedWallet);
+		return response;
+	}
+
+	private Double paymentTransaction(Passenger passenger, double passengerFare, List<AutoDriver> drivers, List<Double> autoEarnings) {
+		
+		Double originalPassengerWallet = 0.0;
+		List<Double> originalAutoWallet = new ArrayList<>();
+		
+		try {
+			originalPassengerWallet = passenger.getWalletBalance();
+			passenger.setWalletBalance(passenger.getWalletBalance() - passengerFare);
+			passengerRepo.save(passenger);
+			
+			for(int i=0; i<drivers.size(); i++) {
+				AutoDriver driver = drivers.get(i);
+				driver.setWalletBalance(driver.getWalletBalance() - autoEarnings.get(i)) ;
+				driverRepo.save(driver);
+			}
+			
+			return passenger.getWalletBalance();
+			
+		} catch (Exception e) {
+			// Revert the transaction
+			passenger.setWalletBalance(originalPassengerWallet);
+			passengerRepo.save(passenger);
+			
+
+			for(int i=0; i<drivers.size(); i++) {
+				AutoDriver driver = drivers.get(i);
+				driver.setWalletBalance(originalAutoWallet.get(i)) ;
+				driverRepo.save(driver);
+			}
+			
+			return null;
+		}
+	}
 }

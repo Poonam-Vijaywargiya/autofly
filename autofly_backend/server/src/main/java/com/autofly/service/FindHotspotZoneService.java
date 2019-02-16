@@ -1,7 +1,5 @@
 package com.autofly.service;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,10 +15,8 @@ import com.autofly.model.HotspotZone;
 import com.autofly.model.LatLng;
 import com.autofly.repository.dao.AutoDriverRepository;
 import com.autofly.repository.dao.HotspotRepository;
-import com.autofly.repository.dao.RideRepository;
 import com.autofly.repository.model.AutoDriver;
 import com.autofly.repository.model.Hotspot;
-import com.autofly.repository.model.Ride;
 import com.autofly.util.MapsUtil;
 
 @Component
@@ -38,15 +34,6 @@ public class FindHotspotZoneService {
 	@Autowired
 	private HotspotAutoQueue hotspotAutoQueue;
 	
-	@Autowired
-	private RideRepository rideRepo;
-	
-	@Autowired
-	private HotspotZones hotspotZones;
-	
-	private static final Date CURR_DATE = Date.valueOf(LocalDate.now());
-	
-	private static final String RIDE_WAITING = "Waiting";
 	
 	private HotspotZones zoneInstance = HotspotZones.singleInstance;
 

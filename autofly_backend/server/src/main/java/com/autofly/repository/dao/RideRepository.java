@@ -12,4 +12,6 @@ public interface RideRepository extends JpaRepository<Ride, Integer> {
 	public List<Ride> findByAutoIdAndDutyDateAndFromHotspotAndRideStatusAndPassengerStatusAndZoneId
 				(Integer autoId, Date dutyDate, Integer fromHotspot, String rideStatus, String passengerStatus, Integer zoneId);
 	
+	public List<Ride> findByPassengerTripIdAndPassengerStatusAndRideStatus(int tripId, String passengerStatus, String rideStatus);
+
 }
