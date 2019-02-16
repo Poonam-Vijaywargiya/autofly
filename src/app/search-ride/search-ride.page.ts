@@ -72,6 +72,8 @@ export class SearchRidePage {
   autoNumber: any;
   addMoney: Boolean = false;
   tripId: any;
+  rideId: any;
+  zoneId: any;
   showBookRide: Boolean = true;
   showConfirmRide: Boolean = false;
   showIHaveBoarded: Boolean = false;
@@ -80,6 +82,8 @@ export class SearchRidePage {
   buttonColor: any;
   countForButtons = 0;
   nameOnButton: any;
+  fromHotspotId: any;
+  toHotspotId: any;
   // Method to get search places and form autocomplete list
   searchPlace(val) {
     let config;
@@ -370,9 +374,8 @@ export class SearchRidePage {
   }
 
   async bookRide() {
-    // click book ride is called and i need to get the address now with the route map
     if (this.sourceLocation.name && this.destinationLocation.name) {
-      //  this.hotSpots = await this.getHotSpots();
+       this.hotSpots = await this.getHotSpots();
       this.buttonsHideAndShow(false, true, false, false);
       this.getDirections();
     } else {
@@ -399,69 +402,71 @@ export class SearchRidePage {
       this.presentToast('Sorry! you have insufficient balance. Please add balance');
       this.addMoney = true;
     } else {
-      // const autoDetails = await this.getAutoDetails();
-      this.autoNumber =  'Auto No. ' + 'ABCDEFG'; // autoDetails.autoNumber;
+      const autoDetails = await this.confirmTrip();
+      this.autoNumber =  'Auto No. ' + autoDetails['driver'].autoVehicleNo;
       this.buttonsHideAndShow(false, false, true, false);
-      this.tripId = 'eiduieua'; // this.getAutoDetails.tripId; 
+      this.tripId = autoDetails['passengerTripId'];
+      this.rideId = autoDetails['ride'].rideId;
       this.nameOnButton = this.hotSpots.route[this.countForButtons].name;
     }
-    // send api call that user is ready to board
   }
-  getAutoDetails() {
+
+  confirmTrip() {
     const requestParam = this.hotSpots;
     const method = 'POST';
-    const url = 'http://localhost:8181/autofly/confirmTrip'; //  driver.autoVehicleNo,  passengerTripId, ride.rideId, ride.zoneId
+    const url = 'http://localhost:8181/autofly/confirmTrip';
     return this.commonAPICall(url, requestParam,  method);
   }
 
   async joinedRide() {
-  //  const rideJoined = await this.rideJoined();
-  this.buttonsHideAndShow(false, false, false, true);
-    if (this.countForButtons < this.hotSpots.route.length - 2) {
-       this.countForButtons += 1;
-       this.nameOnButton = this.hotSpots.route[this.countForButtons].name;
-       this.lastStopreached = false;
-       this.buttonColor = 'warning';
-
-       // call find auto details
-    } else if (this.countForButtons < this.hotSpots.route.length - 1) {
+   const rideJoined = await this.rideJoined();
+   if (rideJoined['success']) {
+    this.buttonsHideAndShow(false, false, false, true);
+      if (this.countForButtons < this.hotSpots.route.length - 2) {
         this.countForButtons += 1;
         this.nameOnButton = this.hotSpots.route[this.countForButtons].name;
+        this.zoneId = this.hotSpots.route[this.countForButtons].currentZoneId;
+        this.fromHotspotId = this.hotSpots.route[this.countForButtons].id;
+        this.toHotspotId = this.hotSpots.route[this.countForButtons + 1].id;
         this.lastStopreached = false;
-        this.buttonColor = 'success';
-        this.lastStopreached = true;
-        // call end trip api
+        this.buttonColor = 'warning';
+      } else if (this.countForButtons < this.hotSpots.route.length - 1) {
+          this.countForButtons += 1;
+          this.nameOnButton = this.hotSpots.route[this.countForButtons].name;
+          this.buttonColor = 'success';
+          this.lastStopreached = true;
+      }
+    } else {
+      this.presentToast('Some internal error occured, please try again.');
     }
   }
 
   rideJoined() {
     const requestParam = {
       'passengerId': this.userId,
-      'rideId': 1, // add ride id
+      'rideId': this.rideId,
       'passengerTripId':  this.tripId,
     };
     const method = 'POST';
-    const url = 'http://localhost:8181/autofly/addPassenger'; // change URL to get auto
+    const url = 'http://localhost:8181/autofly/addPassenger';
     return this.commonAPICall(url, requestParam,  method);
   }
-  async presentToast(msg) {
-    const toast = await this.toastCtrl.create({
-      message: msg,
-      duration: 2000
-    });
-    toast.present();
-  }
-  // based on hot spot have to write the logic to fetch source destination and walkable distance cordinate.
 
   async reachedLocation() {
-    //  const result = await this.endRideForHotspot();
     if (!this.lastStopreached) {
-      this.buttonsHideAndShow(false, false, true, false);
+      const result = await this.findAutoDetails();
+      if (result['foundAuto']) {
+        this.buttonsHideAndShow(false, false, true, false);
+        this.autoNumber =  'Auto No. ' + result['driver'].autoVehicleNo;
+      } else {
+        this.presentToast('Some internal error occured, please try again.');
+      }
     } else {
       const msg = 'Thanks for riding with us, ' + this.fareToShow + ' has been deducted from your wallet.';
       this.presentToast(msg);
       this.buttonsHideAndShow(true, false, false, false);
       this.countForButtons = 0;
+      const result = await this.endRideForHotspot();
       this.map = new google.maps.Map(this.mapElement.nativeElement, this.mapOptions);
     }
   }
@@ -469,10 +474,21 @@ export class SearchRidePage {
   endRideForHotspot() {
     const requestParam = {
       'tripId': this.tripId,
-      'passengerId': this.userId // change params also
     };
     const method = 'POST';
-    const url = 'http://localhost:8181/autofly/getRoute'; // change URL
+    const url = 'http://localhost:8181/autofly/endTrip';
+    return this.commonAPICall(url, requestParam,  method);
+  }
+
+  findAutoDetails() {
+    const requestParam = {
+      'zoneId': this.zoneId,
+      'passengerId': this.userId,
+      'fromHotspotId': this.fromHotspotId,
+      'toHotspotId': this.toHotspotId,
+    };
+    const method = 'POST';
+    const url = 'http://localhost:8181/autofly/findAuto';
     return this.commonAPICall(url, requestParam,  method);
   }
 
@@ -505,5 +521,14 @@ export class SearchRidePage {
       }
     });
   }
+
+  async presentToast(msg) {
+    const toast = await this.toastCtrl.create({
+      message: msg,
+      duration: 2000
+    });
+    toast.present();
+  }
+
 
 }

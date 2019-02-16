@@ -33,32 +33,19 @@ export class PassengerPage {
 
 
   async logForm() {
-    this.router.navigate(['/search-ride', {userId: this.userDetails.emailId, walletBal: this.userDetails.password}]);
-    // const result = await this.checkAuthentication();
-  // code below here will only execute when await makeRequest() finished loading
-    // if (result.success) {
-    //     const passanger =  result.passenger;
-      //   {
-      //     "success": true,
-      //     "message": "Login Successful",
-      //     "userType": "P",
-      //     "driver": null,
-      //     "passenger": {
-      //         "userId": 1,
-      //         "name": "Raj",
-      //         "mobNo": "98450212937",
-      //         "walletBalance": 500,
-      //         "rating": 5
-      //     }
-      // }
-  //     this.router.navigate(['/search-ride', {userId: passanger.userId, walletBal: passanger.walletBalance}]);
-    // } else {
-    //   this.presentToast();
-    // }
+    // this.router.navigate(['/search-ride', {userId: this.userDetails.emailId, walletBal: this.userDetails.password}]);
+    const result = await this.checkAuthentication();
+    if (result['success']) {
+        const passanger =  result['passenger'];
+        this.presentToast('Login SuccessFul!');
+        this.router.navigate(['/search-ride', {userId: passanger.userId, walletBal: passanger.walletBalance}]);
+    } else {
+      this.presentToast('Invalid Credentials!!');
+    }
   }
-  async presentToast() {
+  async presentToast(msg) {
     const toast = await this.toastCtrl.create({
-      message: 'Invalid Credentials!!',
+      message: msg,
       duration: 2000
     });
     toast.present();
@@ -92,52 +79,4 @@ export class PassengerPage {
   registerUser() {
     this.router.navigate(['/register']);
   }
-
-
-  async doGoogleLogin() {
-    const loading = await this.loadingController.create({
-      message: 'Please wait...'
-    });
-    this.presentLoading(loading);
-    this.googlePlus.login({
-      'scopes': '', // optional - space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
-      // tslint:disable-next-line:max-line-length
-      'offline': true, // Optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
-      })
-      .then(user => {
-        // save user data on the native storage
-        this.nativeStorage.setItem('google_user', {
-          name: user.displayName,
-          email: user.email,
-          picture: user.imageUrl
-        })
-        .then(() => {
-           this.router.navigate(['/search-ride']);
-        }, (error) => {
-          console.log(error);
-        });
-        loading.dismiss();
-      }, err => {
-        console.log(err);
-        if (!this.platform.is('cordova')) {
-          this.presentAlert();
-        }
-        loading.dismiss();
-      });
-  }
-
-  async presentAlert() {
-    const alert = await this.alertController.create({
-       message: 'Cordova is not available on desktop. Please try this in a real device or in an emulator.',
-       buttons: ['OK']
-     });
-
-    await alert.present();
-  }
-
-
-  async presentLoading(loading) {
-    return await loading.present();
-  }
-
 }
