@@ -117,12 +117,12 @@ public class AutoflyController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-//    @PostMapping("/goOffDuty")
-//    public ResponseEntity<OffDutyResponse> endRide(@RequestBody EndRideRequest request) {
-//
-//        EndRideResponse response = service.endRideService(request);
-//
-//        return new ResponseEntity<>(response, HttpStatus.OK);
-//    }
+    @PostMapping("/goOffDuty")
+    public ResponseEntity<OffDutyResponse> offDuty(@RequestBody OffDutyRequest request) {
+
+        OffDutyResponse response = service.offDuty(request);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
 }

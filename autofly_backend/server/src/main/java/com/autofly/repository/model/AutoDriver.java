@@ -1,6 +1,7 @@
 package com.autofly.repository.model;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,7 +18,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
+//@EqualsAndHashCode
 @Entity
 public class AutoDriver {
 
@@ -41,5 +42,18 @@ public class AutoDriver {
 	private transient List<Integer> route;
 
 	private transient List<Integer> boardedPassengers;
-	
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AutoDriver that = (AutoDriver) o;
+        return getUserId() == that.getUserId();
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(getUserId());
+    }
 }

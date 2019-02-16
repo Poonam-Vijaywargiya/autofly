@@ -1,0 +1,23 @@
+Input
+{
+	"driverId": 7
+}
+
+{
+    "success": true,
+    "driver": {
+        "userId": 7,
+        "name": "Hardik",
+        "mobNo": "98450210000",
+        "autoVehicleNo": "KA001264",
+        "walletBalance": 500,
+        "rating": 4,
+        "noOfPassengersBoarded": null,
+        "onRide": null,
+        "waiting": null,
+        "currentHotspot": null,
+        "currentZone": null,
+        "route": null,
+        "boardedPassengers": null
+    }
+}

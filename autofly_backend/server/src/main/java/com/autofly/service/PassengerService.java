@@ -247,7 +247,7 @@ public class PassengerService {
 			
 			for(int i=0; i<drivers.size(); i++) {
 				AutoDriver driver = drivers.get(i);
-				driver.setWalletBalance(driver.getWalletBalance() - autoEarnings.get(i)) ;
+				driver.setWalletBalance(driver.getWalletBalance() + autoEarnings.get(i)) ;
 				driverRepo.save(driver);
 			}
 			
