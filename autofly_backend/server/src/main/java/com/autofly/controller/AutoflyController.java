@@ -19,6 +19,7 @@ public class AutoflyController {
 
 
 	@PostMapping("/login")
+    @CrossOrigin(origins = {"http://localhost:8181","http://localhost:8080", "http://localhost:8100"})
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
 		
 		LoginResponse response = service.loginService(request);
@@ -28,6 +29,7 @@ public class AutoflyController {
 
     
     @PostMapping("/findHotspotZone")
+    @CrossOrigin(origins = {"http://localhost:8181","http://localhost:8080", "http://localhost:8100"})
     public ResponseEntity<FindHotspotZoneResponse> findHotspotZone(@RequestBody FindHotspotZoneRequest request) {
 		
     	FindHotspotZoneResponse response = service.findHotspotZoneService(request);
@@ -36,7 +38,6 @@ public class AutoflyController {
     }
     
     @PostMapping("/assignAuto")
-    //CrossOrigin(origins = {"http://localhost:8181","http://localhost:8080"})
     public ResponseEntity<Boolean> assignAuto(@RequestBody AssignAutoRequest request) {
 		
     	Boolean response = service.assignAutoService(request);
@@ -45,7 +46,7 @@ public class AutoflyController {
     }
     
     @PostMapping("/findAuto")
-    //CrossOrigin(origins = {"http://localhost:8181","http://localhost:8080"})
+    @CrossOrigin(origins = {"http://localhost:8181","http://localhost:8080", "http://localhost:8100"})
     public ResponseEntity<FindAutoResponse> findAuto(@RequestBody FindAutoRequest request) {
 		
     	FindAutoResponse response = service.findAutoService(request);
@@ -63,7 +64,8 @@ public class AutoflyController {
     }
 
 	@PostMapping("/getRoute")
-	public ResponseEntity<RouteResponse> getRoute(@RequestBody RouteRequest request) {
+    @CrossOrigin(origins = {"http://localhost:8181","http://localhost:8080", "http://localhost:8100"})
+    public ResponseEntity<RouteResponse> getRoute(@RequestBody RouteRequest request) {
 
 		RouteResponse response = service.getRouteService(request);
 
@@ -71,7 +73,8 @@ public class AutoflyController {
 	}
 
 	@PostMapping("/checkWalletBalance")
-	public ResponseEntity<WalletResponse> checkWalletBalance(@RequestBody WalletRequest request) {
+    @CrossOrigin(origins = {"http://localhost:8181","http://localhost:8080", "http://localhost:8100"})
+    public ResponseEntity<WalletResponse> checkWalletBalance(@RequestBody WalletRequest request) {
 
 		WalletResponse response = service.checkWalletBalance(request);
 
@@ -80,6 +83,7 @@ public class AutoflyController {
 
 
     @PostMapping("/confirmTrip")
+    @CrossOrigin(origins = {"http://localhost:8181","http://localhost:8080", "http://localhost:8100"})
     public ResponseEntity<ConfirmTripResponse> confirmPassengerTrip(@RequestBody ConfirmTripRequest request) {
 
         ConfirmTripResponse response = service.confirmPassengerTrip(request);
@@ -88,7 +92,8 @@ public class AutoflyController {
     }
 
 	@PostMapping("/addPassenger")
-	public ResponseEntity<AddPassengerResponse> addPassenger(@RequestBody AddPassengerRequest request) {
+    @CrossOrigin(origins = {"http://localhost:8181","http://localhost:8080", "http://localhost:8100"})
+    public ResponseEntity<AddPassengerResponse> addPassenger(@RequestBody AddPassengerRequest request) {
 
 		AddPassengerResponse response = service.addPassenger(request);
 
@@ -96,10 +101,19 @@ public class AutoflyController {
 	}
 
 	@PostMapping("/endRide")
-	public ResponseEntity<EndRideResponse> endRide(@RequestBody EndRideRequest request) {
+    @CrossOrigin(origins = {"http://localhost:8181","http://localhost:8080", "http://localhost:8100"})
+    public ResponseEntity<EndRideResponse> endRide(@RequestBody EndRideRequest request) {
 
-		EndRideResponse response = service.endRideService(request);
+        EndRideResponse response = service.endRideService(request);
 
-		return new ResponseEntity<>(response, HttpStatus.OK);
-	}
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+//    @PostMapping("/goOffDuty")
+//    public ResponseEntity<OffDutyResponse> endRide(@RequestBody EndRideRequest request) {
+//
+//        EndRideResponse response = service.endRideService(request);
+//
+//        return new ResponseEntity<>(response, HttpStatus.OK);
+//    }
 }

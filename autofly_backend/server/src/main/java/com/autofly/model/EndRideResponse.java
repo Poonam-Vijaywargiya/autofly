@@ -27,5 +27,5 @@ public class EndRideResponse {
     private String rideStatus;
     private double earning;
     private String passengerStatus;
-    
+
 }
