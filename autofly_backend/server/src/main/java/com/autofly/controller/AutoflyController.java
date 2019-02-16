@@ -52,6 +52,15 @@ public class AutoflyController {
 
 		return new ResponseEntity<>(response, HttpStatus.OK); 
     }
+    
+    @PostMapping("/startRide")
+    //CrossOrigin(origins = {"http://localhost:8181","http://localhost:8080"})
+    public ResponseEntity<StartRideResponse> startRide(@RequestBody StartRideRequest request) {
+		
+    	StartRideResponse response = service.startRideService(request);
+
+		return new ResponseEntity<>(response, HttpStatus.OK); 
+    }
 
 	@PostMapping("/getRoute")
 	public ResponseEntity<RouteResponse> getRoute(@RequestBody RouteRequest request) {

@@ -132,20 +132,6 @@ public class FindHotspotZoneService {
 			return false;
 		}
 		
-		//Create ride
-		Ride ride = new Ride();
-		ride.setAutoId(auto.getUserId());
-		ride.setDutyDate(CURR_DATE);
-		ride.setEarning(0.0);
-		ride.setFromHotspot(request.getAssignedHotspot());
-		ride.setToHotspot(0);
-		ride.setPassengerId(0);
-		ride.setZoneId(request.getAssignedZone());
-		ride.setRideStatus(RIDE_WAITING);
-		if(null == rideRepo.save(ride)) {
-			return false;
-		}
-		
 		return true;
 	}
 
