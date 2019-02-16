@@ -15,6 +15,8 @@ public interface AutoflyService {
 	
 	public FindAutoResponse findAutoService(FindAutoRequest request);
 	
+	public StartRideResponse startRideService(StartRideRequest request);
+	
 	//Passenger Related
 	public RouteResponse getRouteService(RouteRequest request);
 

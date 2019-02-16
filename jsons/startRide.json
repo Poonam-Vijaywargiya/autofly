@@ -1,0 +1,81 @@
+Input
+{
+	"driverId":6,
+	"fromHotspotId":1,
+	"zoneId":1
+}
+
+
+Output
+{
+    "success": true,
+    "rideStatus": "Started",
+    "passengers": [
+        {
+            "userId": 1,
+            "name": "Raj",
+            "mobNo": "98450212937",
+            "walletBalance": 500,
+            "rating": 5
+        },
+        {
+            "userId": 2,
+            "name": "Tina",
+            "mobNo": "984502323937",
+            "walletBalance": 500,
+            "rating": 5
+        },
+        {
+            "userId": 3,
+            "name": "Pooja",
+            "mobNo": "98450223937",
+            "walletBalance": 500,
+            "rating": 5
+        }
+    ],
+    "rides": [
+        {
+            "rideId": 1,
+            "dutyDate": "2019-02-16",
+            "autoId": 6,
+            "zoneId": 1,
+            "fromHotspot": 1,
+            "toHotspot": 5,
+            "earning": 10,
+            "passengerId": 1,
+            "rideStatus": "Started",
+            "passengerStatus": "Boarded"
+        },
+        {
+            "rideId": 2,
+            "dutyDate": "2019-02-16",
+            "autoId": 6,
+            "zoneId": 1,
+            "fromHotspot": 1,
+            "toHotspot": 5,
+            "earning": 10,
+            "passengerId": 2,
+            "rideStatus": "Started",
+            "passengerStatus": "Boarded"
+        },
+        {
+            "rideId": 3,
+            "dutyDate": "2019-02-16",
+            "autoId": 6,
+            "zoneId": 1,
+            "fromHotspot": 1,
+            "toHotspot": 5,
+            "earning": 10,
+            "passengerId": 3,
+            "rideStatus": "Started",
+            "passengerStatus": "Boarded"
+        }
+    ]
+}
+
+{
+    "success": false,
+    "rideStatus": "Waiting",
+    "passengers": null,
+    "rides": null
+}

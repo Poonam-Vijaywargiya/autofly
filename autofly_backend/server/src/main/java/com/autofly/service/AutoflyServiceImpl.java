@@ -36,6 +36,9 @@ public class AutoflyServiceImpl implements AutoflyService{
 	@Autowired
 	private FindAutoService findAutoService;
 	
+	@Autowired
+	private StartRideService startRideService;
+	
 	@Override
 	public LoginResponse loginService(LoginRequest request) {
 		
@@ -94,19 +97,19 @@ public class AutoflyServiceImpl implements AutoflyService{
         return response;
     }
 
-
-
 	@Override
 	public FindAutoResponse findAutoService(FindAutoRequest request) {
 		FindAutoResponse response = findAutoService.findAuto(request);
 		return response;
 	}
 
-	@Override
 	public AddPassengerResponse addPassenger(AddPassengerRequest request) {
 		AddPassengerResponse response = passengerService.addPassenger(request);
 		return response;
 	}
-
+	public StartRideResponse startRideService(StartRideRequest request) {
+		StartRideResponse response = startRideService.startRide(request);
+		return response;
+	}
 
 }
