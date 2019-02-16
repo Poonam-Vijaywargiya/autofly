@@ -111,7 +111,9 @@ public class PassengerService {
             FindAutoRequest findAutoRequest  = new FindAutoRequest();
             findAutoRequest.setPassengerId(passenger.getUserId());
             findAutoRequest.setFromHotspotId(request.getRoute().get(0).getId());
-            findAutoRequest.setToHotspotId(request.getRoute().stream().filter(h -> h.getDropLocation()).findFirst().orElse(new Hotspot()).getId());
+            findAutoRequest.setToHotspotId(request.getRoute().stream().filter(h -> {
+                return h.getDropLocation() != null && h.getDropLocation() == true ? true : false;
+            }).findFirst().orElse(new Hotspot()).getId());
             findAutoRequest.setZoneId(request.getRoute().get(0).getCurrentZoneId());
             findAutoRequest.setPassengerTripId(savedPassengerTrip.getId());
 
