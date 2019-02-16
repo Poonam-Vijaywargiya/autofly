@@ -36,5 +36,6 @@ public class Ride {
 	private Integer passengerId;
 	private String rideStatus;
 	private String passengerStatus;
+	private Integer passengerTripId;
 	
 }

@@ -109,7 +109,8 @@ public class FindAutoService {
 		ride.setPassengerStatus(PASSENGER_REQUESTED);;
 		ride.setZoneId(request.getZoneId());
 		ride.setRideStatus(RIDE_WAITING);
-		
+		ride.setPassengerTripId(request.getPassengerTripId());
+
 		Ride savedRide = rideRepo.save(ride);
 		
 		if(null == savedRide) {

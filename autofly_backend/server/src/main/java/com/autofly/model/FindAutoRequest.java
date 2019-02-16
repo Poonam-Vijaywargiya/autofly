@@ -18,4 +18,6 @@ public class FindAutoRequest {
 	private int toHotspotId;
 	
 	private int passengerId;
+
+	private int passengerTripId;
 }

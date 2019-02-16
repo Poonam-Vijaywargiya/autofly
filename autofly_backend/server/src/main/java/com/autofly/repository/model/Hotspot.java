@@ -33,7 +33,9 @@ public class Hotspot {
 	private Integer currentZoneId;
 	
 	private transient List<Integer> zoneId;
-	private transient boolean isDropLocation;
+//	private transient boolean isDropLocation;
+    private Boolean dropLocation;
+
 
     @Override
     public boolean equals(Object o) {

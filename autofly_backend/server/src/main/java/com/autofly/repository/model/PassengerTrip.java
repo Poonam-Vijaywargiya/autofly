@@ -22,8 +22,8 @@ public class PassengerTrip {
     private int id;
 
     private int passengerId;
-    private String sourceLocation;
-    private String destinationLocation;
+    private String source;
+    private String destination;
     @Column(length = 2000)
     private String route;
     private double fare;
