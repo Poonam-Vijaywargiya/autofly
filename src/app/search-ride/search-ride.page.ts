@@ -340,11 +340,15 @@ export class SearchRidePage {
       this.addMoney = true;
     } else {
       const autoDetails = await this.confirmTrip();
-      this.autoNumber =  'Auto No. ' + autoDetails['driver'].autoVehicleNo;
+      if (autoDetails['success']) {
+        this.autoNumber =  'Auto No. ' + autoDetails['driver'].autoVehicleNo;
       this.buttonsHideAndShow(false, false, true, false);
       this.tripId = autoDetails['passengerTripId'];
       this.rideId = autoDetails['ride'].rideId;
       this.nameOnButton = this.hotSpots.route[this.countForButtons].name;
+      } else {
+        this.presentToast('Sorry we could not find any auto for you.');
+      }
     }
   }
 
@@ -399,12 +403,16 @@ export class SearchRidePage {
         this.presentToast('Some internal error occured, please try again.');
       }
     } else {
-      const msg = 'Thanks for riding with us, ' + this.fareToShow + ' has been deducted from your wallet.';
-      this.presentToast(msg);
-      this.buttonsHideAndShow(true, false, false, false);
-      this.countForButtons = 0;
       const result = await this.endRideForHotspot();
-      this.map = new google.maps.Map(this.mapElement.nativeElement, this.mapOptions);
+        if (result['success']) {
+          const msg = 'Thanks for riding with us, ' + this.fareToShow + ' has been deducted from your wallet.';
+          this.presentToast(msg);
+          this.buttonsHideAndShow(true, false, false, false);
+          this.countForButtons = 0;
+          this.map = new google.maps.Map(this.mapElement.nativeElement, this.mapOptions);
+        } else {
+          this.presentToast('Please wait for other passangers to board in.');
+        }
     }
   }
 
