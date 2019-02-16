@@ -1,10 +1,19 @@
 <ion-header>
   <ion-toolbar>
     <ion-icon slot="start" name="arrow-round-back" (click)="onClickCancel()"></ion-icon>
-    <ion-title>driver</ion-title>
+    <ion-title>Driver Login</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-
+        <ion-item>
+          <ion-label>User Name</ion-label>
+          <ion-input type="text" [(ngModel)]="driverDetails.emailId" name="emailId"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Password</ion-label>
+          <ion-input type="password" [(ngModel)]="driverDetails.password" name="password"></ion-input>
+        </ion-item>
+        <ion-button color="primary" (click)="driverLogin()" block >Login</ion-button>
 </ion-content>
+  

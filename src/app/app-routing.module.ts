@@ -6,7 +6,8 @@ const routes: Routes = [
   { path: 'passenger', loadChildren: './passenger/passenger.module#PassengerPageModule' },
   { path: 'driver', loadChildren: './driver/driver.module#DriverPageModule' },
   { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
-  { path: 'search-ride', loadChildren: './search-ride/search-ride.module#SearchRidePageModule' }
+  { path: 'search-ride', loadChildren: './search-ride/search-ride.module#SearchRidePageModule' },
+  { path: 'driver-ride', loadChildren: './driver-ride/driver-ride.module#DriverRidePageModule' }
 ];
 @NgModule({
   imports: [
