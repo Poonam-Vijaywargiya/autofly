@@ -22,5 +22,5 @@ public class StartRideResponse {
 	private String rideStatus;
 	private List<Passenger> passengers;
 	private List<Ride> rides;
-	
+
 }

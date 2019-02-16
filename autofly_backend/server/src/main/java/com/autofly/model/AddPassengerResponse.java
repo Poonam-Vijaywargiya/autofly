@@ -11,5 +11,6 @@ public class AddPassengerResponse {
     private int passengerId;
     private int rideId;
     private int passengerTripId;
+    private String tripStatus;
     private boolean success;
 }
