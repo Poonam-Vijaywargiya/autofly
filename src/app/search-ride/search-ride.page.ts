@@ -63,6 +63,7 @@ export class SearchRidePage {
   selectLocation: any;
   icons = {};
   fareAmount: number;
+  fareToShow: any;
   isenabled: Boolean = false;
   isRideStarted: Boolean = false;
   walletBal: any;
@@ -71,11 +72,19 @@ export class SearchRidePage {
   autoNumber: any;
   addMoney: Boolean = false;
   tripId: any;
+  showBookRide: Boolean = true;
+  showConfirmRide: Boolean = false;
+  showIHaveBoarded: Boolean = false;
+  showReachedLocation: Boolean = false;
+  lastStopreached: Boolean = true;
+  buttonColor: any;
+  countForButtons = 0;
+  nameOnButton: any;
   // Method to get search places and form autocomplete list
   searchPlace(val) {
     let config;
     this.saveDisabled = true;
-    if (this.query.length > 0 || this.sourceLocation.name.length > 0) {
+    if (this.query.length > 0 || (this.sourceLocation && this.sourceLocation.name.length > 0)) {
       if (val === 'source') {
         config = {
           types: ['geocode'],
@@ -184,74 +193,69 @@ export class SearchRidePage {
     this.presentLoading(loading);
     this.hotSpots = {
       'source': {
-        'lat': 12.98747,
-        'lng': 77.736464
+          'lat': 12.983116,
+          'lng': 77.753509
       },
       'destination': {
-        'lat': 12.997361,
-        'lng': 77.69663
+          'lat': 12.991868,
+          'lng': 77.715997
       },
       'passengerId': 1,
       'departureTime': '2019-02-13T16:49:22.505',
       'route': [
-        {
-          'id': 1,
-          'name': 'ITPL Mall',
-          'lat': 12.98747,
-          'lng': 77.736464,
-          'dropLocation': false
-        },
-        {
-          'id': 2,
-          'name': 'PSN',
-          'lat': 12.98957,
-          'lng': 77.727983,
-          'dropLocation': false
-        },
-        {
-          'id': 3,
-          'name': 'Hoodi Circle',
-          'lat': 12.992353,
-          'lng': 77.716387,
-          'dropLocation': true
-        },
-        {
-          'id': 4,
-          'name': 'Brigade Metropolis',
-          'lat': 12.993053,
-          'lng': 77.703638,
-          'dropLocation': false
-        },
-        {
-          'id': 5,
-          'name': 'Phoenix Mall',
-          'lat': 12.997361,
-          'lng': 77.69663,
-          'dropLocation': false
-        }
+          {
+              'id': 1,
+              'name': 'Hope Farm Circle',
+              'lat': 12.983766,
+              'lng': 77.752478,
+              'currentZoneId': 1,
+              'zoneId': null,
+              'dropLocation': null
+          },
+          {
+              'id': 8,
+              'name': 'Opp. PSN',
+              'lat': 12.988777,
+              'lng': 77.727948,
+              'currentZoneId': 2,
+              'zoneId': null,
+              'dropLocation': true
+          },
+          {
+              'id': 9,
+              'name': 'Hoodi Circle -> Graphite',
+              'lat': 12.991906,
+              'lng': 77.715718,
+              'currentZoneId': null,
+              'zoneId': null,
+              'dropLocation': true
+          }
       ],
       'success': true,
       'walkFromSource': [
-        {
-          'lat': 12.992353,
-          'lng': 77.716387,
-        },
-        {
-          'lat': 12.98747,
-          'lng': 77.736464
-        }
+          {
+              'lat': 12.983116,
+              'lng': 77.753509
+          },
+          {
+              'lat': 12.983766,
+              'lng': 77.752478
+          }
       ],
       'walkToDestination': [
-        {
-          'lat': 12.997361,
-          'lng': 77.69663
-        },
-        {
-          'lat': 12.997361,
-          'lng': 77.69663
-        }
-      ]
-    };
+          {
+              'lat': 12.991906,
+              'lng': 77.715718
+          },
+          {
+              'lat': 12.991868,
+              'lng': 77.715997
+          }
+      ],
+      'fare': 40
+  };
+    this.fareAmount = this.hotSpots.fare; // response returned from service
+    this.fareToShow = 'Rs. ' + this.fareAmount;
     const lineSymbol = {
       path: google.maps.SymbolPath.CIRCLE,
       strokeOpacity: 1,
@@ -319,7 +323,7 @@ export class SearchRidePage {
        // mark the hotspots in the map
     if (this.hotSpots.route) {
       this.hotSpots.route.forEach((element, i) => {
-        if (i > 0 && i < this.hotSpots.route.length) {
+        if (i > 0 && i < this.hotSpots.route.length - 1) {
           waypts.push({
             location: this.convertObjectToString(element),
             stopover: true
@@ -360,7 +364,7 @@ export class SearchRidePage {
     // await code here
     const result = await this.getAddress(this.sourceLocation.lat, this.sourceLocation.lng);
     // code below here will only execute when await makeRequest() finished loading
-    this.sourceLocation.name = result.results[0].formatted_address;
+    this.sourceLocation.name = result['results'][0].formatted_address;
     this.autocompleteService = new google.maps.places.AutocompleteService();
     this.placesService = new google.maps.places.PlacesService(this.map);
   }
@@ -369,8 +373,7 @@ export class SearchRidePage {
     // click book ride is called and i need to get the address now with the route map
     if (this.sourceLocation.name && this.destinationLocation.name) {
       //  this.hotSpots = await this.getHotSpots();
-      this.fareAmount = 990; // response returned from service
-      this.isenabled = true;
+      this.buttonsHideAndShow(false, true, false, false);
       this.getDirections();
     } else {
       this.presentToast('Please enter source and destination locations to book ride');
@@ -397,32 +400,48 @@ export class SearchRidePage {
       this.addMoney = true;
     } else {
       // const autoDetails = await this.getAutoDetails();
-      this.autoNumber =  'ABCDEFG'; // autoDetails.autoNumber;
-      this.isRideStarted = true;
-      this.tripId = 'eiduieua'; // this.getAutoDetails.tripId;
+      this.autoNumber =  'Auto No. ' + 'ABCDEFG'; // autoDetails.autoNumber;
+      this.buttonsHideAndShow(false, false, true, false);
+      this.tripId = 'eiduieua'; // this.getAutoDetails.tripId; 
+      this.nameOnButton = this.hotSpots.route[this.countForButtons].name;
     }
     // send api call that user is ready to board
   }
   getAutoDetails() {
     const requestParam = this.hotSpots;
     const method = 'POST';
-    const url = 'http://localhost:8181/autofly/getRoute'; // change URL
+    const url = 'http://localhost:8181/autofly/confirmTrip'; //  driver.autoVehicleNo,  passengerTripId, ride.rideId, ride.zoneId
     return this.commonAPICall(url, requestParam,  method);
   }
 
-  async joinRide() {
-    // send api call that user boarded the auto to increase the count
- // userid and trip id
-    const rideJoined = await this.rideJoined();
+  async joinedRide() {
+  //  const rideJoined = await this.rideJoined();
+  this.buttonsHideAndShow(false, false, false, true);
+    if (this.countForButtons < this.hotSpots.route.length - 2) {
+       this.countForButtons += 1;
+       this.nameOnButton = this.hotSpots.route[this.countForButtons].name;
+       this.lastStopreached = false;
+       this.buttonColor = 'warning';
+
+       // call find auto details
+    } else if (this.countForButtons < this.hotSpots.route.length - 1) {
+        this.countForButtons += 1;
+        this.nameOnButton = this.hotSpots.route[this.countForButtons].name;
+        this.lastStopreached = false;
+        this.buttonColor = 'success';
+        this.lastStopreached = true;
+        // call end trip api
+    }
   }
 
   rideJoined() {
     const requestParam = {
-      'tripId': this.tripId,
-      'passengerId': this.userId
+      'passengerId': this.userId,
+      'rideId': 1, // add ride id
+      'passengerTripId':  this.tripId,
     };
     const method = 'POST';
-    const url = 'http://localhost:8181/autofly/getRoute'; // change URL
+    const url = 'http://localhost:8181/autofly/addPassenger'; // change URL to get auto
     return this.commonAPICall(url, requestParam,  method);
   }
   async presentToast(msg) {
@@ -434,6 +453,35 @@ export class SearchRidePage {
   }
   // based on hot spot have to write the logic to fetch source destination and walkable distance cordinate.
 
+  async reachedLocation() {
+    //  const result = await this.endRideForHotspot();
+    if (!this.lastStopreached) {
+      this.buttonsHideAndShow(false, false, true, false);
+    } else {
+      const msg = 'Thanks for riding with us, ' + this.fareToShow + ' has been deducted from your wallet.';
+      this.presentToast(msg);
+      this.buttonsHideAndShow(true, false, false, false);
+      this.countForButtons = 0;
+      this.map = new google.maps.Map(this.mapElement.nativeElement, this.mapOptions);
+    }
+  }
+
+  endRideForHotspot() {
+    const requestParam = {
+      'tripId': this.tripId,
+      'passengerId': this.userId // change params also
+    };
+    const method = 'POST';
+    const url = 'http://localhost:8181/autofly/getRoute'; // change URL
+    return this.commonAPICall(url, requestParam,  method);
+  }
+
+  buttonsHideAndShow(book, confirm, boarded, reached) {
+    this.showBookRide = book;
+    this.showConfirmRide = confirm;
+    this.showIHaveBoarded = boarded;
+    this.showReachedLocation = reached;
+  }
    // common method to call api
    commonAPICall(url, requestParams, methodType) {
     return new Promise(function (resolve, reject) {
@@ -457,4 +505,5 @@ export class SearchRidePage {
       }
     });
   }
+
 }

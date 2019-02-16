@@ -228,7 +228,7 @@ export class DriverRidePage {
     // await code here
     const result = await this.getAddress(this.sourceLocation.lat, this.sourceLocation.lng);
     // code below here will only execute when await makeRequest() finished loading
-    this.sourceLocation.name = result.results[0].formatted_address;
+    this.sourceLocation.name = result['results'][0].formatted_address;
   }
   async reachedHotSpot() {
     this.listOfPassangers = {

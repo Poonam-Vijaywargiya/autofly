@@ -19,7 +19,21 @@
   </ion-list>
 
   <div #Map class="map"></div>
-  <ion-item class="width_100">
+  <div>
+    <ion-item *ngIf="showConfirmRide"> 
+      <ion-input class="width_100 fare fareDetails" type="text" name="fareToShow" [(ngModel)]="fareToShow" readonly></ion-input> 
+    </ion-item>
+    <ion-item *ngIf="(showIHaveBoarded || showReachedLocation)">
+        <ion-input class=" width_45 fare fareDetails" type="text" name="autoNumber" [(ngModel)]="autoNumber" readonly></ion-input>
+        <ion-input class=" width_45 fare fareDetails" type="text" name="fareToShow" [(ngModel)]="fareToShow" readonly></ion-input> 
+    </ion-item>
+  </div>
+  <ion-button class="width_100" id="bookRide" *ngIf="showBookRide" (click)="bookRide()">Book Ride</ion-button>
+  <ion-button class="width_100" id="confirmRide" (click)="confirmRide()" *ngIf="showConfirmRide">Confirm Ride</ion-button>
+  <ion-button class="width_100" color="success" id="join" (click)="joinedRide()" *ngIf="showIHaveBoarded">I have boarded at {{nameOnButton}}</ion-button>
+  <ion-button class="width_100" id="reachedLoc" color={{buttonColor}} (click)="reachedLocation()" *ngIf="showReachedLocation">Reached {{nameOnButton}}</ion-button>
+
+  <!-- <ion-item class="width_100">
     <ion-button class="width_45" id="bookRide" (click)="bookRide()">Book Ride</ion-button>
     <ion-input class="fare fareDetails" type="text" name="fareAmount" *ngIf="isRideStarted" [(ngModel)]="fareAmount" readonly></ion-input> 
     <ion-label *ngIf="isRideStarted" class="fare">Fare</ion-label>
@@ -28,6 +42,6 @@
     <ion-button class="width_45" id="confirmRide" (click)="confirmRide()" [disabled]="!isenabled">Confirm Ride</ion-button>
     <ion-button class="width_45" id="join" (click)="joinedRide()" [disabled]="!isRideStarted">Join Ride</ion-button>
     <ion-input class="fare fareDetails" type="text" name="autoNumber" [(ngModel)]="autoNumber" readonly></ion-input>
-  </ion-item>
+  </ion-item> -->
   <ion-button class="width_45" id="addMoney" *ngIf="addMoney"><ion-icon name="logo-usd"></ion-icon>Add Money</ion-button>
 </ion-content>

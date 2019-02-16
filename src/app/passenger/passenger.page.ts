@@ -34,7 +34,7 @@ export class PassengerPage {
 
   async logForm() {
     this.router.navigate(['/search-ride', {userId: this.userDetails.emailId, walletBal: this.userDetails.password}]);
-    const result = await this.checkAuthentication();
+    // const result = await this.checkAuthentication();
   // code below here will only execute when await makeRequest() finished loading
     // if (result.success) {
     //     const passanger =  result.passenger;
