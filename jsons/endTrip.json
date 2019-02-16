@@ -1,0 +1,11 @@
+Input
+{
+	"tripId" : 1
+}
+
+Output
+
+{
+	"success":true,
+	"updatedWalletBallance":460
+}
