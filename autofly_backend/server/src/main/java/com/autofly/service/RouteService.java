@@ -73,11 +73,15 @@ public class RouteService {
 
             for (DefaultWeightedEdge edge: edges) {
                 HotspotZone zone = edgeToZones.get(edge);
+                routeHotspots.get(routeHotspots.indexOf(autoFlyGraph.getGraph().getEdgeSource(edge))).setCurrentZoneId(zone.getZoneId());
                 if( currentZone != null  && zone != null && zone.getZoneId() != currentZone.getZoneId()){
+
                     currentZone = zone;
                     Hotspot hotspot = autoFlyGraph.getGraph().getEdgeSource(edge);
+
                     if(routeHotspots.indexOf(hotspot) != -1) {
                         routeHotspots.get(routeHotspots.indexOf(hotspot)).setDropLocation(true);
+                        routeHotspots.get(routeHotspots.indexOf(hotspot)).setCurrentZoneId(zone.getZoneId());
                     }
                 }
             }

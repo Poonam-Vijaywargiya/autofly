@@ -16,10 +16,12 @@ import java.util.List;
 public class ConfirmTripRequest {
 
     private int passengerId;
-    private LatLng sourceLocation;
-    private LatLng destinationLocation;
+    private LatLng source;
+    private LatLng destination;
     private List<Hotspot> route;
     private double fare;
     private LocalDateTime departureTime;
     private LocalDateTime requestTimestamp = LocalDateTime.now();
+
+    private int passengerTripId;
 }

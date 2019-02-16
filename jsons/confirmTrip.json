@@ -1,0 +1,163 @@
+Input
+{
+	"passengerId": 1,
+	"source": {
+        "lat": 12.983766,
+        "lng": 77.752478
+	},
+	"destination": {
+        "lat": 12.991906,
+        "lng": 77.715718
+	},
+    "route": [
+        {
+            "id": 1,
+            "name": "Hope Farm Circle",
+            "lat": 12.983766,
+            "lng": 77.752478,
+            "currentZoneId": 1,
+            "zoneId": null,
+            "dropLocation": null
+        },
+        {
+            "id": 2,
+            "name": "ITPL Mall",
+            "lat": 12.98747,
+            "lng": 77.736142,
+            "currentZoneId": 1,
+            "zoneId": null,
+            "dropLocation": null
+        },
+        {
+            "id": 5,
+            "name": "Big Bazzar ITPL PSN",
+            "lat": 12.988157,
+            "lng": 77.73142,
+            "currentZoneId": 1,
+            "zoneId": null,
+            "dropLocation": null
+        },
+        {
+            "id": 8,
+            "name": "Opp. PSN",
+            "lat": 12.988777,
+            "lng": 77.727948,
+            "currentZoneId": 2,
+            "zoneId": null,
+            "dropLocation": true
+        },
+        {
+            "id": 9,
+            "name": "Hoodi Circle -> Graphite",
+            "lat": 12.991906,
+            "lng": 77.715718,
+            "currentZoneId": null,
+            "zoneId": null,
+            "dropLocation": true
+        }
+    ],
+    "fare": 40,
+    "departureTime": "2019-02-16T16:49:22.505"
+
+
+Output
+{
+    "success": true,
+    "passengerId": 1,
+    "passengerTripId": 1,
+    "sourceLocation": {
+        "lat": 12.983766,
+        "lng": 77.752478
+    },
+    "destinationLocation": {
+        "lat": 12.991906,
+        "lng": 77.715718
+    },
+    "route": [
+        {
+            "id": 1,
+            "name": "Hope Farm Circle",
+            "lat": 12.983766,
+            "lng": 77.752478,
+            "currentZoneId": 1,
+            "zoneId": null,
+            "dropLocation": null
+        },
+        {
+            "id": 2,
+            "name": "ITPL Mall",
+            "lat": 12.98747,
+            "lng": 77.736142,
+            "currentZoneId": 1,
+            "zoneId": null,
+            "dropLocation": null
+        },
+        {
+            "id": 5,
+            "name": "Big Bazzar ITPL PSN",
+            "lat": 12.988157,
+            "lng": 77.73142,
+            "currentZoneId": 1,
+            "zoneId": null,
+            "dropLocation": null
+        },
+        {
+            "id": 8,
+            "name": "Opp. PSN",
+            "lat": 12.988777,
+            "lng": 77.727948,
+            "currentZoneId": 2,
+            "zoneId": null,
+            "dropLocation": true
+        },
+        {
+            "id": 9,
+            "name": "Hoodi Circle -> Graphite",
+            "lat": 12.991906,
+            "lng": 77.715718,
+            "currentZoneId": null,
+            "zoneId": null,
+            "dropLocation": true
+        }
+    ],
+    "fare": 40,
+    "tripStatus": "CONFIRMED",
+    "driver": {
+        "userId": 6,
+        "name": "Rohit",
+        "mobNo": "98110212007",
+        "autoVehicleNo": "KA001234",
+        "walletBalance": 500,
+        "rating": 4.5,
+        "noOfPassengersBoarded": 0,
+        "onRide": false,
+        "waiting": true,
+        "currentHotspot": 1,
+        "currentZone": 1,
+        "route": [
+            1,
+            2,
+            5,
+            8,
+            7,
+            6,
+            3,
+            1
+        ],
+        "boardedPassengers": []
+    },
+    "foundAuto": true,
+    "ride": {
+        "rideId": 3,
+        "dutyDate": "2019-02-16",
+        "autoId": 6,
+        "zoneId": 1,
+        "fromHotspot": 1,
+        "toHotspot": 8,
+        "earning": 10,
+        "passengerId": 1,
+        "rideStatus": "Waiting",
+        "passengerStatus": "Requested",
+        "passengerTripId": 1
+    }
+}
