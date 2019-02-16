@@ -10,6 +10,6 @@ Output
     "passengerId": 3,
     "rideId": 3,
     "passengerTripId": 3,
-	"tripStatus": "ONGOING"
+	"tripStatus": "ONGOING",
     "success": true
 }
