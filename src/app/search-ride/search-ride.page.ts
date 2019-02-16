@@ -515,7 +515,8 @@ export class SearchRidePage {
         }
       };
       if (requestParams) {
-        request.send(requestParams);
+        request.setRequestHeader('Content-Type', 'application/json');
+        request.send(JSON.stringify(requestParams));
       } else {
         request.send();
       }

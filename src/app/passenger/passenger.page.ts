@@ -22,10 +22,7 @@ export class PassengerPage {
     public toastCtrl: ToastController
   ) { }
 
-  userDetails = {
-    emailId: '',
-    password: ''
-  };
+  userDetails = {};
 
   public onClickCancel() {
     this.router.navigate(['/tabs/tab1']);
