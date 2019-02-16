@@ -54,7 +54,7 @@ export class PassengerPage {
      return new Promise(function (resolve, reject) {
       const request = new XMLHttpRequest();
       const method = 'POST';
-      const url = 'http://localhost:8181/autofly/login';
+      const url = 'http://autofly.us-east-2.elasticbeanstalk.com/autofly/login';
       const async = true;
 
       request.open(method, url, async);

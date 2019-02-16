@@ -91,6 +91,10 @@ export class DriverRidePage {
     return await loading.present();
   }
   async getDriverLocation() {
+    const loading = await this.loadingController.create({
+      message: 'Please wait...'
+    });
+    this.presentLoading(loading);
     if (this.isToggled) {
     const result = await this.getNearestHotSpot();
       if (result['success']) {
@@ -108,7 +112,9 @@ export class DriverRidePage {
       this.setSourceAddress();
       const message = 'Thanks for your service, you have earned ' + this.driverWalletBal + ' today.';
       this.presentToast(message);
+      this.map = new google.maps.Map(this.mapElement.nativeElement, this.mapOptions);
     }
+    loading.dismiss();
   }
 
   async presentToast(message) {
@@ -142,10 +148,6 @@ export class DriverRidePage {
   // Display route on the map based on the hotspots receive from the backend
   async calculateAndDisplayRoute(directionsService, directionsDisplayD) {
     const waypts = [];
-    const loading = await this.loadingController.create({
-      message: 'Please wait...'
-    });
-    this.presentLoading(loading);
        // mark the hotspots in the map
     if (this.hotSpots) {
       this.hotSpots.forEach((element, i) => {
@@ -170,7 +172,6 @@ export class DriverRidePage {
         } else {
           window.alert('Directions request failed due to ' + status);
         }
-        loading.dismiss();
       });
     }
   }
@@ -194,6 +195,10 @@ export class DriverRidePage {
     this.sourceLocation.name = result['results'][0].formatted_address;
   }
   async reachedHotSpot() {
+    const loading = await this.loadingController.create({
+      message: 'Please wait...'
+    });
+    this.presentLoading(loading);
     this.currentOrHotSpotLocation =  'HotSpot Location';
     this.sourceLocation.lat = this.assignedHotspot.lat;
     this.sourceLocation.lng = this.assignedHotspot.lng;
@@ -203,6 +208,7 @@ export class DriverRidePage {
     if (result) {
       this.reachedHSLoc = true;
     }
+    loading.dismiss();
   }
   assignAuto() {
     const requestParam = {
@@ -217,6 +223,10 @@ export class DriverRidePage {
   }
 
   async startTrip() {
+    const loading = await this.loadingController.create({
+      message: 'Please wait...'
+    });
+    this.presentLoading(loading);
    const result = await this.tripStarted();
     if (result['success']) {
       this.enoughPassenger = true;
@@ -226,16 +236,21 @@ export class DriverRidePage {
     }  else {
       this.presentToast('Please wait for other passengers to board.');
     }
-
+    loading.dismiss();
   }
 
   async endRide(passenger) {
+    const loading = await this.loadingController.create({
+      message: 'Please wait...'
+    });
+    this.presentLoading(loading);
     this.listOfPassengers = this.listOfPassengers.filter((item) => item.passengerId !== passenger.passengerId);
     const result =  await this.rideEndForPassanger(passenger);
     if (result['success']) {
       const msg = 'You have earned Rs.' + result['earning'] + ' from this ride.';
       this.presentToast(msg);
     }
+    loading.dismiss();
   }
   async rideEndForPassanger(passenger) {
     const requestParam = {

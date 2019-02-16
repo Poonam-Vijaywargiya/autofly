@@ -393,7 +393,7 @@ export class SearchRidePage {
       'departureTime': currentTime
     };
     const method = 'POST';
-    const url = 'http://localhost:8181/autofly/getRoute';
+    const url = 'http://autofly.us-east-2.elasticbeanstalk.com/autofly/getRoute';
     return this.commonAPICall(url, requestParam,  method);
   }
 
@@ -414,7 +414,7 @@ export class SearchRidePage {
   confirmTrip() {
     const requestParam = this.hotSpots;
     const method = 'POST';
-    const url = 'http://localhost:8181/autofly/confirmTrip';
+    const url = 'http://autofly.us-east-2.elasticbeanstalk.com/autofly/confirmTrip';
     return this.commonAPICall(url, requestParam,  method);
   }
 
@@ -448,7 +448,7 @@ export class SearchRidePage {
       'passengerTripId':  this.tripId,
     };
     const method = 'POST';
-    const url = 'http://localhost:8181/autofly/addPassenger';
+    const url = 'http://autofly.us-east-2.elasticbeanstalk.com/autofly/addPassenger';
     return this.commonAPICall(url, requestParam,  method);
   }
 
@@ -476,7 +476,7 @@ export class SearchRidePage {
       'tripId': this.tripId,
     };
     const method = 'POST';
-    const url = 'http://localhost:8181/autofly/endTrip';
+    const url = 'http://autofly.us-east-2.elasticbeanstalk.com/autofly/endTrip';
     return this.commonAPICall(url, requestParam,  method);
   }
 
@@ -488,7 +488,7 @@ export class SearchRidePage {
       'toHotspotId': this.toHotspotId,
     };
     const method = 'POST';
-    const url = 'http://localhost:8181/autofly/findAuto';
+    const url = 'http://autofly.us-east-2.elasticbeanstalk.com/autofly/findAuto';
     return this.commonAPICall(url, requestParam,  method);
   }
 
@@ -531,5 +531,8 @@ export class SearchRidePage {
     toast.present();
   }
 
+  cancleRide() {
+    this.presentToast('You have cancled the ride, please click on confirm to confirm the booking');
+  }
 
 }

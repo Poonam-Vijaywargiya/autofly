@@ -30,6 +30,7 @@
   </div>
   <ion-button class="width_100" id="bookRide" *ngIf="showBookRide" (click)="bookRide()">Book Ride</ion-button>
   <ion-button class="width_100" id="confirmRide" (click)="confirmRide()" *ngIf="showConfirmRide">Confirm Ride</ion-button>
+  <ion-button class="width_100" id="cancelRide" color="dark" (click)="cancleRide()" *ngIf="showConfirmRide">Cancel Ride</ion-button>
   <ion-button class="width_100" color="success" id="join" (click)="joinedRide()" *ngIf="showIHaveBoarded">I have boarded at {{nameOnButton}}</ion-button>
   <ion-button class="width_100" id="reachedLoc" color={{buttonColor}} (click)="reachedLocation()" *ngIf="showReachedLocation">Reached {{nameOnButton}}</ion-button>
 
