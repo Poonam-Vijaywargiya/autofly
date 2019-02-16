@@ -28,4 +28,6 @@ public interface AutoflyService {
 
 	public AddPassengerResponse addPassenger(AddPassengerRequest request);
 
+	public EndTripResponse endTrip(EndTripRequest request);
+
 }

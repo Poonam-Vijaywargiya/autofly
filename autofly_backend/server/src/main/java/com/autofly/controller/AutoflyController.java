@@ -94,6 +94,14 @@ public class AutoflyController {
 
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
+	
+	@PostMapping("/endTrip")
+	public ResponseEntity<EndTripResponse> endTrip(@RequestBody EndTripRequest request) {
+
+		EndTripResponse response = service.endTrip(request);
+
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
 
 	@PostMapping("/endRide")
 	public ResponseEntity<EndRideResponse> endRide(@RequestBody EndRideRequest request) {
@@ -102,4 +110,5 @@ public class AutoflyController {
 
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
+	
 }
