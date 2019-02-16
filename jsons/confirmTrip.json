@@ -20,24 +20,6 @@ Input
             "dropLocation": null
         },
         {
-            "id": 2,
-            "name": "ITPL Mall",
-            "lat": 12.98747,
-            "lng": 77.736142,
-            "currentZoneId": 1,
-            "zoneId": null,
-            "dropLocation": null
-        },
-        {
-            "id": 5,
-            "name": "Big Bazzar ITPL PSN",
-            "lat": 12.988157,
-            "lng": 77.73142,
-            "currentZoneId": 1,
-            "zoneId": null,
-            "dropLocation": null
-        },
-        {
             "id": 8,
             "name": "Opp. PSN",
             "lat": 12.988777,
@@ -79,24 +61,6 @@ Output
             "name": "Hope Farm Circle",
             "lat": 12.983766,
             "lng": 77.752478,
-            "currentZoneId": 1,
-            "zoneId": null,
-            "dropLocation": null
-        },
-        {
-            "id": 2,
-            "name": "ITPL Mall",
-            "lat": 12.98747,
-            "lng": 77.736142,
-            "currentZoneId": 1,
-            "zoneId": null,
-            "dropLocation": null
-        },
-        {
-            "id": 5,
-            "name": "Big Bazzar ITPL PSN",
-            "lat": 12.988157,
-            "lng": 77.73142,
             "currentZoneId": 1,
             "zoneId": null,
             "dropLocation": null

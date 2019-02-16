@@ -1,0 +1,23 @@
+Input
+{
+	"driverId": 6, 
+	"currentHotspotId": 8,
+	"zoneId": 1,
+	"passengerId": 1,
+	"passengerTripId": 1, 
+	"rideId": 1
+}
+
+Output
+{
+    "success": true,
+    "driverId": 6,
+    "currentHotspotId": 8,
+    "zoneId": 1,
+    "passengerId": 0,
+    "passengerTripId": 0,
+    "rideId": 1,
+    "rideStatus": "Completed",
+    "earning": 10,
+    "passengerStatus": "Payment Pending"
+}

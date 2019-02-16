@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.jgrapht.GraphPath;
 import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
@@ -89,6 +90,12 @@ public class RouteService {
             // Set Destination to true
             routeHotspots.get(routeHotspots.size() -1).setDropLocation(true);
 
+            // Removing hotspots without pickup or drop
+            List<Hotspot> route =  routeHotspots.stream().filter( h -> {
+                return h.getDropLocation() != null && h.getDropLocation() == true ? true : false;
+            }).collect(Collectors.toList());
+            route.add(0, sourceHotspot);
+
             List<LatLng> walkFromSource = new ArrayList<>();
             walkFromSource.add(request.getSource());
             walkFromSource.add(new LatLng(sourceHotspot.getLat(),sourceHotspot.getLng()));
@@ -99,7 +106,7 @@ public class RouteService {
 
             double fare   = edges.size() * 10;
 
-            response.setRoute(routeHotspots);
+            response.setRoute(route);
             response.setWalkFromSource(walkFromSource);
             response.setWalkToDestination(walkToDestination);
             response.setFare(fare);

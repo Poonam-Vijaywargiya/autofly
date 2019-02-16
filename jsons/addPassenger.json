@@ -1,0 +1,15 @@
+Input
+{
+	"passengerId": 1, 
+	"rideId": 1,
+	"passengerTripId": 1
+}
+
+Output
+{
+    "passengerId": 3,
+    "rideId": 3,
+    "passengerTripId": 3,
+	"tripStatus": "ONGOING",
+    "success": true
+}

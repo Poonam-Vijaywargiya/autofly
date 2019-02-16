@@ -8,6 +8,8 @@ import com.autofly.model.AddPassengerResponse;
 import com.autofly.model.AssignAutoRequest;
 import com.autofly.model.ConfirmTripRequest;
 import com.autofly.model.ConfirmTripResponse;
+import com.autofly.model.EndRideRequest;
+import com.autofly.model.EndRideResponse;
 import com.autofly.model.EndTripRequest;
 import com.autofly.model.EndTripResponse;
 import com.autofly.model.FindAutoRequest;
@@ -56,8 +58,12 @@ public class AutoflyServiceImpl implements AutoflyService{
 	
 	@Autowired
 	private StartRideService startRideService;
-	
-	@Override
+
+    @Autowired
+    private EndRideService endRideService ;
+
+
+    @Override
 	public LoginResponse loginService(LoginRequest request) {
 		
 		LoginResponse response = new LoginResponse();
@@ -120,10 +126,13 @@ public class AutoflyServiceImpl implements AutoflyService{
 		return response;
 	}
 
+	@Override
 	public AddPassengerResponse addPassenger(AddPassengerRequest request) {
 		AddPassengerResponse response = passengerService.addPassenger(request);
 		return response;
 	}
+
+	@Override
 	public StartRideResponse startRideService(StartRideRequest request) {
 		StartRideResponse response = startRideService.startRide(request);
 		return response;
@@ -131,8 +140,12 @@ public class AutoflyServiceImpl implements AutoflyService{
 
 	@Override
 	public EndTripResponse endTrip(EndTripRequest request) {
-		// TODO Auto-generated method stub
 		return passengerService.endTrip(request);
 	}
+
+    public EndRideResponse endRideService(EndRideRequest request) {
+        EndRideResponse response = endRideService.endRide(request);
+        return response;
+    }
 
 }

@@ -4,13 +4,16 @@ import lombok.*;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @ToString(callSuper = true)
+@AllArgsConstructor
 @NoArgsConstructor
-public class AddPassengerResponse {
+public class EndRideRequest {
+
+    private int driverId;
+    private int currentHotspotId;
+    private int zoneId;
+
     private int passengerId;
-    private int rideId;
     private int passengerTripId;
-    private String tripStatus;
-    private boolean success;
+    private int rideId;
 }

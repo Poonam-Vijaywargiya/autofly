@@ -128,7 +128,9 @@ public class PassengerService {
             FindAutoRequest findAutoRequest  = new FindAutoRequest();
             findAutoRequest.setPassengerId(passenger.getUserId());
             findAutoRequest.setFromHotspotId(request.getRoute().get(0).getId());
-            findAutoRequest.setToHotspotId(request.getRoute().stream().filter(h -> h.getDropLocation()).findFirst().orElse(new Hotspot()).getId());
+            findAutoRequest.setToHotspotId(request.getRoute().stream().filter(h -> {
+                return h.getDropLocation() != null && h.getDropLocation() == true ? true : false;
+            }).findFirst().orElse(new Hotspot()).getId());
             findAutoRequest.setZoneId(request.getRoute().get(0).getCurrentZoneId());
             findAutoRequest.setPassengerTripId(savedPassengerTrip.getId());
 
@@ -162,8 +164,16 @@ public class PassengerService {
 
         Ride ride  = rideRepo.findById(request.getRideId()).orElse(null);
 
+        PassengerTrip passengerTrip = passengerTripRepo.findById(request.getPassengerTripId()).orElse(null);
+
+        if( passengerTrip != null) {
+            passengerTrip.setTripStatus(TRIP_ONGOING);
+            PassengerTrip updatedPassengerTrip   = passengerTripRepo.save(passengerTrip);
+            response.setTripStatus(updatedPassengerTrip.getTripStatus());
+        }
+
         if(ride != null) {
-            ride.setRideStatus(PASSENGER_BOARDED);
+            ride.setPassengerStatus(PASSENGER_BOARDED);
             Ride updatedRide   = rideRepo.save(ride);
             if(updatedRide != null ) {
                 response.setPassengerId(request.getPassengerId());
@@ -188,7 +198,7 @@ public class PassengerService {
 		List<Ride> passengerRides = rideRepo.findByPassengerTripIdAndPassengerStatusAndRideStatus
 				(trip.getId(), PASSENGER_PENDING_MONEY, RIDE_COMPLETED);
 		
-		if(null == passengerRides || !passengerRides.isEmpty()) {
+		if(null == passengerRides || passengerRides.isEmpty()) {
 			response.setSuccess(false);
 			return response;
 		}
@@ -214,14 +224,10 @@ public class PassengerService {
 		
 		//Update Trip and Ride		
 		passengerTripRepo.save(trip);
-		passengerRides.stream()
-					  .forEach(r -> r.setPassengerStatus(PASSENGER_PAYMENT_SUCCESS));
 		
 		for(Ride r : passengerRides) {
-			if(null == rideRepo.save(r)) {
-				response.setSuccess(false);
-				return response;
-			}
+			r.setPassengerStatus(PASSENGER_PAYMENT_SUCCESS);
+			rideRepo.save(r);
 		}
 		
 		response.setSuccess(true);
