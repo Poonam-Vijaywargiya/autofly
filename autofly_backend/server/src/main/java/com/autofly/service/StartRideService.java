@@ -11,9 +11,11 @@ import org.springframework.stereotype.Component;
 import com.autofly.model.StartRideRequest;
 import com.autofly.model.StartRideResponse;
 import com.autofly.repository.dao.AutoDriverRepository;
+import com.autofly.repository.dao.HotspotRepository;
 import com.autofly.repository.dao.PassengerRepository;
 import com.autofly.repository.dao.RideRepository;
 import com.autofly.repository.model.AutoDriver;
+import com.autofly.repository.model.Hotspot;
 import com.autofly.repository.model.Passenger;
 import com.autofly.repository.model.Ride;
 
@@ -28,6 +30,12 @@ public class StartRideService {
 	
 	@Autowired
 	private PassengerRepository passengerRepo;
+	
+	@Autowired
+	private HotspotAutoQueue hotspotAutoQueue;
+	
+	@Autowired
+	private HotspotRepository hotspotRepo;
 	
 	private static final Date CURR_DATE = Date.valueOf(LocalDate.now());
 	private static final String RIDE_WAITING = "Waiting";
@@ -86,6 +94,14 @@ public class StartRideService {
 		}
 		
 		response.setPassengers(passengerList);
+		
+		//Remove auto from queue
+		Hotspot currentHotspot = hotspotRepo.findById(request.getFromHotspotId()).orElse(null);
+		if(null == hotspotAutoQueue.removeAutoFromHotspot(currentHotspot)) {
+			response.setSuccess(false);
+			response.setRideStatus("Internal Error");
+			return response;
+		}
 		
 		//Add rides to response
 		response.setRides(rideRequests);

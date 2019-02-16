@@ -12,7 +12,7 @@ public interface PassengerTripRepository extends JpaRepository<PassengerTrip, In
 
     PassengerTrip findByPassengerIdAndTripStatus(int passengerId, String tripStatus);
 
-
-
+    PassengerTrip findByIdAndTripStatus(int tripId, String tripStatus);
+    
 
 }

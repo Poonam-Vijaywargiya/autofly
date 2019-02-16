@@ -99,6 +99,14 @@ public class AutoflyController {
 
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
+	
+	@PostMapping("/endTrip")
+	public ResponseEntity<EndTripResponse> endTrip(@RequestBody EndTripRequest request) {
+
+		EndTripResponse response = service.endTrip(request);
+
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
 
 	@PostMapping("/endRide")
     @CrossOrigin(origins = {"http://localhost:8181","http://localhost:8080", "http://localhost:8100"})
@@ -116,4 +124,5 @@ public class AutoflyController {
 //
 //        return new ResponseEntity<>(response, HttpStatus.OK);
 //    }
+
 }
