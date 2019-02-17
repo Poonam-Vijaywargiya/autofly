@@ -96,14 +96,44 @@ export class DriverRidePage {
     });
     this.presentLoading(loading);
     if (this.isToggled) {
-    const result = await this.getNearestHotSpot();
+    // const result = await this.getNearestHotSpot();
+    const result = {
+      'success': true,
+      'assignedZone': 1,
+      'assignedHotspot': {
+          'id': 3,
+          'name': 'Hoodi Circle-PSN',
+          'lat': 12.992353,
+          'lng': 77.716387
+      },
+      'hotspotLists': [
+          {
+              'id': 1,
+              'name': 'ITPL Mall',
+              'lat': 12.98747,
+              'lng': 77.736464
+          },
+          {
+              'id': 2,
+              'name': 'PSN',
+              'lat': 12.98957,
+              'lng': 77.727983
+          },
+          {
+              'id': 3,
+              'name': 'Hoodi Circle-PSN',
+              'lat': 12.992353,
+              'lng': 77.716387
+          }
+      ]
+  };
       if (result['success']) {
         this.assignedHotspot = result['assignedHotspot'];
         this.assignedZone = result['assignedZone'];
         this.hotSpots = result['hotspotLists'];
         this.hotSpotName = this.assignedHotspot.name;
         this.setSourceAddress();
-      this.getDirections();
+      this.getDirections(this.hotSpots);
       }
       this.presentToast('Thanks for your availability, please go to the nearest hotspot marked in the map.');
     } else {
@@ -137,29 +167,28 @@ export class DriverRidePage {
 }
 
   // Method to route rendered on the map
-  getDirections() {
+  getDirections(hotSpots) {
     const directionsService = new google.maps.DirectionsService;
     this.map = new google.maps.Map(this.mapElement.nativeElement, this.mapOptions);
     const directionsDisplayD = new google.maps.DirectionsRenderer;
     directionsDisplayD.setMap(this.map);
-    this.calculateAndDisplayRoute(directionsService, directionsDisplayD);
+    this.calculateAndDisplayRoute(directionsService, directionsDisplayD, hotSpots);
   }
 
   // Display route on the map based on the hotspots receive from the backend
-  async calculateAndDisplayRoute(directionsService, directionsDisplayD) {
+  async calculateAndDisplayRoute(directionsService, directionsDisplayD, hotSpots) {
     const waypts = [];
        // mark the hotspots in the map
-    if (this.hotSpots) {
-      this.hotSpots.forEach((element, i) => {
-        if (i = 0 && i < this.hotSpots.length) {
-          if (this.convertObjectToString(element) !== this.convertObjectToString(this.assignedHotspot)) {
-            waypts.push({
-              location: this.convertObjectToString(element),
-              stopover: true
-            });
-          }
-        }
-      });
+       const length = hotSpots.length;
+    if (hotSpots) {
+      for (let i = 0; i < length; i++) {
+        if (this.convertObjectToString(hotSpots[i]) !== this.convertObjectToString(this.assignedHotspot)) {
+          waypts.push({
+            location: this.convertObjectToString(hotSpots[i]),
+            stopover: true
+          });
+      }
+    }
       await directionsService.route({
         origin: this.convertObjectToString(this.sourceLocation),
         destination: this.convertObjectToString(this.assignedHotspot),
