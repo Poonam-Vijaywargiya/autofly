@@ -96,37 +96,7 @@ export class DriverRidePage {
     });
     this.presentLoading(loading);
     if (this.isToggled) {
-    // const result = await this.getNearestHotSpot();
-    const result = {
-      'success': true,
-      'assignedZone': 1,
-      'assignedHotspot': {
-          'id': 3,
-          'name': 'Hoodi Circle-PSN',
-          'lat': 12.992353,
-          'lng': 77.716387
-      },
-      'hotspotLists': [
-          {
-              'id': 1,
-              'name': 'ITPL Mall',
-              'lat': 12.98747,
-              'lng': 77.736464
-          },
-          {
-              'id': 2,
-              'name': 'PSN',
-              'lat': 12.98957,
-              'lng': 77.727983
-          },
-          {
-              'id': 3,
-              'name': 'Hoodi Circle-PSN',
-              'lat': 12.992353,
-              'lng': 77.716387
-          }
-      ]
-  };
+    const result = await this.getNearestHotSpot();
       if (result['success']) {
         this.assignedHotspot = result['assignedHotspot'];
         this.assignedZone = result['assignedZone'];
